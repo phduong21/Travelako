@@ -1,0 +1,6 @@
+@FT.Travelako.WebAPI_HostAddress = http://localhost:5195
+
+GET {{FT.Travelako.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\FT.Travelako.Services.CouponAPI.props" />
+</Project>
