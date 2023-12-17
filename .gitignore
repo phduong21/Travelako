@@ -1,8 +1,5 @@
 .vs
-*/bin
-*/.bin
-./obj
-./bin
-/*bin
-.obj
-.bin
+.user
+.suo
+**/bin/
+**/obj/
