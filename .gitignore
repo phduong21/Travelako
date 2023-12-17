@@ -1,0 +1,8 @@
+.vs
+*/bin
+*/.bin
+./obj
+./bin
+/*bin
+.obj
+.bin

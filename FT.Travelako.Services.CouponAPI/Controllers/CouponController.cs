@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FT.Travelako.Services.CouponAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FT.Travelako.Services.CouponAPI.Controllers
@@ -8,10 +9,19 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
     public class CouponController : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetCoupon(string code)
+        public async Task<GenericAPIResponse> GetCoupon(string code)
         {
-            var a = 1;
-            return Ok();
+            return new GenericAPIResponse()
+            {
+                IsSuccess = true,
+                Message = "test",
+                Result = new
+                {
+                    a = 1,
+                    b = 2,
+                    c = 3
+                }
+            };
         }
     }
 }

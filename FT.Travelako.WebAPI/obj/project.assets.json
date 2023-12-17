@@ -477,11 +477,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\FPT\\Training\\dev3\\FT.Travelako\\FT.Travelako.WebAPI\\FT.Travelako.WebAPI.csproj",
+      "projectUniqueName": "E:\\FT Final Asm\\FT.Travelako.WebAPI\\FT.Travelako.WebAPI.csproj",
       "projectName": "FT.Travelako.WebAPI",
-      "projectPath": "E:\\FPT\\Training\\dev3\\FT.Travelako\\FT.Travelako.WebAPI\\FT.Travelako.WebAPI.csproj",
+      "projectPath": "E:\\FT Final Asm\\FT.Travelako.WebAPI\\FT.Travelako.WebAPI.csproj",
       "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-      "outputPath": "E:\\FPT\\Training\\dev3\\FT.Travelako\\FT.Travelako.WebAPI\\obj\\",
+      "outputPath": "E:\\FT Final Asm\\FT.Travelako.WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",

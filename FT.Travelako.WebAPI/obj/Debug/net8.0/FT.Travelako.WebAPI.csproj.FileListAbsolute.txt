@@ -31,3 +31,37 @@ E:\FPT\Training\dev3\FT.Travelako\FT.Travelako.WebAPI\obj\Debug\net8.0\refint\FT
 E:\FPT\Training\dev3\FT.Travelako\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.pdb
 E:\FPT\Training\dev3\FT.Travelako\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.genruntimeconfig.cache
 E:\FPT\Training\dev3\FT.Travelako\FT.Travelako.WebAPI\obj\Debug\net8.0\ref\FT.Travelako.WebAPI.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\appsettings.Development.json
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\appsettings.json
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\FT.Travelako.WebAPI.exe
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\FT.Travelako.WebAPI.deps.json
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\FT.Travelako.WebAPI.runtimeconfig.json
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\FT.Travelako.WebAPI.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\FT.Travelako.WebAPI.pdb
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\Microsoft.OpenApi.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.csproj.AssemblyReference.cache
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.AssemblyInfoInputs.cache
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.AssemblyInfo.cs
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.csproj.CoreCompileInputs.cache
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.MvcApplicationPartsAssemblyInfo.cs
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.MvcApplicationPartsAssemblyInfo.cache
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.sourcelink.json
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\staticwebassets.build.json
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\staticwebassets.development.json
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\staticwebassets\msbuild.FT.Travelako.WebAPI.Microsoft.AspNetCore.StaticWebAssets.props
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\staticwebassets\msbuild.build.FT.Travelako.WebAPI.props
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FT.Travelako.WebAPI.props
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FT.Travelako.WebAPI.props
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\staticwebassets.pack.json
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\scopedcss\bundle\FT.Travelako.WebAPI.styles.css
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.csproj.CopyComplete
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\refint\FT.Travelako.WebAPI.dll
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.pdb
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\FT.Travelako.WebAPI.genruntimeconfig.cache
+E:\FT Final Asm\FT.Travelako.WebAPI\obj\Debug\net8.0\ref\FT.Travelako.WebAPI.dll

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\FPT\\Training\\dev3\\FT.Travelako\\FT.Travelako.Services.CouponAPI\\FT.Travelako.Services.CouponAPI.csproj": {}
+    "E:\\FT Final Asm\\FT.Travelako.Services.CouponAPI\\FT.Travelako.Services.CouponAPI.csproj": {}
   },
   "projects": {
-    "E:\\FPT\\Training\\dev3\\FT.Travelako\\FT.Travelako.Services.CouponAPI\\FT.Travelako.Services.CouponAPI.csproj": {
+    "E:\\FT Final Asm\\FT.Travelako.Services.CouponAPI\\FT.Travelako.Services.CouponAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FPT\\Training\\dev3\\FT.Travelako\\FT.Travelako.Services.CouponAPI\\FT.Travelako.Services.CouponAPI.csproj",
+        "projectUniqueName": "E:\\FT Final Asm\\FT.Travelako.Services.CouponAPI\\FT.Travelako.Services.CouponAPI.csproj",
         "projectName": "FT.Travelako.Services.CouponAPI",
-        "projectPath": "E:\\FPT\\Training\\dev3\\FT.Travelako\\FT.Travelako.Services.CouponAPI\\FT.Travelako.Services.CouponAPI.csproj",
+        "projectPath": "E:\\FT Final Asm\\FT.Travelako.Services.CouponAPI\\FT.Travelako.Services.CouponAPI.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "E:\\FPT\\Training\\dev3\\FT.Travelako\\FT.Travelako.Services.CouponAPI\\obj\\",
+        "outputPath": "E:\\FT Final Asm\\FT.Travelako.Services.CouponAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,28 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
