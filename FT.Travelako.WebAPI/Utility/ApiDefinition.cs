@@ -4,7 +4,7 @@
     {
         public static class CouponApi
         {
-            public const string GetCoupon = "/api/coupon?code=";
+            public const string GetCoupon = "/api/coupon/";
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using FT.Travelako.Services.CouponAPI.Models;
+﻿using FT.Travelako.Services.CouponAPI.Base.Controller;
+using FT.Travelako.Services.CouponAPI.Models;
+using FT.Travelako.Services.CouponAPI.Models.DTOs;
+using FT.Travelako.Services.CouponAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,22 +9,17 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
 {
     [Route("api/coupon")]
     [ApiController]
-    public class CouponController : ControllerBase
+    public class CouponController : AppBaseController
     {
-        [HttpGet]
-        public async Task<GenericAPIResponse> GetCoupon(string code)
+        public CouponController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            return new GenericAPIResponse()
-            {
-                IsSuccess = true,
-                Message = "test",
-                Result = new
-                {
-                    a = 1,
-                    b = 2,
-                    c = 3
-                }
-            };
+         
+        }
+
+        [HttpGet("{Code}")]
+        public async Task<GenericAPIResponse> GetCoupon([FromRoute] CouponDTO model)
+        {
+            return await ExecutionService<CouponDTO, GetCouponService>(model);
         }
     }
 }

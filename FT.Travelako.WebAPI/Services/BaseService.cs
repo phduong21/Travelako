@@ -1,4 +1,4 @@
-﻿using FT.Travelako.WebAPI.Models.GenericAPI;
+﻿using FT.Travelako.WebAPI.Models.Common;
 using FT.Travelako.WebAPI.Services.IServices;
 using Newtonsoft.Json;
 using System.Text;
