@@ -1,6 +1,6 @@
-﻿using static FT.Travelako.Services.CouponAPI.Constants.ConfigurationConsts;
+﻿using static FT.Travelako.Services.Authentication.Base.Constants.ConfigurationConsts;
 
-namespace FT.Travelako.Services.CouponAPI.Models
+namespace FT.Travelako.Services.Authentication.Base.Models
 {
     public class PagingRequestModel
     {

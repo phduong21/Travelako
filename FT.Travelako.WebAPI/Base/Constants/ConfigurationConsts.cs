@@ -1,4 +1,4 @@
-﻿namespace FT.Travelako.WebAPI.Constants
+﻿namespace FT.Travelako.WebAPI.Base.Constants
 {
     public static class ConfigurationConsts
     {

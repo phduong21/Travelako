@@ -12,7 +12,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<ICouponService, CouponService>();
 StaticData.BaseCouponAPI = builder.Configuration["ServiceUrls:CouponAPI"];
 
-builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<IGatewayService, GatewayService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,7 +1,7 @@
-﻿using FT.Travelako.Services.CouponAPI.Base.Interface;
-using FT.Travelako.Services.CouponAPI.Base.Models;
+﻿using FT.Travelako.Services.Authentication.Base.Interface;
+using FT.Travelako.Services.Authentication.Base.Models;
 
-namespace FT.Travelako.Services.CouponAPI.Base.Implementation
+namespace FT.Travelako.Services.Authentication.Base.Implementation
 {
     public abstract class BaseExecutionService<R> : IBaseExecutionService where R : IBaseRequestModel
     {

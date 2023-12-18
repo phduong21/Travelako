@@ -1,10 +1,9 @@
-﻿using FT.Travelako.Services.CouponAPI.Base.Implementation;
-using FT.Travelako.Services.CouponAPI.Base.Interface;
-using FT.Travelako.Services.CouponAPI.Base.Models;
-using Microsoft.AspNetCore.Http;
+﻿using FT.Travelako.Services.Authentication.Base.Implementation;
+using FT.Travelako.Services.Authentication.Base.Interface;
+using FT.Travelako.Services.Authentication.Base.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FT.Travelako.Services.CouponAPI.Base.Controller
+namespace FT.Travelako.Services.Authentication.Base.Controller
 {
     public abstract class AppBaseController : ControllerBase
     {

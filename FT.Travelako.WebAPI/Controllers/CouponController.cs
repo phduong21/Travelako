@@ -1,4 +1,4 @@
-﻿using FT.Travelako.WebAPI.Models.Common;
+﻿using FT.Travelako.WebAPI.Base.Models;
 using FT.Travelako.WebAPI.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

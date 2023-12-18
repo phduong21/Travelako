@@ -1,4 +1,4 @@
-﻿using FT.Travelako.WebAPI.Models.Common;
+﻿using FT.Travelako.WebAPI.Base.Models;
 
 namespace FT.Travelako.WebAPI.Services.IServices
 {

@@ -1,4 +1,4 @@
-﻿namespace FT.Travelako.Services.CouponAPI.Models
+﻿namespace FT.Travelako.Services.CouponAPI.Base.Models
 {
     public class GenericAPIResponse
     {

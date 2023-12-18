@@ -1,4 +1,4 @@
-﻿namespace FT.Travelako.Services.CouponAPI.Constants
+﻿namespace FT.Travelako.Services.Authentication.Base.Constants
 {
     public class ConfigurationConsts
     {

@@ -1,21 +1,22 @@
-﻿using FT.Travelako.WebAPI.Models.Common;
+﻿using FT.Travelako.WebAPI.Base.Models;
+using FT.Travelako.WebAPI.Models;
 using FT.Travelako.WebAPI.Services.IServices;
-using static FT.Travelako.WebAPI.Utility.ApiDefinition;
+using static FT.Travelako.WebAPI.Constants.ApiDefinition;
 using static FT.Travelako.WebAPI.Utility.StaticData;
 
 namespace FT.Travelako.WebAPI.Services
 {
     public class CouponService : ICouponService
     {
-        private readonly IBaseService _baseService;
-        public CouponService(IBaseService baseService) 
+        private readonly IGatewayService _gatewayService;
+        public CouponService(IGatewayService gatewayService) 
         {
-            _baseService = baseService;
+            _gatewayService = gatewayService;
         }
 
         public async Task<GenericAPIResponse> GetCoupon(string code)
         {
-            return await _baseService.ExecuteAsync(new GenericAPIRequest
+            return await _gatewayService.ExecuteAsync(new GenericAPIRequest
             {
                 ApiType = ApiType.GET,
                 Url = BaseCouponAPI + CouponApi.GetCoupon + code

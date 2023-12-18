@@ -1,6 +1,6 @@
-﻿using static FT.Travelako.WebAPI.Constants.ConfigurationConsts;
+﻿using static FT.Travelako.WebAPI.Base.Constants.ConfigurationConsts;
 
-namespace FT.Travelako.WebAPI.Models.Common
+namespace FT.Travelako.WebAPI.Base.Models
 {
     public class PagingRequestModel
     {
@@ -10,23 +10,23 @@ namespace FT.Travelako.WebAPI.Models.Common
         /// <summary>
         /// Get and set Page
         /// </summary>
-        public int Page 
+        public int Page
         {
-            get 
-            { 
-                return _page <= 0 ? 1 : _page; 
-            } 
-            set 
-            { 
-                _page = value; 
-            } 
+            get
+            {
+                return _page <= 0 ? 1 : _page;
+            }
+            set
+            {
+                _page = value;
+            }
         }
-        
+
         public int PageSize
         {
             get
             {
-                return _pageSize <= 0 ? AppDefaultValue.DefaultPageSize: _pageSize;
+                return _pageSize <= 0 ? AppDefaultValue.DefaultPageSize : _pageSize;
             }
             set
             {

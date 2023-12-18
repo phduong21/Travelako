@@ -1,18 +1,18 @@
-﻿using FT.Travelako.WebAPI.Models.Common;
+﻿using FT.Travelako.WebAPI.Base.Models;
+using FT.Travelako.WebAPI.Models;
 using FT.Travelako.WebAPI.Services.IServices;
 using Newtonsoft.Json;
 using System.Text;
-using System.Text.Json.Serialization;
 using static FT.Travelako.WebAPI.Utility.StaticData;
 
 namespace FT.Travelako.WebAPI.Services
 {
-    public class BaseService : IBaseService
+    public class GatewayService : IGatewayService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public BaseService(IHttpClientFactory httpClientFactory)
+        public GatewayService(IHttpClientFactory httpClientFactory)
         {
-             _httpClientFactory = httpClientFactory;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<GenericAPIResponse> ExecuteAsync(GenericAPIRequest request)
