@@ -17,9 +17,9 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         }
 
         [HttpGet("{Code}")]
-        public async Task<GenericAPIResponse> GetCoupon([FromRoute] CouponDTO model)
+        public async Task<GenericAPIResponse> GetCoupon([FromRoute] GetCouponRequestDTO model)
         {
-            return await ExecutionService<CouponDTO, GetCouponService>(model);
+            return await ExecutionService<GetCouponRequestDTO, GetCouponService>(model);
         }
     }
 }

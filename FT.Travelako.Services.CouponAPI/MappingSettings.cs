@@ -10,8 +10,8 @@ namespace FT.Travelako.Services.CouponAPI
         {
             var mappingConfig = new MapperConfiguration(c =>
             {
-                c.CreateMap<Coupon, CouponDTO>();
-                c.CreateMap<CouponDTO, Coupon>();
+                c.CreateMap<Coupon, GetCouponRequestDTO>();
+                c.CreateMap<GetCouponRequestDTO, Coupon>();
             });
 
             return mappingConfig;
