@@ -2,12 +2,11 @@
 using FT.Travelako.Base.Controller;
 using FT.Travelako.Services.CouponAPI.Models.DTOs;
 using FT.Travelako.Services.CouponAPI.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FT.Travelako.Services.CouponAPI.Controllers
 {
-    [Route("api/coupon")]
+    [Route("~/coupon-api/coupon")]
     [ApiController]
     public class CouponController : AppBaseController
     {
@@ -16,8 +15,8 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
          
         }
 
-        [HttpGet("{Code}")]
-        public async Task<GenericAPIResponse> GetCoupon([FromRoute] GetCouponRequestDTO model)
+        [HttpGet]
+        public async Task<GenericAPIResponse> GetCoupon([FromRoute] GetCouponRequestDTO? model)
         {
             return await ExecutionService<GetCouponRequestDTO, GetCouponService>(model);
         }

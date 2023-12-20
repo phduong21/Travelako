@@ -8,16 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Ocelot" Version="22.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\FT.Travelako.Base\FT.Travelako.Base.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FT.Travelako.Base\FT.Travelako.Base.csproj" />
+    <Folder Include="Constants\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
