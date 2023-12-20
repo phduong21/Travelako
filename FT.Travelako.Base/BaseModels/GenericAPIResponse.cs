@@ -1,4 +1,4 @@
-﻿namespace FT.Travelako.Services.Authentication.Base.Models
+﻿namespace FT.Travelako.Base.BaseModels
 {
     public class GenericAPIResponse
     {

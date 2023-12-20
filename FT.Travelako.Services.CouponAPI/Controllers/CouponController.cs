@@ -1,5 +1,5 @@
-﻿using FT.Travelako.Services.CouponAPI.Base.Controller;
-using FT.Travelako.Services.CouponAPI.Base.Models;
+﻿using FT.Travelako.Base.BaseModels;
+using FT.Travelako.Base.Controller;
 using FT.Travelako.Services.CouponAPI.Models.DTOs;
 using FT.Travelako.Services.CouponAPI.Services;
 using Microsoft.AspNetCore.Http;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static FT.Travelako.WebAPI.Utility.StaticData;
+using static FT.Travelako.Base.BaseUtility.StaticData;
 
-namespace FT.Travelako.WebAPI.Models
+namespace FT.Travelako.Base.BaseModels
 {
     public class GenericAPIRequest
     {

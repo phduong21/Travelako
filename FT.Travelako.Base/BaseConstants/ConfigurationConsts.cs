@@ -1,6 +1,7 @@
-﻿namespace FT.Travelako.WebAPI.Base.Constants
+﻿namespace FT.Travelako.Base.BaseConstants
+
 {
-    public static class ConfigurationConsts
+    public class ConfigurationConsts
     {
         public static class AppDefaultValue
         {

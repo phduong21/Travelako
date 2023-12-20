@@ -1,6 +1,6 @@
-﻿using static FT.Travelako.Services.Authentication.Base.Constants.ConfigurationConsts;
+﻿using static FT.Travelako.Base.BaseConstants.ConfigurationConsts;
 
-namespace FT.Travelako.Services.Authentication.Base.Models
+namespace FT.Travelako.Base.BaseModels
 {
     public class PagingRequestModel
     {

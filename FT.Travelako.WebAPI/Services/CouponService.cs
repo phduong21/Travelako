@@ -1,8 +1,7 @@
-﻿using FT.Travelako.WebAPI.Base.Models;
-using FT.Travelako.WebAPI.Models;
+﻿using FT.Travelako.Base.BaseModels;
 using FT.Travelako.WebAPI.Services.IServices;
+using static FT.Travelako.Base.BaseUtility.StaticData;
 using static FT.Travelako.WebAPI.Constants.ApiDefinition;
-using static FT.Travelako.WebAPI.Utility.StaticData;
 
 namespace FT.Travelako.WebAPI.Services
 {

@@ -1,13 +1,13 @@
-﻿using FT.Travelako.Services.CouponAPI.Base.Interface;
-using FT.Travelako.Services.CouponAPI.Base.Models;
+﻿using FT.Travelako.Base.BaseInterface;
+using FT.Travelako.Base.BaseModels;
 
-namespace FT.Travelako.Services.CouponAPI.Base.Implementation
+namespace FT.Travelako.Base.BaseImplementation
 {
     public abstract class BaseExecutionService<R> : IBaseExecutionService where R : IBaseRequestModel
     {
         public BaseExecutionService()
         {
-            
+
         }
 
         public virtual Task<GenericAPIResponse> ExecuteApi(R requestModel)

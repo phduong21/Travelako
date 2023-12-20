@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FT.Travelako.WebAPI", "FT.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FT.Travelako.Services.CouponAPI", "FT.Travelako.Services.CouponAPI\FT.Travelako.Services.CouponAPI.csproj", "{87586DB3-44EC-459D-998C-6F533522AA72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT.Travelako.Services.Authentication", "FT.Travelako.Services.Authentication\FT.Travelako.Services.Authentication.csproj", "{86955B7C-D7E4-43FC-8605-7FE6D22B8E51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FT.Travelako.Services.Authentication", "FT.Travelako.Services.Authentication\FT.Travelako.Services.Authentication.csproj", "{86955B7C-D7E4-43FC-8605-7FE6D22B8E51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{1DBD3495-34F6-44CE-952D-6995B60A33B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT.Travelako.Base", "FT.Travelako.Base\FT.Travelako.Base.csproj", "{BDED5AF0-4027-4169-8B68-0B10CA47DF90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{86955B7C-D7E4-43FC-8605-7FE6D22B8E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86955B7C-D7E4-43FC-8605-7FE6D22B8E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86955B7C-D7E4-43FC-8605-7FE6D22B8E51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDED5AF0-4027-4169-8B68-0B10CA47DF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDED5AF0-4027-4169-8B68-0B10CA47DF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDED5AF0-4027-4169-8B68-0B10CA47DF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDED5AF0-4027-4169-8B68-0B10CA47DF90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +47,7 @@ Global
 		{AB6FB461-5F2F-4244-81FC-2603A6ACB3CF} = {4CDD7B9D-1FFB-4FF7-A894-A0BB92CF88CF}
 		{87586DB3-44EC-459D-998C-6F533522AA72} = {044B165E-E6FF-45D5-93F6-93C33597459F}
 		{86955B7C-D7E4-43FC-8605-7FE6D22B8E51} = {044B165E-E6FF-45D5-93F6-93C33597459F}
+		{BDED5AF0-4027-4169-8B68-0B10CA47DF90} = {1DBD3495-34F6-44CE-952D-6995B60A33B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2578AB90-BDCF-4237-A0C4-B9D5A45BF8EE}

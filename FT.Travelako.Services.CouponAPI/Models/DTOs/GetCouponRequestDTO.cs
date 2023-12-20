@@ -1,4 +1,4 @@
-﻿using FT.Travelako.Services.CouponAPI.Base.Interface;
+﻿using FT.Travelako.Base.BaseInterface;
 
 namespace FT.Travelako.Services.CouponAPI.Models.DTOs
 {

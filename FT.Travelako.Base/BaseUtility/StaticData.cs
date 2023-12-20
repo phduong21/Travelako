@@ -1,4 +1,4 @@
-﻿namespace FT.Travelako.WebAPI.Utility
+﻿namespace FT.Travelako.Base.BaseUtility
 {
     public class StaticData
     {

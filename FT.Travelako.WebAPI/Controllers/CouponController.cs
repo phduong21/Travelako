@@ -1,6 +1,5 @@
-﻿using FT.Travelako.WebAPI.Base.Models;
+﻿using FT.Travelako.Base.BaseModels;
 using FT.Travelako.WebAPI.Services.IServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FT.Travelako.WebAPI.Controllers

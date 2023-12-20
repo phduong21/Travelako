@@ -1,9 +1,8 @@
-﻿using FT.Travelako.WebAPI.Base.Models;
-using FT.Travelako.WebAPI.Models;
+﻿using FT.Travelako.Base.BaseModels;
 using FT.Travelako.WebAPI.Services.IServices;
 using Newtonsoft.Json;
 using System.Text;
-using static FT.Travelako.WebAPI.Utility.StaticData;
+using static FT.Travelako.Base.BaseUtility.StaticData;
 
 namespace FT.Travelako.WebAPI.Services
 {
