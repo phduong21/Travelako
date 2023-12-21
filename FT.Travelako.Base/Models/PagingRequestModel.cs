@@ -1,4 +1,4 @@
-﻿using static FT.Travelako.Base.BaseConstants.ConfigurationConsts;
+﻿using static FT.Travelako.Base.Constants.ConfigurationConsts;
 
 namespace FT.Travelako.Base.BaseModels
 {

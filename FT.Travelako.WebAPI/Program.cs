@@ -1,6 +1,4 @@
 using FT.Travelako.Base.BaseUtility;
-using FT.Travelako.WebAPI.Services;
-using FT.Travelako.WebAPI.Services.IServices;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -16,11 +14,7 @@ IConfiguration configuration = new ConfigurationBuilder()
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<ICouponService, CouponService>();
 StaticData.BaseCouponAPI = builder.Configuration["ServiceUrls:CouponAPI"];
-
-builder.Services.AddScoped<IGatewayService, GatewayService>();
-builder.Services.AddScoped<ICouponService, CouponService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

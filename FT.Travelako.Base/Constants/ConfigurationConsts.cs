@@ -1,4 +1,4 @@
-﻿namespace FT.Travelako.Base.BaseConstants
+﻿namespace FT.Travelako.Base.Constants
 
 {
     public class ConfigurationConsts
