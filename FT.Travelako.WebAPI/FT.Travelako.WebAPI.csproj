@@ -8,9 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Constants\**" />
+    <Compile Remove="Controllers\**" />
     <Compile Remove="Models\**" />
+    <Content Remove="Constants\**" />
+    <Content Remove="Controllers\**" />
     <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Constants\**" />
+    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="Models\**" />
+    <None Remove="Constants\**" />
+    <None Remove="Controllers\**" />
     <None Remove="Models\**" />
   </ItemGroup>
 
@@ -22,11 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FT.Travelako.Base\FT.Travelako.Base.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Constants\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

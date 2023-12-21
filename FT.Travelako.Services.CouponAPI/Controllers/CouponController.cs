@@ -8,7 +8,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
 {
     [Route("~/coupon-api/coupon")]
     [ApiController]
-    public class CouponController : AppBaseController
+    public class CouponController : ApiBaseController
     {
         public CouponController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
