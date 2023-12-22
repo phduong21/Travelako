@@ -5,31 +5,38 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <UserSecretsId>ec4412a4-9cb3-4d39-834d-a97b271abce1</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Constants\**" />
     <Compile Remove="Controllers\**" />
-    <Compile Remove="Models\**" />
     <Content Remove="Constants\**" />
     <Content Remove="Controllers\**" />
-    <Content Remove="Models\**" />
     <EmbeddedResource Remove="Constants\**" />
     <EmbeddedResource Remove="Controllers\**" />
-    <EmbeddedResource Remove="Models\**" />
     <None Remove="Constants\**" />
     <None Remove="Controllers\**" />
-    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Ocelot" Version="22.0.1" />
+    <PackageReference Include="Ocelot.Cache.CacheManager" Version="22.0.1" />
+    <PackageReference Include="Ocelot.Provider.Consul" Version="22.0.1" />
+    <PackageReference Include="Ocelot.Provider.Polly" Version="22.0.1" />
+    <PackageReference Include="StackExchange.Redis" Version="2.7.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FT.Travelako.Base\FT.Travelako.Base.csproj" />
+    <ProjectReference Include="..\Service.Core\Service.Core.csproj" />
   </ItemGroup>
 
 </Project>

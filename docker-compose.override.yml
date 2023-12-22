@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  consul:
+    ports:
+         - "8500:8500"
+
+  ft.travelako.services.authentication:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ServiceConfig__Id=Service.authentication
+      - ServiceConfig__Name=AuthenService
+      - ServiceConfig__DiscoveryAddress=http://consul:8500
+      - ServiceConfig__Address=authentication_service
+      - ServiceConfig__Port=80
+      - ServiceConfig__HealthCheckEndPoint=healthcheck
+    ports:
+      - "5296:80"
+    depends_on:
+      - consul
+
+  ft.travelako.services.couponapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ServiceConfig__Id=Service.coupon
+      - ServiceConfig__Name=CouponService
+      - ServiceConfig__DiscoveryAddress=http://consul:8500
+      - ServiceConfig__Address=coupon_service
+      - ServiceConfig__Port=80
+      - ServiceConfig__HealthCheckEndPoint=healthcheck
+    ports:
+      - "5214:80"
+    depends_on:
+      - consul
+
+  ft.travelako.ocelotapigw:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+        - "5500:80"
+    depends_on:
+        - consul
+        - ft.travelako.services.authentication
+        - ft.travelako.services.couponapi

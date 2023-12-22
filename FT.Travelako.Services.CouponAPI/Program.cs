@@ -2,10 +2,14 @@ using AutoMapper;
 using FT.Travelako.Services.CouponAPI;
 using FT.Travelako.Services.CouponAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Service.Core.ServiceDiscovery;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddCors();
 builder.Services.AddDbContext<AppDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
