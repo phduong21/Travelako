@@ -5,23 +5,10 @@ services:
     ports:
          - "8500:8500"
 
-  ft.travelako.services.authentication:
+  coupon_service:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ServiceConfig__Id=Service.authentication
-      - ServiceConfig__Name=AuthenService
-      - ServiceConfig__DiscoveryAddress=http://consul:8500
-      - ServiceConfig__Address=authentication_service
-      - ServiceConfig__Port=80
-      - ServiceConfig__HealthCheckEndPoint=healthcheck
-    ports:
-      - "5296:80"
-    depends_on:
-      - consul
-
-  ft.travelako.services.couponapi:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
       - ServiceConfig__Id=Service.coupon
       - ServiceConfig__Name=CouponService
       - ServiceConfig__DiscoveryAddress=http://consul:8500
@@ -29,17 +16,41 @@ services:
       - ServiceConfig__Port=80
       - ServiceConfig__HealthCheckEndPoint=healthcheck
     ports:
-      - "5214:80"
+      - "5200:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     depends_on:
       - consul
 
-  ft.travelako.ocelotapigw:
+  authentication_service:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ServiceConfig__Id=Service.authentication
+      - ServiceConfig__Name=AuthenService
+      - ServiceConfig__DiscoveryAddress=http://consul:8500
+      - ServiceConfig__Address=authentication_service
+      - ServiceConfig__Port=80
+      - ServiceConfig__HealthCheckEndPoint=healthcheck
+    ports:
+      - "5300:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    depends_on:
+      - consul
+
+  ocelotapigw:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
       - ASPNETCORE_URLS=http://+:80
     ports:
-        - "5500:80"
+      - "5400:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     depends_on:
         - consul
-        - ft.travelako.services.authentication
-        - ft.travelako.services.couponapi
+        - authentication_service
+        - coupon_service

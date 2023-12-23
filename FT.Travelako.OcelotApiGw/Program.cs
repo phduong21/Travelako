@@ -1,3 +1,6 @@
+using FT.Travelako.Common.Logging;
+using Serilog;
+
 namespace FT.Travelako.OcelotApiGw
 {
     public class Program
@@ -23,6 +26,7 @@ namespace FT.Travelako.OcelotApiGw
                         .AddJsonFile("ocelot.json", false, false)
                         .AddEnvironmentVariables();
                 })
+                .UseSerilog(SeriLogger.Configure)
                 .ConfigureLogging((builderContext, logging) =>
                 {
                     logging.AddConfiguration(builderContext.Configuration.GetSection("Logging"));

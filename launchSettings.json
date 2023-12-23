@@ -4,9 +4,9 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "ft.travelako.ocelotapigw": "StartDebugging",
+        "ft.travelako.services.couponapi": "StartDebugging",
         "ft.travelako.services.authentication": "StartDebugging",
-        "ft.travelako.services.couponapi": "StartDebugging"
+        "ft.travelako.ocelotapigw": "StartDebugging"
       }
     }
   }

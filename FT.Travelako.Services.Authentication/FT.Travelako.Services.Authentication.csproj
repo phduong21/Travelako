@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FT.Travelako.Base\FT.Travelako.Base.csproj" />
+    <ProjectReference Include="..\FT.Travelako.Common.Logging\FT.Travelako.Common.Logging.csproj" />
+    <ProjectReference Include="..\FT.Travelako.Common\FT.Travelako.Common.csproj" />
     <ProjectReference Include="..\Service.Core\Service.Core.csproj" />
   </ItemGroup>
 

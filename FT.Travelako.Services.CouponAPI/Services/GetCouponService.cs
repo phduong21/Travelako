@@ -1,5 +1,5 @@
-﻿using FT.Travelako.Base.BaseImplementation;
-using FT.Travelako.Base.BaseModels;
+﻿using FT.Travelako.Common.BaseImplementation;
+using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Services.CouponAPI.Models.DTOs;
 
 namespace FT.Travelako.Services.CouponAPI.Services

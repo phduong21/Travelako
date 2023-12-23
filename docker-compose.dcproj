@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>1a05ef5b-82a7-4f18-87ee-786e552e8152</ProjectGuid>
+    <ProjectGuid>dc2e4686-3f6a-4ffe-8881-61dcfa10eeec</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>ft.travelako.services.couponapi</DockerServiceName>

@@ -9,37 +9,37 @@ services:
      networks:
          - common_network
 
-  ft.travelako.ocelotapigw:
-    container_name: ocelot.gateway
-    image: ${DOCKER_REGISTRY-}fttravelakoocelotapigw
-    restart: on-failure
-    hostname: localhost
-    build:
-      context: .
-      dockerfile: FT.Travelako.OcelotApiGw\Dockerfile
-    networks:
-      - common_network
-
-  ft.travelako.services.authentication:
-    container_name: authenservice
-    image: ${DOCKER_REGISTRY-}fttravelakoservicesauthentication
-    restart: on-failure
-    hostname: localhost
-    build:
-      context: .
-      dockerfile: FT.Travelako.Services.Authentication\Dockerfile
-    networks:
-      - common_network
-
-
-  ft.travelako.services.couponapi:
+  coupon_service:
     container_name: couponservice
     image: ${DOCKER_REGISTRY-}fttravelakoservicescouponapi
     restart: on-failure
     hostname: localhost
     build:
       context: .
-      dockerfile: FT.Travelako.Services.CouponAPI\Dockerfile
+      dockerfile: FT.Travelako.Services.CouponAPI/Dockerfile
+    networks:
+      - common_network
+
+  authentication_service:
+    container_name: authenservice
+    image: ${DOCKER_REGISTRY-}fttravelakoservicesauthentication
+    restart: on-failure
+    hostname: localhost
+    build:
+      context: .
+      dockerfile: FT.Travelako.Services.Authentication/Dockerfile
+    networks:
+      - common_network
+
+
+  ocelotapigw:
+    container_name: ocelot.gateway
+    image: ${DOCKER_REGISTRY-}fttravelakoocelotapigw
+    restart: on-failure
+    hostname: localhost
+    build:
+      context: .
+      dockerfile: FT.Travelako.OcelotApiGw/Dockerfile
     networks:
       - common_network
 
