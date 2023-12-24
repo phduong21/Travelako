@@ -8,6 +8,11 @@ using Ocelot.Cache.CacheManager;
 using Ocelot.Provider.Polly;
 using System.Configuration;
 using FT.Travelako.OcelotApiGw.Installer;
+using FT.Travelako.OcelotApiGw.Service;
+using FT.Travelako.OcelotApiGw.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using FT.Travelako.OcelotApiGw.Configuration;
 
 namespace FT.Travelako.OcelotApiGw
 {
@@ -29,6 +34,7 @@ namespace FT.Travelako.OcelotApiGw
                 })
                 .AddPolly();
             services.InstallerServicesInAssembly(Configuration);
+            services.Configure<AppSettingsConfiguration>(Configuration.GetSection("AppSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,8 +53,11 @@ namespace FT.Travelako.OcelotApiGw
                 {
                     await context.Response.WriteAsync("Api Gateway Running!");
                 });
+                endpoints.MapPost("/login", [AllowAnonymous] ([FromBody]LoginModel request, HttpContext http, IJwtTokenService tokenService) => tokenService.GenerateAuthToken(request)).WithName("Login");
             });
             app.UseOcelot().Wait();
+            app.UseAuthentication();
+            app.UseAuthorization();
         }
     }
 }

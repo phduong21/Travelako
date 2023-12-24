@@ -3,6 +3,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using FT.Travelako.OcelotApiGw.Configuration;
 using System.Text;
+using StackExchange.Redis;
+using Microsoft.Extensions.DependencyInjection;
+using FT.Travelako.OcelotApiGw.Service;
+using Ocelot.Values;
 
 namespace FT.Travelako.OcelotApiGw.Installer
 {
@@ -13,10 +17,16 @@ namespace FT.Travelako.OcelotApiGw.Installer
             var authenConfiguration = new AppSettingsConfiguration();
             configuration.GetSection("AppSettings").Bind(authenConfiguration);
 
-            var secretKey = authenConfiguration.SecretKey;
-            var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
 
-            service.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            service.AddSingleton<IJwtTokenService,JwtTokenService>();
+
+            service.AddAuthentication(
+                opt =>
+                {
+                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+             .AddJwtBearer(opt =>
             {
                 opt.RequireHttpsMetadata = false;
                 opt.SaveToken = true;
@@ -27,7 +37,7 @@ namespace FT.Travelako.OcelotApiGw.Installer
                     ValidateAudience = false,
                     // sign to token
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenConfiguration.SecretKey)),
 
                     ClockSkew = TimeSpan.Zero
                 };

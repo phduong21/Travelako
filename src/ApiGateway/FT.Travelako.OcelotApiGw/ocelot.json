@@ -16,7 +16,32 @@
         "DurationOfBreak": 5000,
         "TimeoutValue": 2000
       }
+    },
+    {
+      "DownstreamPathTemplate": "/coupon-api/coupon/GetCoupon",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5219
+        }
+      ],
+      "UpstreamPathTemplate": "/GetCoupon",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "FileCacheOptions": { "TtlSeconds": 30 }
     }
+
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5010",
