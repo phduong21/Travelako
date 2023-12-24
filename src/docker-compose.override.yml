@@ -1,0 +1,75 @@
+version: '3.4'
+
+services:
+  consul:
+    ports:
+     - "8500:8500"
+
+  # traveldb:
+  #   container_name: traveldb
+  #   restart: always 
+  #   environment:
+  #    - ACCEPT_EULA=Y
+  #    - MSSQL_SA_PASSWORD=123456aA@
+  #   ports:
+  #        - "1433:1433"
+
+  cachedb:
+    container_name: cachedb
+    restart: always    
+    ports:
+        - "6379:6379"
+        - "8001:8001"
+
+  coupon_service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ServiceConfig__Id=Service.coupon
+      - ServiceConfig__Name=Service
+      - ServiceConfig__DiscoveryAddress=http://consul:8500
+      - ServiceConfig__Address=coupon_service
+      - ServiceConfig__Port=80
+      - ServiceConfig__HealthCheckEndPoint=healthcheck
+    ports:
+      - "5200:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+    depends_on:
+      - consul
+      # - traveldb 
+
+  authentication_service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ServiceConfig__Id=Service.authentication
+      - ServiceConfig__Name=Service
+      - ServiceConfig__DiscoveryAddress=http://consul:8500
+      - ServiceConfig__Address=authentication_service
+      - ServiceConfig__Port=80
+      - ServiceConfig__HealthCheckEndPoint=healthcheck
+      - "DatabaseSettings:ConnectionString=Server=traveldb;Port=5432;Database=TravelDb;User Id=sa;Password=123456aA@;"
+    ports:
+      - "5300:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    depends_on:
+      - consul
+      # - traveldb 
+
+  ocelotapigw:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5400:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    depends_on:
+        - consul
+        - authentication_service
+        - coupon_service
