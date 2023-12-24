@@ -1,0 +1,54 @@
+version: '3.4'
+
+services:
+  consul:
+     image: consul:1.15.4
+     command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
+     hostname: consul
+     container_name: consul
+     networks:
+         - common_network
+
+  traveldb:
+     image: mcr.microsoft.com/mssql/server:2022-latest
+
+  cachedb:
+    image: redis/redis-stack:latest
+
+  coupon_service:
+    container_name: couponservice
+    image: ${DOCKER_REGISTRY-}fttravelakoservicescouponapi
+    restart: on-failure
+    hostname: coupon_service
+    build:
+      context: .
+      dockerfile: Services/FT.Travelako.Services.CouponAPI/Dockerfile
+    networks:
+      - common_network
+
+  authentication_service:
+    container_name: authenservice
+    image: ${DOCKER_REGISTRY-}fttravelakoservicesauthentication
+    restart: on-failure
+    hostname: authentication_service
+    build:
+      context: .
+      dockerfile: Services/FT.Travelako.Services.Authentication/Dockerfile
+    networks:
+      - common_network
+
+
+  ocelotapigw:
+    container_name: ocelot.gateway
+    image: ${DOCKER_REGISTRY-}fttravelakoocelotapigw
+    restart: on-failure
+    hostname: localhost
+    build:
+      context: .
+      dockerfile: ApiGateway/FT.Travelako.OcelotApiGw/Dockerfile
+    networks:
+      - common_network
+
+networks:
+    common_network:
+        driver: bridge
