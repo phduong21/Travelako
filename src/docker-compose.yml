@@ -47,6 +47,16 @@ services:
     networks:
       - common_network
 
+  travel_service:
+    container_name: travelservice
+    image: ${DOCKER_REGISTRY-}fttravelakoservicestravelapi
+    restart: on-failure
+    hostname: travel_service
+    build:
+      context: .
+      dockerfile: Services/FT.Travelako.Services.TravelAPI/Dockerfile
+    networks:
+      - common_network
 
   ocelotapigw:
     container_name: ocelot.gateway
