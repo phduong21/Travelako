@@ -25,6 +25,28 @@ services:
   # kibana:
   #   image: docker.elastic.co/kibana/kibana:7.9.2
 
+  user_service:
+    container_name: userservice
+    image: ${DOCKER_REGISTRY-}fttravelakoservicesuserapi
+    restart: on-failure
+    hostname: user_service
+    build:
+      context: .
+      dockerfile: Services/FT.Travelako.Services.UserAPI/Dockerfile
+    networks:
+      - common_network
+
+  booking_service:
+    container_name: bookingservice
+    image: ${DOCKER_REGISTRY-}fttravelakoservicesbookingapi
+    restart: on-failure
+    hostname: booking_service
+    build:
+      context: .
+      dockerfile: Services/FT.Travelako.Services.BookingAPI/Dockerfile
+    networks:
+      - common_network
+
   coupon_service:
     container_name: couponservice
     image: ${DOCKER_REGISTRY-}fttravelakoservicescouponapi
@@ -47,6 +69,16 @@ services:
     networks:
       - common_network
 
+  travel_service:
+    container_name: travelservice
+    image: ${DOCKER_REGISTRY-}fttravelakoservicestravelapi
+    restart: on-failure
+    hostname: travel_service
+    build:
+      context: .
+      dockerfile: Services/FT.Travelako.Services.TravelAPI/Dockerfile
+    networks:
+      - common_network
 
   ocelotapigw:
     container_name: ocelot.gateway
