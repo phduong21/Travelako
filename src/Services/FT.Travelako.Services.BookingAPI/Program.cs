@@ -1,4 +1,19 @@
+using AutoMapper;
+using FT.Travelako.Services.BookingAPI;
+using FT.Travelako.Services.BookingAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDbContext<AppDbContext>(opts =>
+{
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+});
+builder.Services.AddCors();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+IMapper mapper = MappingSettings.RegisterMap().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 
