@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>1fc40226-9f5f-4dd2-a78d-cac693ec2767</ProjectGuid>
+    <ProjectGuid>60b21c12-c5ec-43a1-b078-780aff4f990e</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>ft.travelako.ocelotapigw</DockerServiceName>
