@@ -31,6 +31,7 @@ services:
       - ServiceConfig__Address=coupon_service
       - ServiceConfig__Port=80
       - ServiceConfig__HealthCheckEndPoint=healthcheck
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
     ports:
       - "5200:80"
     volumes:
@@ -50,6 +51,7 @@ services:
       - ServiceConfig__Port=80
       - ServiceConfig__HealthCheckEndPoint=healthcheck
       - "DatabaseSettings:ConnectionString=Server=traveldb;Port=5432;Database=TravelDb;User Id=sa;Password=123456aA@;"
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
     ports:
       - "5300:80"
     volumes:
@@ -63,6 +65,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
       - ASPNETCORE_URLS=http://+:80
     ports:
       - "5400:80"
@@ -73,3 +76,34 @@ services:
         - consul
         - authentication_service
         - coupon_service
+
+  # portainer:
+  #   container_name: portainer
+  #   restart: always
+  #   ports:
+  #     - "8080:8000"
+  #     - "9000:9000"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - portainer_data:/data
+
+  # elasticsearch:
+  #   container_name: elasticsearch
+  #   environment:
+  #       - xpack.monitoring.enabled=true
+  #       - xpack.watcher.enabled=false
+  #       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #       - discovery.type=single-node
+  #   ports:
+  #       - "9200:9200"
+  #   volumes:
+  #       - elasticsearch-data:/usr/share/elasticsearch/data   
+
+  # kibana:
+  #   container_name: kibana
+  #   environment:        
+  #       - ELASTICSEARCH_URL=http://elasticsearch:9200
+  #   depends_on:
+  #       - elasticsearch
+  #   ports:
+  #       - "5601:5601" 

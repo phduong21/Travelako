@@ -9,12 +9,11 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["FT.Travelako.OcelotApiGw/FT.Travelako.OcelotApiGw.csproj", "FT.Travelako.OcelotApiGw/"]
-COPY ["FT.Travelako.Base/FT.Travelako.Base.csproj", "FT.Travelako.Base/"]
-COPY ["Service.Core/Service.Core.csproj", "Service.Core/"]
-RUN dotnet restore "./FT.Travelako.OcelotApiGw/./FT.Travelako.OcelotApiGw.csproj"
+COPY ["ApiGateway/FT.Travelako.OcelotApiGw/FT.Travelako.OcelotApiGw.csproj", "ApiGateway/FT.Travelako.OcelotApiGw/"]
+COPY ["Common/FT.Travelako.Common.Logging/FT.Travelako.Common.Logging.csproj", "Common/FT.Travelako.Common.Logging/"]
+RUN dotnet restore "./ApiGateway/FT.Travelako.OcelotApiGw/./FT.Travelako.OcelotApiGw.csproj"
 COPY . .
-WORKDIR "/src/FT.Travelako.OcelotApiGw"
+WORKDIR "/src/ApiGateway/FT.Travelako.OcelotApiGw"
 RUN dotnet build "./FT.Travelako.OcelotApiGw.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

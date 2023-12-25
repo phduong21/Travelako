@@ -9,12 +9,13 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["FT.Travelako.Services.Authentication/FT.Travelako.Services.Authentication.csproj", "FT.Travelako.Services.Authentication/"]
-COPY ["FT.Travelako.Base/FT.Travelako.Base.csproj", "FT.Travelako.Base/"]
-COPY ["Service.Core/Service.Core.csproj", "Service.Core/"]
-RUN dotnet restore "./FT.Travelako.Services.Authentication/./FT.Travelako.Services.Authentication.csproj"
+COPY ["Services/FT.Travelako.Services.Authentication/FT.Travelako.Services.Authentication.csproj", "Services/FT.Travelako.Services.Authentication/"]
+COPY ["Common/FT.Travelako.Common.Logging/FT.Travelako.Common.Logging.csproj", "Common/FT.Travelako.Common.Logging/"]
+COPY ["Common/FT.Travelako.Common/FT.Travelako.Common.csproj", "Common/FT.Travelako.Common/"]
+COPY ["Common/FT.Travelako.Service.Core/FT.Travelako.Service.Core.csproj", "Common/FT.Travelako.Service.Core/"]
+RUN dotnet restore "./Services/FT.Travelako.Services.Authentication/./FT.Travelako.Services.Authentication.csproj"
 COPY . .
-WORKDIR "/src/FT.Travelako.Services.Authentication"
+WORKDIR "/src/Services/FT.Travelako.Services.Authentication"
 RUN dotnet build "./FT.Travelako.Services.Authentication.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
