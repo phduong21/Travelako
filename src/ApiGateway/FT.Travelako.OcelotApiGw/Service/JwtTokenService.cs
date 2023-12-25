@@ -25,7 +25,7 @@ namespace FT.Travelako.OcelotApiGw.Service
         new("user01", "u$3r01", UserRoles.User),
         new("buser01", "bu$3r01", UserRoles.Business)
     };
-        public AuthenticationToken? GenerateAuthToken(LoginModel loginModel)
+        public string? GenerateAuthToken(LoginModel loginModel)
         {
             var user = _users.FirstOrDefault(u => u.UserName == loginModel.UserName
                                                && u.Password == loginModel.Password);
@@ -33,30 +33,55 @@ namespace FT.Travelako.OcelotApiGw.Service
             {
                 return null;
             }
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SecretKey.ToString()));
-            var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var expirationTimeStamp = DateTime.Now.AddMinutes(5);
-            var claims = new List<Claim>
-        {
-            new Claim(JwtRegisteredClaimNames.Name, user.UserName),
-            new Claim("role", user.Role.ToString()),
-        };
-            var tokenOptions = new JwtSecurityToken(
-                issuer: "https://localhost:5002",
-                claims: claims,
-                expires: expirationTimeStamp,
-                signingCredentials: signingCredentials
-            );
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            var authenToken = new AuthenticationToken()
+            //    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SecretKey.ToString()));
+            //    var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            //    var expirationTimeStamp = DateTime.Now.AddMinutes(5);
+            //    var claims = new List<Claim>
+            //{
+            //    new Claim(JwtRegisteredClaimNames.Name, user.UserName),
+            //    new Claim("role", user.Role.ToString()),
+            //};
+            //    var tokenOptions = new JwtSecurityToken(
+            //        issuer: "https://localhost:5002",
+            //        claims: claims,
+            //        expires: expirationTimeStamp,
+            //        signingCredentials: signingCredentials
+            //    );
+            //    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            //    var authenToken = new AuthenticationToken()
+            //    {
+            //    };
+
+            //    return new AuthenticationToken()
+            //    {
+            //        Name = tokenString,
+            //        Value = ((int)expirationTimeStamp.Subtract(DateTime.Now).TotalSeconds).ToString()
+            //    };
+
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var secretKeyBytes = Encoding.UTF8.GetBytes(_config.SecretKey.ToString());
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim("UserName", user.UserName),
+                    new Claim("Id", user.UserName.ToString()),
+                    new Claim("role", user.Role.ToString()),
+                    //Todo
+                    //roles
+
+                    new Claim("TokenId", Guid.NewGuid().ToString())
+
+                }),
+
+                Expires = DateTime.UtcNow.AddMinutes(5),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha512Signature),
             };
 
-            return new AuthenticationToken()
-            {
-                Name = tokenString,
-                Value = ((int)expirationTimeStamp.Subtract(DateTime.Now).TotalSeconds).ToString()
-            };
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+
+            return jwtTokenHandler.WriteToken(token);
         }
     }
 }

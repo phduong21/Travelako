@@ -1,36 +1,39 @@
 {
   "Routes": [
+    //{
+    //  "Servicename": "Service",
+    //  "DownstreamPathTemplate": "/{url}",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/{url}",
+    //  "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
+    //  "UseServiceDiscovery": true,
+    //  "RouteIsCaseSensitive": false,
+    //  "LoadBalancerOptions": {
+    //    "Type": "RoundRobin"
+    //  },
+    //  "QoSOptions": {
+    //    "ExceptionsAllowedBeforeBreaking": 3,
+    //    "DurationOfBreak": 5000,
+    //    "TimeoutValue": 2000
+    //  }
+    //},
     {
       "Servicename": "Service",
-      "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/{url}",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
-      "UseServiceDiscovery": true,
-      "RouteIsCaseSensitive": false,
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 5000,
-        "TimeoutValue": 2000
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/coupon-api/coupon/GetCoupon",
+      "DownstreamPathTemplate": "/api/Coupon/GetCouponAll",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5219
+          "Host": "coupon_service",
+          "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/GetCoupon",
+      "UpstreamPathTemplate": "/GetCouponAll",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": {
+        "role": [ "Administrator" ]
       },
       "RateLimitOptions": {
         "ClientWhitelist": [],
@@ -41,7 +44,6 @@
       },
       "FileCacheOptions": { "TtlSeconds": 30 }
     }
-
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5010",
