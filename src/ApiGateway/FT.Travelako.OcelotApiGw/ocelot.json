@@ -18,23 +18,24 @@
     //  }
     //},
     {
-      "Servicename": "Service",
+      //"Servicename": "Service",
       "DownstreamPathTemplate": "/api/Coupon/GetCouponAll",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "coupon_service",
-          "Port": 80
+          "Host": "host.docker.internal",
+          "Port": 5200
         }
       ],
       "UpstreamPathTemplate": "/GetCouponAll",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "coupon.all", "coupon.read" ]
       },
-      "RouteClaimsRequirement": {
-        "role": [ "Administrator" ]
-      },
+      //"RouteClaimsRequirement": {
+      //  "role": "administrator"
+      //},
       "RateLimitOptions": {
         "ClientWhitelist": [],
         "EnableRateLimiting": true,
@@ -48,12 +49,12 @@
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5010",
     "RequestIdKey": "OcRequestId",
-    "UseServiceDiscovery": true,
-    "ServiceDiscoveryProvider": {
-      "Host": "consul",
-      "Port": 8500,
-      "Type": "PollConsul",
-      "PollingInterval": 100
-    }
+    //"UseServiceDiscovery": true,
+    //"ServiceDiscoveryProvider": {
+    //  "Host": "consul",
+    //  "Port": 8500,
+    //  "Type": "PollConsul",
+    //  "PollingInterval": 100
+    //}
   }
 }

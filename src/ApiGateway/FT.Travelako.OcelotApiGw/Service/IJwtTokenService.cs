@@ -5,6 +5,6 @@ namespace FT.Travelako.OcelotApiGw.Service
 {
     public interface IJwtTokenService
     {
-        public string? GenerateAuthToken(LoginModel loginModel);
+        public AuthenticationToken? GenerateAuthToken(LoginModel loginModel);
     }
 }

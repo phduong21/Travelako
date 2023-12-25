@@ -6,13 +6,17 @@
         public string Password { get; set; }
         public UserRoles Role { get; set; }
 
+        public string[] Scope { get; set; }
+
         public User() { }
 
-        public User(string user,string password, UserRoles role)
+        public User(string user,string password, UserRoles role, string[] scope)
         {
             UserName = user;
             Password = password;
             Role = role;
+            Scope = scope;
+
         }
     }
 

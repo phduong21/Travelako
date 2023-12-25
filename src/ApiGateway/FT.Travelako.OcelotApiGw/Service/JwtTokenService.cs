@@ -21,11 +21,11 @@ namespace FT.Travelako.OcelotApiGw.Service
         }
         private readonly List<User> _users = new()
     {
-        new("admin", "aDm1n", UserRoles.Administrator),
-        new("user01", "u$3r01", UserRoles.User),
-        new("buser01", "bu$3r01", UserRoles.Business)
+        new("admin", "aDm1n", UserRoles.Administrator,new[] {"coupon.all"}),
+        new("user01", "u$3r01", UserRoles.User,new[] {"coupon.read"}),
+        new("buser01", "bu$3r01", UserRoles.Business,new[] {"shoes.write"})
     };
-        public string? GenerateAuthToken(LoginModel loginModel)
+        public AuthenticationToken? GenerateAuthToken(LoginModel loginModel)
         {
             var user = _users.FirstOrDefault(u => u.UserName == loginModel.UserName
                                                && u.Password == loginModel.Password);
@@ -33,55 +33,56 @@ namespace FT.Travelako.OcelotApiGw.Service
             {
                 return null;
             }
-            //    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SecretKey.ToString()));
-            //    var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            //    var expirationTimeStamp = DateTime.Now.AddMinutes(5);
-            //    var claims = new List<Claim>
-            //{
-            //    new Claim(JwtRegisteredClaimNames.Name, user.UserName),
-            //    new Claim("role", user.Role.ToString()),
-            //};
-            //    var tokenOptions = new JwtSecurityToken(
-            //        issuer: "https://localhost:5002",
-            //        claims: claims,
-            //        expires: expirationTimeStamp,
-            //        signingCredentials: signingCredentials
-            //    );
-            //    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            //    var authenToken = new AuthenticationToken()
-            //    {
-            //    };
-
-            //    return new AuthenticationToken()
-            //    {
-            //        Name = tokenString,
-            //        Value = ((int)expirationTimeStamp.Subtract(DateTime.Now).TotalSeconds).ToString()
-            //    };
-
-            var jwtTokenHandler = new JwtSecurityTokenHandler();
-            var secretKeyBytes = Encoding.UTF8.GetBytes(_config.SecretKey.ToString());
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SecretKey.ToString()));
+            var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var expirationTimeStamp = DateTime.Now.AddMinutes(5);
+            var claims = new List<Claim>
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim("UserName", user.UserName),
-                    new Claim("Id", user.UserName.ToString()),
-                    new Claim("role", user.Role.ToString()),
-                    //Todo
-                    //roles
+                new Claim(JwtRegisteredClaimNames.Name, user.UserName),
+                new Claim("role", user.Role.ToString().ToLower()),
+                new Claim("scope", string.Join(" ", user.Scope))
+            };
+            var tokenOptions = new JwtSecurityToken(
+                issuer: "https://localhost:5002",
+                claims: claims,
+                expires: expirationTimeStamp,
+                signingCredentials: signingCredentials
+            );
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-                    new Claim("TokenId", Guid.NewGuid().ToString())
-
-                }),
-
-                Expires = DateTime.UtcNow.AddMinutes(5),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha512Signature),
+            return new AuthenticationToken()
+            {
+                Name = tokenString,
+                Value = ((int)expirationTimeStamp.Subtract(DateTime.Now).TotalSeconds).ToString()
             };
 
-            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            //var jwtTokenHandler = new JwtSecurityTokenHandler();
+            //var secretKeyBytes = Encoding.UTF8.GetBytes(_config.SecretKey.ToString());
+            //var tokenDescriptor = new SecurityTokenDescriptor
+            //{
+            //    Claims = new Dictionary<string, object>() {
+            //    {ClaimTypes.Role,user.Role.ToString().ToLower()}
+            //    },
+            //    Subject = new ClaimsIdentity(new[]
+            //    {
+            //        new Claim("role", user.Role.ToString().ToLower()),
+            //        //new Claim(ClaimTypes.Name, user.UserName),
+            //        //new Claim("UserName", user.UserName),
+            //        //new Claim("Id", user.UserName.ToString()),
+            //        ////Todo
+            //        ////roles
 
-            return jwtTokenHandler.WriteToken(token);
+            //        //new Claim("TokenId", Guid.NewGuid().ToString())
+
+            //    }),
+
+            //    Expires = DateTime.UtcNow.AddMinutes(5),
+            //    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha512Signature),
+            //};
+
+            //var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+
+            //return jwtTokenHandler.WriteToken(token);
         }
     }
 }
