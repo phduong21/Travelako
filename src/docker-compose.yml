@@ -24,6 +24,16 @@ services:
 
   # kibana:
   #   image: docker.elastic.co/kibana/kibana:7.9.2
+  booking_service:
+    container_name: bookingservice
+    image: ${DOCKER_REGISTRY-}fttravelakoservicesbookingapi
+    restart: on-failure
+    hostname: booking_service
+    build:
+      context: .
+      dockerfile: Services/FT.Travelako.Services.BookingAPI/Dockerfile
+    networks:
+      - common_network
 
   coupon_service:
     container_name: couponservice

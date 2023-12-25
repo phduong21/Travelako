@@ -25,6 +25,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT.Travelako.Services.TravelAPI", "Services\FT.Travelako.Services.TravelAPI\FT.Travelako.Services.TravelAPI.csproj", "{77E14775-1248-42BC-92D3-FACCBCDAEC6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT.Travelako.Services.BookingAPI", "Services\FT.Travelako.Services.BookingAPI\FT.Travelako.Services.BookingAPI.csproj", "{46297921-9045-4ACA-883B-F186159D21A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,14 @@ Global
 		{77E14775-1248-42BC-92D3-FACCBCDAEC6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77E14775-1248-42BC-92D3-FACCBCDAEC6C}.Release|x64.ActiveCfg = Release|Any CPU
 		{77E14775-1248-42BC-92D3-FACCBCDAEC6C}.Release|x64.Build.0 = Release|Any CPU
+		{46297921-9045-4ACA-883B-F186159D21A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46297921-9045-4ACA-883B-F186159D21A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46297921-9045-4ACA-883B-F186159D21A4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{46297921-9045-4ACA-883B-F186159D21A4}.Debug|x64.Build.0 = Debug|Any CPU
+		{46297921-9045-4ACA-883B-F186159D21A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46297921-9045-4ACA-883B-F186159D21A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46297921-9045-4ACA-883B-F186159D21A4}.Release|x64.ActiveCfg = Release|Any CPU
+		{46297921-9045-4ACA-883B-F186159D21A4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +119,7 @@ Global
 		{2BD438C6-E21E-4BAA-8A2C-3728F5407348} = {8ABBC3E0-26AA-4D88-9E76-FB05942392DA}
 		{5B9F5959-A8A8-4B2D-A826-ECDBBA4B0263} = {8ABBC3E0-26AA-4D88-9E76-FB05942392DA}
 		{77E14775-1248-42BC-92D3-FACCBCDAEC6C} = {8ABBC3E0-26AA-4D88-9E76-FB05942392DA}
+		{46297921-9045-4ACA-883B-F186159D21A4} = {8ABBC3E0-26AA-4D88-9E76-FB05942392DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B36DD108-D989-4C0C-A99D-683F8C6B3480}

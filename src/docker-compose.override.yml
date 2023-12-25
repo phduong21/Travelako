@@ -21,6 +21,25 @@ services:
         - "6379:6379"
         - "8001:8001"
 
+  booking_service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ServiceConfig__Id=Service.booking
+      - ServiceConfig__Name=Service
+      - ServiceConfig__DiscoveryAddress=http://consul:8500
+      - ServiceConfig__Address=booking_service
+      - ServiceConfig__Port=80
+      - ServiceConfig__HealthCheckEndPoint=healthcheck
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+    ports:
+      - "5600:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+    depends_on:
+      - consul
+      # - traveldb
+
   travel_service:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
