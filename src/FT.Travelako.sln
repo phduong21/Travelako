@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT.Travelako.Services.Trave
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT.Travelako.Services.BookingAPI", "Services\FT.Travelako.Services.BookingAPI\FT.Travelako.Services.BookingAPI.csproj", "{46297921-9045-4ACA-883B-F186159D21A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT.Travelako.Services.UserAPI", "Services\FT.Travelako.Services.UserAPI\FT.Travelako.Services.UserAPI.csproj", "{60DBE96C-D682-4F16-A48F-785162C91F65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,14 @@ Global
 		{46297921-9045-4ACA-883B-F186159D21A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46297921-9045-4ACA-883B-F186159D21A4}.Release|x64.ActiveCfg = Release|Any CPU
 		{46297921-9045-4ACA-883B-F186159D21A4}.Release|x64.Build.0 = Release|Any CPU
+		{60DBE96C-D682-4F16-A48F-785162C91F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DBE96C-D682-4F16-A48F-785162C91F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60DBE96C-D682-4F16-A48F-785162C91F65}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{60DBE96C-D682-4F16-A48F-785162C91F65}.Debug|x64.Build.0 = Debug|Any CPU
+		{60DBE96C-D682-4F16-A48F-785162C91F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60DBE96C-D682-4F16-A48F-785162C91F65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60DBE96C-D682-4F16-A48F-785162C91F65}.Release|x64.ActiveCfg = Release|Any CPU
+		{60DBE96C-D682-4F16-A48F-785162C91F65}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +130,7 @@ Global
 		{5B9F5959-A8A8-4B2D-A826-ECDBBA4B0263} = {8ABBC3E0-26AA-4D88-9E76-FB05942392DA}
 		{77E14775-1248-42BC-92D3-FACCBCDAEC6C} = {8ABBC3E0-26AA-4D88-9E76-FB05942392DA}
 		{46297921-9045-4ACA-883B-F186159D21A4} = {8ABBC3E0-26AA-4D88-9E76-FB05942392DA}
+		{60DBE96C-D682-4F16-A48F-785162C91F65} = {8ABBC3E0-26AA-4D88-9E76-FB05942392DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B36DD108-D989-4C0C-A99D-683F8C6B3480}
