@@ -27,7 +27,7 @@ namespace FT.Travelako.OcelotApiGw
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot()
-                .AddConsul()
+                //.AddConsul()
                 .AddCacheManager(x =>
                 {
                     x.WithDictionaryHandle();
@@ -53,11 +53,19 @@ namespace FT.Travelako.OcelotApiGw
                 {
                     await context.Response.WriteAsync("Api Gateway Running!");
                 });
-                endpoints.MapPost("/login", [AllowAnonymous] ([FromBody]LoginModel request, HttpContext http, IJwtTokenService tokenService) => tokenService.GenerateAuthToken(request)).WithName("Login");
+                endpoints.MapPost("/login", [AllowAnonymous] ([FromBody]LoginModel request, HttpContext http, IJwtTokenService tokenService) => new ApiResponse
+                {
+                    Success = true,
+                    Message = "Authenticate success",
+                    Data = tokenService.GenerateAuthToken(request)
+                }).WithName("Login");
             });
-            app.UseOcelot().Wait();
             app.UseAuthentication();
             app.UseAuthorization();
+            //app.UseOcelot().Wait();
+            app.UseOcelot();
+
+
         }
     }
 }

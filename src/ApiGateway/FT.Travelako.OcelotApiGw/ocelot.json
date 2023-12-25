@@ -1,37 +1,41 @@
 {
   "Routes": [
+    //{
+    //  "Servicename": "Service",
+    //  "DownstreamPathTemplate": "/{url}",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/{url}",
+    //  "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
+    //  "UseServiceDiscovery": true,
+    //  "RouteIsCaseSensitive": false,
+    //  "LoadBalancerOptions": {
+    //    "Type": "RoundRobin"
+    //  },
+    //  "QoSOptions": {
+    //    "ExceptionsAllowedBeforeBreaking": 3,
+    //    "DurationOfBreak": 5000,
+    //    "TimeoutValue": 2000
+    //  }
+    //},
     {
-      "Servicename": "Service",
-      "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/{url}",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
-      "UseServiceDiscovery": true,
-      "RouteIsCaseSensitive": false,
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 5000,
-        "TimeoutValue": 2000
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/coupon-api/coupon/GetCoupon",
+      //"Servicename": "Service",
+      "DownstreamPathTemplate": "/api/Coupon/GetCouponAll",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5219
+          "Host": "host.docker.internal",
+          "Port": 5200
         }
       ],
-      "UpstreamPathTemplate": "/GetCoupon",
+      "UpstreamPathTemplate": "/GetCouponAll",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
+        "AllowedScopes": [ "coupon.all", "coupon.read" ]
       },
+      //"RouteClaimsRequirement": {
+      //  "role": "administrator"
+      //},
       "RateLimitOptions": {
         "ClientWhitelist": [],
         "EnableRateLimiting": true,
@@ -41,17 +45,16 @@
       },
       "FileCacheOptions": { "TtlSeconds": 30 }
     }
-
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5010",
     "RequestIdKey": "OcRequestId",
-    "UseServiceDiscovery": true,
-    "ServiceDiscoveryProvider": {
-      "Host": "consul",
-      "Port": 8500,
-      "Type": "PollConsul",
-      "PollingInterval": 100
-    }
+    //"UseServiceDiscovery": true,
+    //"ServiceDiscoveryProvider": {
+    //  "Host": "consul",
+    //  "Port": 8500,
+    //  "Type": "PollConsul",
+    //  "PollingInterval": 100
+    //}
   }
 }

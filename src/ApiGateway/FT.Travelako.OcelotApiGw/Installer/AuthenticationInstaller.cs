@@ -38,7 +38,7 @@ namespace FT.Travelako.OcelotApiGw.Installer
                     // sign to token
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenConfiguration.SecretKey)),
-
+                    ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 };
             });
