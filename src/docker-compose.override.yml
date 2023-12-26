@@ -118,6 +118,21 @@ services:
       - consul
       # - traveldb 
 
+
+  web_app:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_HTTP_PORTS=80
+        - "ApiSettings:GatewayAddress=http://ocelotapigw"
+        - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+    depends_on:
+        - ocelotapigw
+        - authentication_service
+        - coupon_service
+        - travel_service
+    ports:
+        - "5800:80"
+
   ocelotapigw:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

@@ -91,6 +91,17 @@ services:
     networks:
       - common_network
 
+  web_app:
+    container_name: webapp
+    image: ${DOCKER_REGISTRY-}fttravelakowebapp
+    restart: on-failure
+    hostname: web_app
+    build:
+      context: .
+      dockerfile: UI/FT.Travelako.UI/Dockerfile
+    networks:
+      - common_network
+
 networks:
     common_network:
         driver: bridge
