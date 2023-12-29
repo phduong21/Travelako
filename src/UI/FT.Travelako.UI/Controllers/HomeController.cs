@@ -23,7 +23,19 @@ namespace FT.Travelako.UI.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [Route("about")]
+		public IActionResult AboutUs()
+		{
+			return View();
+		}
+
+		[Route("contact")]
+		public IActionResult ContactUs()
+		{
+			return View();
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
