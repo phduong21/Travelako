@@ -1303,6 +1303,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .slick1-dots {
+  height: 100px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -1312,7 +1313,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .slick1-dots li {
-  max-width: 190px;
+  width: 190px;
   position: relative;
   cursor: pointer;
   margin-right: 1px;
@@ -1320,6 +1321,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 .slick1-dots li img {
   width: 100%;
+  height: 100px;
 }
 
 .caption-dots-slick1 {
