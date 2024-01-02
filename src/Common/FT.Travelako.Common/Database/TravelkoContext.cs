@@ -5,7 +5,7 @@ namespace FT.Travelako.Common.Database
 {
     public class TravelkoContext : DbContext
     {
-        private readonly string _connectionString = "Server=tcp:travelako-server.database.windows.net,1433;Initial Catalog=travelako;Persist Security Info=False;User ID=admin-travelako;Password=123456aA@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private readonly string _connectionString = "Server=tcp:travelako-server.database.windows.net,1433;Initial Catalog=travelako;Persist Security Info=False;User ID=admin-travelako;Password=123456aA@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserCoupon> UserCoupons { get; set; }
