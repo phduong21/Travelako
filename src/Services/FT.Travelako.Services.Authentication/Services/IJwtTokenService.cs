@@ -1,7 +1,7 @@
-﻿using FT.Travelako.OcelotApiGw.Models;
+﻿using FT.Travelako.Services.Authentication.Model;
 using Microsoft.AspNetCore.Authentication;
 
-namespace FT.Travelako.OcelotApiGw.Service
+namespace FT.Travelako.Services.Authentication.Services
 {
     public interface IJwtTokenService
     {
