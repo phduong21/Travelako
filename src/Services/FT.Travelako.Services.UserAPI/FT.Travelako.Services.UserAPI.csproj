@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\FT.Travelako.Common\FT.Travelako.Common.csproj" />
+    <ProjectReference Include="..\..\Common\FT.Travelako.Service.Core\FT.Travelako.Service.Core.csproj" />
   </ItemGroup>
 
 </Project>
