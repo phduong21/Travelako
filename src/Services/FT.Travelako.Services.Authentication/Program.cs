@@ -5,7 +5,7 @@ using FT.Travelako.Services.CouponAPI.Installer;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
+builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 builder.Services.AddCors();

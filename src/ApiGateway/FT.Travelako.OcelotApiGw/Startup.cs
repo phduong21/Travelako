@@ -27,7 +27,7 @@ namespace FT.Travelako.OcelotApiGw
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot()
-                //.AddConsul()
+                .AddConsul()
                 .AddCacheManager(x =>
                 {
                     x.WithDictionaryHandle();
@@ -61,9 +61,7 @@ namespace FT.Travelako.OcelotApiGw
                 }).WithName("Login");
             });
             app.UseAuthentication();
-            app.UseAuthorization();
-            //app.UseOcelot().Wait();
-            app.UseOcelot();
+            app.UseOcelot().Wait();
 
 
         }

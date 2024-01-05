@@ -8,7 +8,7 @@ using FT.Travelako.Service.Core.ServiceDiscovery;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
+builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(opts =>
 {

@@ -1,14 +1,13 @@
 using AutoMapper;
 using FT.Travelako.Services.BookingAPI;
-using FT.Travelako.Services.BookingAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddDbContext<AppDbContext>(opts =>
-{
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
-});
+//builder.Services.AddDbContext<AppDbContext>(opts =>
+//{
+//    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+//});
 builder.Services.AddCors();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 IMapper mapper = MappingSettings.RegisterMap().CreateMapper();
