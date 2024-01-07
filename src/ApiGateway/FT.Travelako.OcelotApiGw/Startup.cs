@@ -46,7 +46,9 @@ namespace FT.Travelako.OcelotApiGw
                     await context.Response.WriteAsync("Api Gateway Running!");
                 });
             });
+            app.UseAuthentication();
             app.UseOcelot().Wait();
+
 
         }
     }
