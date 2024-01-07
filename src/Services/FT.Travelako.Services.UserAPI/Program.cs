@@ -10,7 +10,7 @@ builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<UserAppDbContext>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("UserAuthenDB"));
 });
 builder.Services.AddCors();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

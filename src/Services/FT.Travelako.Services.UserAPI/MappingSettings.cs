@@ -12,7 +12,7 @@ namespace FT.Travelako.Services.UserAPI
             var mappingConfig = new MapperConfiguration(c =>
             {
                 c.CreateMap<User, UserDTO>().ForMember(x => x.RoleName,
-                    opts => opts.MapFrom(u => u.Role.RoleName));
+                    opts => opts.MapFrom(u => u.Role));
                 c.CreateMap<UserDTO, User>();
             });
 
