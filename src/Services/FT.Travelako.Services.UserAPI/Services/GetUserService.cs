@@ -22,7 +22,7 @@ namespace FT.Travelako.Services.UserAPI.Services
             {
                 IsSuccess = false
             };
-            if(model is null)
+            if(model.Id is null)
             {
                 result.Message = "Id cannot be null";
                 return result;

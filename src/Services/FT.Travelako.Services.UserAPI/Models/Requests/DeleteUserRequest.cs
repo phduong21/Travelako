@@ -4,6 +4,6 @@ namespace FT.Travelako.Services.UserAPI.Models.Requests
 {
     public class DeleteUserRequest : IBaseRequestModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
     }
 }
