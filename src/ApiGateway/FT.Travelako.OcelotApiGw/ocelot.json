@@ -16,7 +16,7 @@
         "DurationOfBreak": 5000,
         "TimeoutValue": 2000
       }
-    },
+    }
 
   ],
   "GlobalConfiguration": {

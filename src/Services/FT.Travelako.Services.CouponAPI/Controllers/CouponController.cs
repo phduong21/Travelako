@@ -16,7 +16,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
          
         }
 
-        [HttpGet]
+        [HttpGet("GetCoupon")]
         public async Task<GenericAPIResponse> GetCoupon([FromRoute] GetCouponRequestDTO? model)
         {
             return await ExecutionService<GetCouponRequestDTO, GetCouponService>(model);
@@ -24,6 +24,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
 
 
         [HttpGet("GetCouponAll")]
+        [Authorize(Roles = "administrator")]
         public async Task<GenericAPIResponse> GetCouponAll([FromRoute] GetCouponRequestDTO? model)
         {
             return await ExecutionService<GetCouponRequestDTO, GetCouponService>(model);
