@@ -1,10 +1,28 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using FT.Travelako.Services.Authentication.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace FT.Travelako.Services.Authentication.Data
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : DbContext
     {
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                   .SetBasePath(Directory.GetCurrentDirectory())
+                   .AddJsonFile("appsettings.json")
+                   .Build();
+                var connectionString = configuration.GetConnectionString("UserAuthenDB");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+        public AppDbContext() { }
+        public DbSet<User> Users { get; set; }
     }
 }

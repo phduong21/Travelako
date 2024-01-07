@@ -18,20 +18,8 @@ namespace FT.Travelako.Services.Authentication.Services
             _logger = logger;
 
         }
-        private readonly List<User> _users = new()
-    {
-        new("admin", "aDm1n", UserRoles.Administrator),
-        new("user01", "u$3r01", UserRoles.User),
-        new("buser01", "bu$3r01", UserRoles.Business)
-    };
-        public AuthenticationToken? GenerateAuthToken(LoginModel loginModel)
+        public AuthenticationToken? GenerateAuthToken(LoginModel user)
         {
-            var user = _users.FirstOrDefault(u => u.UserName == loginModel.UserName
-                                               && u.Password == loginModel.Password);
-            if (user is null)
-            {
-                return null;
-            }
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SecretKey.ToString()));
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var expirationTimeStamp = DateTime.Now.AddMinutes(5);
@@ -41,7 +29,7 @@ namespace FT.Travelako.Services.Authentication.Services
                 new Claim("roles", user.Role.ToString().ToLower())
             };
             var tokenOptions = new JwtSecurityToken(
-                issuer: "https://localhost:5002",
+                issuer: "",
                 claims: claims,
                 expires: expirationTimeStamp,
                 signingCredentials: signingCredentials

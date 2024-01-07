@@ -39,7 +39,6 @@ app.MapPost("/login", [AllowAnonymous] ([FromBody] LoginModel request, HttpConte
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

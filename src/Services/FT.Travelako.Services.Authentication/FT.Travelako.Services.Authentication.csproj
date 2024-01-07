@@ -21,7 +21,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="StackExchange.Redis" Version="2.7.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -29,6 +31,10 @@
     <ProjectReference Include="..\..\Common\FT.Travelako.Common.Logging\FT.Travelako.Common.Logging.csproj" />
     <ProjectReference Include="..\..\Common\FT.Travelako.Common\FT.Travelako.Common.csproj" />
     <ProjectReference Include="..\..\Common\FT.Travelako.Service.Core\FT.Travelako.Service.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cache\" />
   </ItemGroup>
 
 </Project>
