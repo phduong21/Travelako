@@ -43,7 +43,7 @@ services:
     hostname: booking_service
     build:
       context: .
-      dockerfile: Services/FT.Travelako.Services.BookingAPI/Dockerfile
+      dockerfile: Services/Booking/Booking.API/Dockerfile
     networks:
       - common_network
 
