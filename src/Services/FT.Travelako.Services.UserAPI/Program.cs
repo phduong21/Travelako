@@ -8,7 +8,7 @@ using FT.Travelako.Services.UserAPI.Installer;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddDbContext<AppDbContext>(opts =>
+builder.Services.AddDbContext<UserAppDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
