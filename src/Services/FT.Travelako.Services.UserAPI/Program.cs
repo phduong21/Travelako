@@ -4,13 +4,15 @@ using FT.Travelako.Services.UserAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using FT.Travelako.Service.Core.ServiceDiscovery;
 using FT.Travelako.Services.UserAPI.Installer;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddDbContext<AppDbContext>(opts =>
+builder.Services.AddDbContext<UserAppDbContext>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("UserAuthenDB"),
+        b => b.MigrationsAssembly("FT.Travelako.Services.UserAPI"));
 });
 builder.Services.AddCors();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
@@ -19,7 +21,11 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
