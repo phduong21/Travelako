@@ -1,8 +1,9 @@
-﻿using FT.Travelako.Common.Models;
+﻿using FT.Travelako.Common.BaseInterface;
+using FT.Travelako.Common.Models;
 
-namespace FT.Travelako.Services.UserAPI.Models.DTOs
+namespace FT.Travelako.Services.UserAPI.Models.Requests
 {
-    public class CreateUserDTO
+    public class CreateUserRequest : IBaseRequestModel
     {
         public string UserName { get; set; }
         public string Email { get; set; }

@@ -8,21 +8,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FT.Travelako.Services.UserAPI.Services
 {
-    public class GetUserService : BaseExecutionService<GetUserRequest>
+    public class DeleteUserService : BaseExecutionService<DeleteUserRequest>
     {
         private readonly IMapper _mapper;
-        public GetUserService(IMapper mapper) 
+        public DeleteUserService(IMapper mapper)
         {
             _mapper = mapper;
         }
 
-        public override async Task<GenericAPIResponse> ExecuteApi(GetUserRequest model)
+        public override async Task<GenericAPIResponse> ExecuteApi(DeleteUserRequest model)
         {
             var result = new GenericAPIResponse()
             {
                 IsSuccess = false
             };
-            if(model is null)
+            if (model is null)
             {
                 result.Message = "Id cannot be null";
                 return result;
@@ -31,21 +31,19 @@ namespace FT.Travelako.Services.UserAPI.Services
             var context = new UserAppDbContext();
             var user = await context.Users
                 .Include(r => r.Role)
-                .Where(x => x.Id.ToString().ToLower() == model.Id)
+                .Where(x => x.Id.ToString().ToLower() == model.Id.ToString())
                 .SingleOrDefaultAsync();
 
-            if(user == null)
+            if (user is not null)
             {
-                
+                context.Users.Remove(user);
+                await context.SaveChangesAsync();
             }
-            UserDTO data = _mapper.Map<UserDTO>(user);
+            
 
-            return  new GenericAPIResponse
-            {
-                IsSuccess = true,
-                Result = data
-            };
+            return new GenericAPIResponse();
         }
 
     }
+
 }

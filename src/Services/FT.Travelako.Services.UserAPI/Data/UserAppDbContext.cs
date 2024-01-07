@@ -10,6 +10,19 @@ namespace FT.Travelako.Services.UserAPI.Data
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                   .SetBasePath(Directory.GetCurrentDirectory())
+                   .AddJsonFile("appsettings.json")
+                   .Build();
+                var connectionString = configuration.GetConnectionString("UserAuthenDB");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+        public UserAppDbContext() { }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
     }
