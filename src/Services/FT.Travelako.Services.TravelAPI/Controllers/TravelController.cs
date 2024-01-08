@@ -16,17 +16,10 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
          
         }
 
-        [HttpGet]
-        public async Task<GenericAPIResponse> GetAllTravel([FromRoute] GetTravelRequestDTO? model)
+        [HttpGet("GetTravel")]
+        public async Task<GenericAPIResponse> GetTravel([FromQuery] GetTravelRequestDTO? model)
         {
-            return await ExecutionService<GetTravelRequestDTO, GetTravelService>(model);
-        }
-
-
-        [HttpGet("getAllTravel")]
-        public async Task<GenericAPIResponse> GetTravel([FromRoute] GetTravelRequestDTO? model)
-        {
-            return await ExecutionService<GetTravelRequestDTO, GetTravelService>(model);
+            return await ExecutionService<GetTravelRequestDTO, DeleteTravelService>(model);
         }
     }
 }

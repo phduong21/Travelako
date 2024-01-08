@@ -4,6 +4,7 @@ using FT.Travelako.Services.TravelAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using FT.Travelako.Service.Core.ServiceDiscovery;
 using FT.Travelako.Services.TravelAPI.Installer;
+using FT.Travelako.Services.TravelAPI.Repositories;
 
 namespace FT.Travelako.Services.TravelAPI
 {
@@ -16,8 +17,9 @@ namespace FT.Travelako.Services.TravelAPI
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddDbContext<AppDbContext>(opts =>
             {
-                opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+                opts.UseSqlServer(builder.Configuration.GetConnectionString("TravelDB"));
             });
+            builder.Services.AddScoped<ITravelRepository, TravelRepository>();
             builder.Services.AddCors();
             builder.Services.AddRouting(options => options.LowercaseUrls = true);
             IMapper mapper = MappingSettings.RegisterMap().CreateMapper();

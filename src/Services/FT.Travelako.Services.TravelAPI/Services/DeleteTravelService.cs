@@ -1,16 +1,16 @@
-﻿using FT.Travelako.Common.BaseImplementation;
-using FT.Travelako.Common.BaseModels;
+﻿using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Services.TravelAPI.Models.DTOs;
 using FT.Travelako.Services.TravelAPI.Repositories;
 
 namespace FT.Travelako.Services.TravelAPI.Services
 {
-    public class GetTravelService : BaseService<GetTravelRequestDTO>
+    public class DeleteTravelService : BaseService<DeleteTravelRequestDTO>
     {
-        public GetTravelService(ITravelRepository travelRepository) : base(travelRepository)
+        public DeleteTravelService(ITravelRepository travelRepository) : base(travelRepository)
         {
         }
-        public override async Task<GenericAPIResponse> ExecuteApi(GetTravelRequestDTO model)
+
+        public override async Task<GenericAPIResponse> ExecuteApi(DeleteTravelRequestDTO model)
         {
             var result = new GenericAPIResponse();
             if (model != null && !string.IsNullOrWhiteSpace(model.Id))
