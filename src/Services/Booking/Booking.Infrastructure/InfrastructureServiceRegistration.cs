@@ -4,6 +4,8 @@ using Booking.Domain.Entities;
 using Booking.Infrastructure.Mail;
 using Booking.Infrastructure.Persistence;
 using Booking.Infrastructure.Repositories;
+using FT.Travelako.Common.Database;
+using FT.Travelako.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

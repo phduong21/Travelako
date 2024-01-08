@@ -6,6 +6,7 @@ using Serilog;
 using FT.Travelako.Common.Logging;
 using Booking.Infrastructure.Persistence;
 using Ordering.API.Extensions;
+using FT.Travelako.Common.Database;
 
 namespace Booking.API
 {

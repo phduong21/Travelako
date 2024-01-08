@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Booking.Application.Contracts.Persistence;
+using Booking.Application.Models;
 using Booking.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
 {
-    public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, string>
+    public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, ApiResult<string>>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
@@ -24,7 +25,7 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<string> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResult<string>> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
             var orderEntity = _mapper.Map<Order>(request);
             var newOrder = await _orderRepository.AddAsync(orderEntity);
@@ -33,7 +34,7 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
             
             //await SendMail(newOrder);
 
-            return newOrder.Id.ToString();
+            return ApiResult<string>.Success(newOrder.Id.ToString());
         }
 
         //private async Task SendMail(Order order)

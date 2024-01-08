@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\FT.Travelako.Common\FT.Travelako.Common.csproj" />
+  </ItemGroup>
+
 </Project>

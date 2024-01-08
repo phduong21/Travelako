@@ -1,11 +1,11 @@
-﻿using Booking.Domain.Common;
+﻿using FT.Travelako.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Booking.Application.Contracts.Persistence
+namespace FT.Travelako.Common.Repositories
 {
     public interface IAsyncRepository<T> where T : EntityBase
     {
