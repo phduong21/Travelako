@@ -1,17 +1,9 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
 using Ocelot.Cache.CacheManager;
 using Ocelot.Provider.Polly;
-using System.Configuration;
 using FT.Travelako.OcelotApiGw.Installer;
-using FT.Travelako.OcelotApiGw.Service;
-using FT.Travelako.OcelotApiGw.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using FT.Travelako.OcelotApiGw.Configuration;
 
 namespace FT.Travelako.OcelotApiGw
@@ -27,7 +19,7 @@ namespace FT.Travelako.OcelotApiGw
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot()
-                //.AddConsul()
+                .AddConsul()
                 .AddCacheManager(x =>
                 {
                     x.WithDictionaryHandle();
@@ -53,17 +45,9 @@ namespace FT.Travelako.OcelotApiGw
                 {
                     await context.Response.WriteAsync("Api Gateway Running!");
                 });
-                endpoints.MapPost("/login", [AllowAnonymous] ([FromBody]LoginModel request, HttpContext http, IJwtTokenService tokenService) => new ApiResponse
-                {
-                    Success = true,
-                    Message = "Authenticate success",
-                    Data = tokenService.GenerateAuthToken(request)
-                }).WithName("Login");
             });
             app.UseAuthentication();
-            app.UseAuthorization();
-            //app.UseOcelot().Wait();
-            app.UseOcelot();
+            app.UseOcelot().Wait();
 
 
         }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FT.Travelako.Services.UserAPI.Models;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
+using FT.Travelako.Services.UserAPI.Models.Requests;
 
 namespace FT.Travelako.Services.UserAPI
 {
@@ -10,8 +11,9 @@ namespace FT.Travelako.Services.UserAPI
         {
             var mappingConfig = new MapperConfiguration(c =>
             {
-                c.CreateMap<User, GetUserRequestDTO>();
-                c.CreateMap<GetUserRequestDTO, User>();
+                c.CreateMap<User, UserDTO>().ForMember(x => x.RoleName,
+                    opts => opts.MapFrom(u => u.Role));
+                c.CreateMap<UserDTO, User>();
             });
 
             return mappingConfig;

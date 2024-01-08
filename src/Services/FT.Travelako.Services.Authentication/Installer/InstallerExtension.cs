@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FT.Travelako.Services.CouponAPI.Installer
+﻿namespace FT.Travelako.Services.Authentication.Installer
 {
     public static class InstallerExtension
     {

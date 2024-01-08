@@ -3,7 +3,7 @@
     public class Coupon
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int Discount { get; set; }
         public int Condition { get; set; }
         public Guid CreatedBy { get; set; }

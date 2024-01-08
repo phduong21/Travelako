@@ -1,60 +1,33 @@
 {
   "Routes": [
-    //{
-    //  "Servicename": "Service",
-    //  "DownstreamPathTemplate": "/{url}",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/{url}",
-    //  "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
-    //  "UseServiceDiscovery": true,
-    //  "RouteIsCaseSensitive": false,
-    //  "LoadBalancerOptions": {
-    //    "Type": "RoundRobin"
-    //  },
-    //  "QoSOptions": {
-    //    "ExceptionsAllowedBeforeBreaking": 3,
-    //    "DurationOfBreak": 5000,
-    //    "TimeoutValue": 2000
-    //  }
-    //},
     {
-      //"Servicename": "Service",
-      "DownstreamPathTemplate": "/api/Coupon/GetCouponAll",
+      "Servicename": "Service",
+      "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": 5200
-        }
-      ],
-      "UpstreamPathTemplate": "/GetCouponAll",
-      "UpstreamHttpMethod": [ "GET" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [ "coupon.all", "coupon.read" ]
+      "UpstreamPathTemplate": "/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
+      "UseServiceDiscovery": true,
+      "RouteIsCaseSensitive": false,
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       },
-      //"RouteClaimsRequirement": {
-      //  "role": "administrator"
-      //},
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "5s",
-        "PeriodTimespan": 1,
-        "Limit": 1
-      },
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5000,
+        "TimeoutValue": 2000
+      }
     }
+
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5010",
     "RequestIdKey": "OcRequestId",
-    //"UseServiceDiscovery": true,
-    //"ServiceDiscoveryProvider": {
-    //  "Host": "consul",
-    //  "Port": 8500,
-    //  "Type": "PollConsul",
-    //  "PollingInterval": 100
-    //}
+    "UseServiceDiscovery": true,
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "PollConsul",
+      "PollingInterval": 100
+    }
   }
 }
