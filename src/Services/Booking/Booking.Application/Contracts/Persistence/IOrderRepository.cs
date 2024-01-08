@@ -1,4 +1,5 @@
 ﻿using Booking.Domain.Entities;
+using FT.Travelako.Common.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

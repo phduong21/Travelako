@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Booking.Domain.Common
+namespace FT.Travelako.Common.Entities
 {
     public abstract class EntityBase
     {

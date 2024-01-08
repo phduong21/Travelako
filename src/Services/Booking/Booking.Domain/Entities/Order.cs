@@ -1,4 +1,5 @@
 ﻿using Booking.Domain.Common;
+using FT.Travelako.Common.Entities;
 
 namespace Booking.Domain.Entities
 {
