@@ -6,7 +6,8 @@
       "serviceActions": {
         "ft.travelako.ocelotapigw": "StartDebugging",
         "ft.travelako.services.authentication": "StartDebugging",
-        "ft.travelako.services.couponapi": "StartDebugging"
+        "ft.travelako.services.couponapi": "StartDebugging",
+        "booking.api": "StartDebugging"
       }
     }
   }
