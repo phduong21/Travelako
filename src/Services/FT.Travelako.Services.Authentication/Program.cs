@@ -1,9 +1,8 @@
 using FT.Travelako.Service.Core.ServiceDiscovery;
 using FT.Travelako.Services.Authentication.Installer;
-using FT.Travelako.Services.Authentication.Model;
-using FT.Travelako.Services.Authentication.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using FT.Travelako.Services.Authentication.Data;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddDbContext<AppDbContext>(opts =>
+{
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("UserAuthenDB"));
+});
 builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
@@ -29,13 +32,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.MapPost("/login", [AllowAnonymous] ([FromBody] LoginModel request, HttpContext http, IJwtTokenService tokenService) => new ApiResponse
-{
-    Success = true,
-    Message = "Authenticate success",
-    Data = tokenService.GenerateAuthToken(request)
-}).WithName("Login");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

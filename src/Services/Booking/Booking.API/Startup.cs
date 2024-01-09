@@ -1,14 +1,4 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Booking.Infrastructure;
-using Booking.Application;
 using Booking.API.Installer;
-using Booking.API.Configuration;
 
 namespace Booking.API
 {

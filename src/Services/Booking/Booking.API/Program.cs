@@ -16,13 +16,13 @@ namespace Booking.API
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDatabase<BookingContext>((context, services) =>
-                    {
-                        var logger = services.GetService<ILogger<BookingContextSeed>>();
-                        BookingContextSeed
-                            .SeedAsync(context, logger)
-                            .Wait();
-                    })
+                //.MigrateDatabase<BookingContext>((context, services) =>
+                //    {
+                //        var logger = services.GetService<ILogger<BookingContextSeed>>();
+                //        BookingContextSeed
+                //            .SeedAsync(context, logger)
+                //            .Wait();
+                //    })
                 .Run();
         }
 

@@ -26,6 +26,7 @@ namespace FT.Travelako.Services.Authentication.Services
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Name, user.UserName),
+                new Claim("id", user.Id),
                 new Claim("roles", user.Role.ToString().ToLower())
             };
             var tokenOptions = new JwtSecurityToken(
