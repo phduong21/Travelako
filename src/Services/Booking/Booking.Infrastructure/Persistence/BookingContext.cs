@@ -1,12 +1,13 @@
 ﻿namespace Booking.Infrastructure.Persistence
 {
-    using Booking.Domain.Common;
     using Booking.Domain.Entities;
     using Booking.Infrastructure.Persistence.EntityConfigurations;
+    using FT.Travelako.Common.Database;
+    using FT.Travelako.Common.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
 
-    public class BookingContext : DbContext
+    public class BookingContext : BaseDbContext
     {
         public BookingContext(DbContextOptions<BookingContext> options) : base(options)
         {

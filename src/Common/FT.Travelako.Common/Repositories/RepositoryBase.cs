@@ -1,6 +1,5 @@
-﻿using Booking.Application.Contracts.Persistence;
-using Booking.Domain.Common;
-using Booking.Infrastructure.Persistence;
+﻿using FT.Travelako.Common.Database;
+using FT.Travelako.Common.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +7,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Booking.Infrastructure.Repositories
+namespace FT.Travelako.Common.Repositories
 {
     public class RepositoryBase<T> : IAsyncRepository<T> where T : EntityBase
     {
-        protected readonly BookingContext _dbContext;
+        protected readonly BaseDbContext _dbContext;
 
-        public RepositoryBase(BookingContext dbContext)
+        public RepositoryBase(BaseDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }

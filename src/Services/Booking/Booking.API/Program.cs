@@ -6,6 +6,7 @@ using Serilog;
 using FT.Travelako.Common.Logging;
 using Booking.Infrastructure.Persistence;
 using Ordering.API.Extensions;
+using FT.Travelako.Common.Database;
 
 namespace Booking.API
 {
@@ -15,13 +16,13 @@ namespace Booking.API
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDatabase<BookingContext>((context, services) =>
-                    {
-                        var logger = services.GetService<ILogger<BookingContextSeed>>();
-                        BookingContextSeed
-                            .SeedAsync(context, logger)
-                            .Wait();
-                    })
+                //.MigrateDatabase<BookingContext>((context, services) =>
+                //    {
+                //        var logger = services.GetService<ILogger<BookingContextSeed>>();
+                //        BookingContextSeed
+                //            .SeedAsync(context, logger)
+                //            .Wait();
+                //    })
                 .Run();
         }
 
