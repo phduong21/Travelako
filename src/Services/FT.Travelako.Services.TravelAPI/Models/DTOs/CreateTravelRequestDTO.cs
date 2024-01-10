@@ -2,8 +2,8 @@
 
 namespace FT.Travelako.Services.TravelAPI.Models.DTOs
 {
-    public class GetTravelRequestDTO : IBaseRequestModel
+    public class CreateTravelRequestDTO : IBaseRequestModel
     {
-        public string? Id { get; set; }
+        public string Name { get; set; }
     }
 }
