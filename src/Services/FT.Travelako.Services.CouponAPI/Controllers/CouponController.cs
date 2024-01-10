@@ -20,7 +20,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         }
 
         [HttpGet("GetCoupon")]
-        [AuthorizeCouponFilter]
+        [AuthorizeFTFilter]
         [Authorize(Roles = "administrator")]
         public async Task<GenericAPIResponse> GetCoupon([FromRoute] GetCouponRequestDTO? model)
         {

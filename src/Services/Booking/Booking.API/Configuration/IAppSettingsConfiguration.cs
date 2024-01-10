@@ -1,8 +1,8 @@
 ﻿namespace Booking.API.Configuration
 {
-    public class AppSettingsConfiguration
+    public interface IAppSettingsConfiguration
     {
         public string? SecretKey { get; set; }
-        public string? SecretKey { get; set; }
+        public string? RedisConnection { get; set; }
     }
 }

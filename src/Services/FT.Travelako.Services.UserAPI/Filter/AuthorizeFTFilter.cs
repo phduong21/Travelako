@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace Booking.API.Filter
+namespace FT.Travelako.Services.UserAPI.Filter
 {
-    public class AuthorizeCouponFilter : Attribute, IAuthorizationFilter
+    public class AuthorizeFTFilter : Attribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
