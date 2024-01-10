@@ -1,4 +1,4 @@
-﻿namespace Booking.Application.Exceptions
+﻿namespace Coupon.Application.Exceptions
 {
     public class NotFoundException : ApplicationException
     {

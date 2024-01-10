@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using Booking.Application.Contracts.Persistence;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
 {

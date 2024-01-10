@@ -12,7 +12,7 @@ builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("CouponDB"));
 });
 builder.Services.AddCors();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
