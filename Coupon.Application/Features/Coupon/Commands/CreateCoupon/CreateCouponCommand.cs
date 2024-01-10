@@ -14,5 +14,7 @@ namespace Coupon.Application.Features.Coupon.Commands.CreateCoupon
         public int Condition { get; set; }
 
         public string? CreatedBy { get; set; }
+
+        public int TimeExpried { get; set; }
     }
 }

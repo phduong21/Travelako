@@ -20,5 +20,7 @@ namespace Coupon.Application.Features.Coupon.Commands.UpdateCoupon
         public int Condition { get; set; }
 
         public string? LastModifiedBy { get; set; }
+
+        public int TimeExpried { get; set; }
     }
 }

@@ -40,5 +40,6 @@ namespace FT.Travelako.Services.CouponAPI.Data
             return base.SaveChangesAsync(cancellationToken);
         }
         public DbSet<Coupons> Coupons { get; set; } 
+        public DbSet<CouponUser> CouponsUser { get; set; } 
     }
 }

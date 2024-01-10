@@ -13,5 +13,6 @@ namespace Coupon.Application.Features.Coupon.Queries.GetListCoupons
         public string Code { get; set; }
         public int Discount { get; set; }
         public int Condition { get; set; }
+        public TimeSpan TimeExpried { get; set; }
     }
 }
