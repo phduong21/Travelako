@@ -8,13 +8,13 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Services/FT.Travelako.Services.CouponAPI/FT.Travelako.Services.CouponAPI.csproj", "Services/FT.Travelako.Services.CouponAPI/"]
+COPY ["Services/Coupon/FT.Travelako.Services.CouponAPI/FT.Travelako.Services.CouponAPI.csproj", "Services/Coupon/FT.Travelako.Services.CouponAPI/"]
 COPY ["Common/FT.Travelako.Common.Logging/FT.Travelako.Common.Logging.csproj", "Common/FT.Travelako.Common.Logging/"]
 COPY ["Common/FT.Travelako.Common/FT.Travelako.Common.csproj", "Common/FT.Travelako.Common/"]
 COPY ["Common/FT.Travelako.Service.Core/FT.Travelako.Service.Core.csproj", "Common/FT.Travelako.Service.Core/"]
-RUN dotnet restore "./Services/FT.Travelako.Services.CouponAPI/./FT.Travelako.Services.CouponAPI.csproj"
+RUN dotnet restore "./Services/Coupon/FT.Travelako.Services.CouponAPI/./FT.Travelako.Services.CouponAPI.csproj"
 COPY . .
-WORKDIR "/src/Services/FT.Travelako.Services.CouponAPI"
+WORKDIR "/src/Services/Coupon/FT.Travelako.Services.CouponAPI"
 RUN dotnet build "./FT.Travelako.Services.CouponAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

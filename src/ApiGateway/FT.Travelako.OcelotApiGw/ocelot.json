@@ -17,6 +17,21 @@
         "TimeoutValue": 2000
       }
     }
+    //},
+    //{
+    //  "Servicename": "Authentication",
+    //  "DownstreamPathTemplate": "/{url}",
+    //  "DownstreamScheme": "http",
+    //  "UpstreamPathTemplate": "/authentication/{url}",
+    //  "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
+    //  "UseServiceDiscovery": true,
+    //  "RouteIsCaseSensitive": false,
+    //  "QoSOptions": {
+    //    "ExceptionsAllowedBeforeBreaking": 3,
+    //    "DurationOfBreak": 5000,
+    //    "TimeoutValue": 2000
+    //  }
+    //}
     //{
     //  "Servicename": "UserService",
     //  "DownstreamPathTemplate": "/{url}",
