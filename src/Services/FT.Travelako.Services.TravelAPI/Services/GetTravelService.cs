@@ -12,51 +12,58 @@ namespace FT.Travelako.Services.TravelAPI.Services
 
 		public override async Task<GenericAPIResponse> ExecuteApi(GetTravelRequestDTO model)
 		{
-			var result = new GenericAPIResponse();
-			if (model.Id == null && model.UserId == null)
+			try
 			{
-				result.Result = await _travelRepository.GetAllAsync();
-				result.IsSuccess = true;
-				result.Message = "Success";
-			}
-			else
-			{
-				if (!string.IsNullOrWhiteSpace(model.UserId))
+				var result = new GenericAPIResponse();
+				if (model == null && model?.Id == null && model?.UserId == null)
 				{
-					var travel = await _travelRepository.GetAsync(x => x.CreatedBy == model.UserId);
-					if (travel != null)
-					{
-						result.Result = travel;
-						result.IsSuccess = true;
-						result.Message = "Suucess";
-						return result;
-					}
-					else
-					{
-						result.Result = null;
-						result.IsSuccess = true;
-						result.Message = $"Do not exist travel {model.Id}";
-					}
+					result.Result = await _travelRepository.GetAllAsync();
+					result.IsSuccess = true;
+					result.Message = "Success";
 				}
 				else
 				{
-					var travel = await _travelRepository.GetByIdAsync(model?.Id);
-					if (travel != null)
+					if (!string.IsNullOrWhiteSpace(model.UserId))
 					{
-						result.Result = travel;
-						result.IsSuccess = true;
-						result.Message = "Suucess";
-						return result;
+						var travel = await _travelRepository.GetAsync(x => x.CreatedBy == model.UserId);
+						if (travel != null)
+						{
+							result.Result = travel;
+							result.IsSuccess = true;
+							result.Message = "Suucess";
+							return result;
+						}
+						else
+						{
+							result.Result = null;
+							result.IsSuccess = true;
+							result.Message = $"Do not exist travel {model.Id}";
+						}
 					}
 					else
 					{
-						result.Result = null;
-						result.IsSuccess = true;
-						result.Message = $"Do not exist travel {model.Id}";
+						var travel = await _travelRepository.GetByIdAsync(model.Id);
+						if (travel != null)
+						{
+							result.Result = travel;
+							result.IsSuccess = true;
+							result.Message = "Suucess";
+							return result;
+						}
+						else
+						{
+							result.Result = null;
+							result.IsSuccess = true;
+							result.Message = $"Do not exist travel {model.Id}";
+						}
 					}
 				}
+				return result;
 			}
-			return result;
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
 		}
 	}
 }
