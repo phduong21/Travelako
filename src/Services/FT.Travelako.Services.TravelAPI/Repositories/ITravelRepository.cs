@@ -1,17 +1,9 @@
-﻿using FT.Travelako.Services.TravelAPI.Models;
+﻿using FT.Travelako.Common.Repositories;
+using Travel = FT.Travelako.Services.TravelAPI.Models.Travel;
 
 namespace FT.Travelako.Services.TravelAPI.Repositories
 {
-    public interface ITravelRepository
-    {
-        Task<IQueryable<Travel>> GetAll();
-
-        Task<Travel> GetById(Guid id);
-
-        Task Create(Travel entity);
-
-        Task Update(Guid id, Travel entity);
-
-        Task Delete(Guid id);
-    }
+	public interface ITravelRepository : IAsyncRepository<Travel>
+	{
+	}
 }

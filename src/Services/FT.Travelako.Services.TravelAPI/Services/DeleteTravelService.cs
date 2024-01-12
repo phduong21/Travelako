@@ -13,29 +13,6 @@ namespace FT.Travelako.Services.TravelAPI.Services
         public override async Task<GenericAPIResponse> ExecuteApi(DeleteTravelRequestDTO model)
         {
             var result = new GenericAPIResponse();
-            if (model != null && !string.IsNullOrWhiteSpace(model.Id))
-            {
-                var travel = await _travelRepository.GetById(new Guid(model.Id));
-                if (travel != null)
-                {
-                    result.Result = travel;
-                    result.IsSuccess = true;
-                    result.Message = "Suucess";
-                    return result;
-                }
-                else
-                {
-                    result.Result = null;
-                    result.IsSuccess = true;
-                    result.Message = $"Do not exist travel {model.Id}";
-                }
-            }
-            else
-            {
-                result.Result = await _travelRepository.GetAll();
-                result.IsSuccess = true;
-                result.Message = "Success";
-            }
             return result;
         }
     }
