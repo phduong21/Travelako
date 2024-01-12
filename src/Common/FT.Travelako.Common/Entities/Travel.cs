@@ -1,7 +1,7 @@
 ﻿namespace FT.Travelako.Common.Entities
 {
     public class Travel
-    {
+	{
         public Guid Id { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }

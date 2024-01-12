@@ -1,9 +1,10 @@
-﻿using FT.Travelako.Services.TravelAPI.Models;
+﻿using FT.Travelako.Common.Database;
+using FT.Travelako.Services.TravelAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FT.Travelako.Services.TravelAPI.Data
 {
-	public class AppDbContext : DbContext
+	public class AppDbContext : BaseDbContext
 	{
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
 		{

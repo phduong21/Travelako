@@ -21,7 +21,7 @@ namespace FT.Travelako.Service.Core.ServiceDiscovery
 
             services.AddSingleton(serviceConfig);
             services.AddSingleton<IConsulClient, ConsulClient>(_ => consulClient);
-            //services.AddSingleton<IHostedService, ServiceDiscoveryHostedService>();
+            services.AddSingleton<IHostedService, ServiceDiscoveryHostedService>();
         }
     }
 }
