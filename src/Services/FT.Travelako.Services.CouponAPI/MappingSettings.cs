@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FT.Travelako.Services.CouponAPI.Models;
+using Coupon.Domain.Entities;
 using FT.Travelako.Services.CouponAPI.Models.DTOs;
 
 namespace FT.Travelako.Services.CouponAPI
@@ -10,8 +10,8 @@ namespace FT.Travelako.Services.CouponAPI
         {
             var mappingConfig = new MapperConfiguration(c =>
             {
-                c.CreateMap<Coupon, GetCouponRequestDTO>();
-                c.CreateMap<GetCouponRequestDTO, Coupon>();
+                c.CreateMap<Coupons, GetCouponRequestDTO>();
+                c.CreateMap<GetCouponRequestDTO, Coupons>();
             });
 
             return mappingConfig;

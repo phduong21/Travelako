@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <InvariantGlobalization>false</InvariantGlobalization>
     <UserSecretsId>828bc5c2-05ed-4032-8872-f7361da4d0f9</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
@@ -34,10 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\Coupon.Application\Coupon.Application.csproj" />
+    <ProjectReference Include="..\..\..\Coupon.Domain\Coupon.Domain.csproj" />
     <ProjectReference Include="..\..\Common\FT.Travelako.Common.Logging\FT.Travelako.Common.Logging.csproj" />
     <ProjectReference Include="..\..\Common\FT.Travelako.Common\FT.Travelako.Common.csproj" />
     <ProjectReference Include="..\..\Common\FT.Travelako.Service.Core\FT.Travelako.Service.Core.csproj" />
