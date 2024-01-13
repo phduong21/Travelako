@@ -11,8 +11,8 @@ namespace Booking.Application.Mappings
         public MappingProfile()
         {
             CreateMap<Order, OrdersVm>().ReverseMap();
-            CreateMap<Order, CheckoutOrderCommand>().ReverseMap();
-            CreateMap<Order, UpdateOrderCommand>().ReverseMap();
+            CreateMap<Domain.Entities.Order, CheckoutOrderCommand>().ReverseMap();
+            CreateMap<Domain.Entities.Order, UpdateOrderCommand>().ReverseMap();
         }
     }
 }

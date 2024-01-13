@@ -22,24 +22,33 @@ namespace Booking.API.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet("{userId}", Name = "GetOrder")]
+        [HttpGet("get-orders/{userId}")]
         [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserName(string userId)
+        public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserId(string userId)
         {
             var query = new GetOrdersListQuery(userId);
             var orders = await _mediator.Send(query);
             return Ok(orders);
         }
 
-        [HttpPost(Name = "CheckoutOrder")]
+        //[HttpGet("get-order/{userId}")]
+        //[ProducesResponseType(typeof(Order), (int)HttpStatusCode.OK)]
+        //public async Task<ActionResult<Order>> GetOrderByUserId(string userId)
+        //{
+        //    var query = new GetOrdersListQuery(userId);
+        //    var orders = await _mediator.Send(query);
+        //    return Ok(orders);
+        //}
+
+        [HttpPost("check-out")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
+        public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
         }
 
-        [HttpPut(Name = "UpdateOrder")]
+        [HttpPut("UpdateOrder")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

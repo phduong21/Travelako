@@ -43,9 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.Infrastructure", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Coupon", "Coupon", "{6626D8EF-AC86-49B9-971E-5B1D3A767126}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coupon.Application", "..\Coupon.Application\Coupon.Application.csproj", "{41722EA6-D4B9-4898-8716-41542A1813E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coupon.Application", "..\Coupon.Application\Coupon.Application.csproj", "{41722EA6-D4B9-4898-8716-41542A1813E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coupon.Domain", "..\Coupon.Domain\Coupon.Domain.csproj", "{BBD253E1-754D-47B5-BB6F-01DFDD5654C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coupon.Domain", "..\Coupon.Domain\Coupon.Domain.csproj", "{BBD253E1-754D-47B5-BB6F-01DFDD5654C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

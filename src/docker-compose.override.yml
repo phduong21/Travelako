@@ -26,7 +26,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
       - ServiceConfig__Id=Service.user
-      - ServiceConfig__Name=Service
+      - ServiceConfig__Name=UserService
       - ServiceConfig__DiscoveryAddress=http://consul:8500
       - ServiceConfig__Address=user_service
       - ServiceConfig__Port=80
@@ -45,7 +45,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
       - ServiceConfig__Id=Service.booking
-      - ServiceConfig__Name=Service
+      - ServiceConfig__Name=BookingService
       - ServiceConfig__DiscoveryAddress=http://consul:8500
       - ServiceConfig__Address=booking_service
       - ServiceConfig__Port=80
@@ -64,7 +64,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
       - ServiceConfig__Id=Service.travel
-      - ServiceConfig__Name=Service
+      - ServiceConfig__Name=TravelService
       - ServiceConfig__DiscoveryAddress=http://consul:8500
       - ServiceConfig__Address=travel_service
       - ServiceConfig__Port=80
@@ -83,7 +83,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
       - ServiceConfig__Id=Service.coupon
-      - ServiceConfig__Name=Service
+      - ServiceConfig__Name=CouponService
       - ServiceConfig__DiscoveryAddress=http://consul:8500
       - ServiceConfig__Address=coupon_service
       - ServiceConfig__Port=80
