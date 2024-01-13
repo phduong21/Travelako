@@ -1,10 +1,24 @@
 {
   "Routes": [
     {
-      "Servicename": "Service",
-      "DownstreamPathTemplate": "/api/{url}",
+      "Servicename": "AuthenService",
+      "DownstreamPathTemplate": "/api/UserManagerment/{everything}",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/service/{url}",
+      "UpstreamPathTemplate": "/authen/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
+      "UseServiceDiscovery": true,
+      "RouteIsCaseSensitive": false,
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5000,
+        "TimeoutValue": 2000
+      }
+    },
+    {
+      "Servicename": "UserService",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/user/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
       "UseServiceDiscovery": true,
       "RouteIsCaseSensitive": false,
@@ -18,10 +32,38 @@
       }
     },
     {
-      "Servicename": "AuthenService",
-      "DownstreamPathTemplate": "/api/UserManagerment/{everything}",
+      "Servicename": "BookingService",
+      "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/authen/{everything}",
+      "UpstreamPathTemplate": "/booking/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
+      "UseServiceDiscovery": true,
+      "RouteIsCaseSensitive": false,
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5000,
+        "TimeoutValue": 2000
+      }
+    },
+    {
+      "Servicename": "TravelService",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/travel/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
+      "UseServiceDiscovery": true,
+      "RouteIsCaseSensitive": false,
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5000,
+        "TimeoutValue": 2000
+      }
+    },
+    {
+      "Servicename": "CouponService",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/coupon/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
       "UseServiceDiscovery": true,
       "RouteIsCaseSensitive": false,
@@ -31,48 +73,6 @@
         "TimeoutValue": 2000
       }
     }
-    //{
-    //  "Servicename": "BookingService",
-    //  "DownstreamPathTemplate": "/{url}",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/booking/{url}",
-    //  "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
-    //  "UseServiceDiscovery": true,
-    //  "RouteIsCaseSensitive": false,
-    //  "QoSOptions": {
-    //    "ExceptionsAllowedBeforeBreaking": 3,
-    //    "DurationOfBreak": 5000,
-    //    "TimeoutValue": 2000
-    //  }
-    //},
-    //{
-    //  "Servicename": "TravelService",
-    //  "DownstreamPathTemplate": "/api/{everything}",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/api/travel/{everything}",
-    //  "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
-    //  "UseServiceDiscovery": true,
-    //  "RouteIsCaseSensitive": false,
-    //  "QoSOptions": {
-    //    "ExceptionsAllowedBeforeBreaking": 3,
-    //    "DurationOfBreak": 5000,
-    //    "TimeoutValue": 2000
-    //  }
-    //},
-    //{
-    //  "Servicename": "CouponService",
-    //  "DownstreamPathTemplate": "/{url}",
-    //  "DownstreamScheme": "http",
-    //  "UpstreamPathTemplate": "/coupon/{url}",
-    //  "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
-    //  "UseServiceDiscovery": true,
-    //  "RouteIsCaseSensitive": false,
-    //  "QoSOptions": {
-    //    "ExceptionsAllowedBeforeBreaking": 3,
-    //    "DurationOfBreak": 5000,
-    //    "TimeoutValue": 2000
-    //  }
-    //}
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5010",
