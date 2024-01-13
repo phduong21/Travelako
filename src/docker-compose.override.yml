@@ -102,7 +102,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
       - ServiceConfig__Id=Service.authentication
-      - ServiceConfig__Name=Service
+      - ServiceConfig__Name=AuthenService
       - ServiceConfig__DiscoveryAddress=http://consul:8500
       - ServiceConfig__Address=authentication_service
       - ServiceConfig__Port=80

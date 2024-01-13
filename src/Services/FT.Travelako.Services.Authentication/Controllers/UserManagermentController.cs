@@ -24,13 +24,13 @@ namespace FT.Travelako.Services.Authentication.Controllers
         {
             return await ExecutionService<LoginUserRequest, LoginService>(model);
         }
-
+           
 
         [AllowAnonymous]
         [HttpGet("Ping")]
         public  IActionResult Ping()
         {
-            return Ok();
+            return Ok("Pong");
         }
 
     }
