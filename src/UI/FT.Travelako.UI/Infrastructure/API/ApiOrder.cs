@@ -4,9 +4,14 @@ namespace FT.Travelako.UI.Infrastructure.API
 {
     public static class ApiOrder
     {
-        public static string GetOrderByUserId(string baseUri, string userId)
+        public static string GetOrdersByUserId(string baseUri, string userId)
         {
             return $"{baseUri}/get-orders/{userId}";
+        }
+
+        public static string GetOrderDetails(string baseUri, string orderId)
+        {
+            return $"{baseUri}/get-order/{orderId}";
         }
 
         public static string CheckOutOrder(string baseUri)

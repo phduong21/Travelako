@@ -6,6 +6,7 @@ namespace FT.Travelako.UI.Services
     {
         Task CheckoutOrder(CheckoutModel checkoutModel);
         Task DeleteOrder(string userId);
-        Task<IEnumerable<OrderResponseModel>> GetOrdersById(string userId);
+        Task<IEnumerable<OrderResponseModel>> GetOrdersByUserId(string userId);
+        Task<OrderResponseModel> GetOrderDetails(string orderId);
     }
 }

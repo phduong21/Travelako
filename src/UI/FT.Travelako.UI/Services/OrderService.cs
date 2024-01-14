@@ -20,11 +20,18 @@ namespace FT.Travelako.UI.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<IEnumerable<OrderResponseModel>> GetOrdersById(string userId)
+        public async Task<IEnumerable<OrderResponseModel>> GetOrdersByUserId(string userId)
         {
-            var getOrderByUserIdUri = ApiOrder.GetOrderByUserId(_remoteServiceBaseUrl, userId);
+            var getOrderByUserIdUri = ApiOrder.GetOrdersByUserId(_remoteServiceBaseUrl, userId);
             var response = await _client.GetAsync(getOrderByUserIdUri);
             return await response.ReadContentAs<List<OrderResponseModel>>();
+        }
+
+        public async Task<OrderResponseModel> GetOrderDetails(string orderId)
+        {
+            var getOrderByUserIdUri = ApiOrder.GetOrderDetails(_remoteServiceBaseUrl, orderId);
+            var response = await _client.GetAsync(getOrderByUserIdUri);
+            return await response.ReadContentAs<OrderResponseModel>();
         }
 
         public async Task CheckoutOrder(CheckoutModel checkoutModel)

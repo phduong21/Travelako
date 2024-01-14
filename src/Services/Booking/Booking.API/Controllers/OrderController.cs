@@ -1,4 +1,5 @@
-﻿using FT.Travelako.Common.BaseModels;
+﻿using Booking.Application.Features.Order.Queries.GetOrderDetails;
+using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Common.Controller;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -31,14 +32,14 @@ namespace Booking.API.Controllers
             return Ok(orders);
         }
 
-        //[HttpGet("get-order/{userId}")]
-        //[ProducesResponseType(typeof(Order), (int)HttpStatusCode.OK)]
-        //public async Task<ActionResult<Order>> GetOrderByUserId(string userId)
-        //{
-        //    var query = new GetOrdersListQuery(userId);
-        //    var orders = await _mediator.Send(query);
-        //    return Ok(orders);
-        //}
+        [HttpGet("get-order/{orderId}")]
+        [ProducesResponseType(typeof(OrderDetails), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<OrderDetails>> GetOrderById(string orderId)
+        {
+            var query = new GetOrderDetailsQuery(orderId);
+            var orders = await _mediator.Send(query);
+            return Ok(orders);
+        }
 
         [HttpPost("check-out")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
