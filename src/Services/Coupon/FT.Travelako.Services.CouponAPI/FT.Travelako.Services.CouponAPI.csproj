@@ -34,11 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Coupon.Application\Coupon.Application.csproj" />
-    <ProjectReference Include="..\..\..\Coupon.Domain\Coupon.Domain.csproj" />
-    <ProjectReference Include="..\..\Common\FT.Travelako.Common.Logging\FT.Travelako.Common.Logging.csproj" />
-    <ProjectReference Include="..\..\Common\FT.Travelako.Common\FT.Travelako.Common.csproj" />
-    <ProjectReference Include="..\..\Common\FT.Travelako.Service.Core\FT.Travelako.Service.Core.csproj" />
+    <ProjectReference Include="..\..\..\Common\FT.Travelako.Common.Logging\FT.Travelako.Common.Logging.csproj" />
+    <ProjectReference Include="..\..\..\Common\FT.Travelako.Common\FT.Travelako.Common.csproj" />
+    <ProjectReference Include="..\..\..\Common\FT.Travelako.Service.Core\FT.Travelako.Service.Core.csproj" />
+    <ProjectReference Include="..\Coupon.Application\Coupon.Application.csproj" />
+    <ProjectReference Include="..\Coupon.Domain\Coupon.Domain.csproj" />
   </ItemGroup>
 
 </Project>
