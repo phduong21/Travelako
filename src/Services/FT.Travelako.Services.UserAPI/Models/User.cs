@@ -14,9 +14,5 @@ namespace FT.Travelako.Services.UserAPI.Models
         public string? Image { get; set; }
         public string? Personalization { get; set; }
         public string Role { get; set; }
-
-        // public Guid UserCouponId { get; set; }
-        // public UserCoupon UserCoupon { get; set; }
-        // public ICollection<Booking> Bookings { get; set; }
     }
 }

@@ -4,16 +4,17 @@ using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Services.UserAPI.Data;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
 using FT.Travelako.Services.UserAPI.Models.Requests;
+using FT.Travelako.Services.UserAPI.Repositories;
+using FT.Travelako.Services.UserAPI.Services.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace FT.Travelako.Services.UserAPI.Services
 {
-    public class DeleteUserService : BaseExecutionService<DeleteUserRequest>
+    public class DeleteUserService : UserBaseService<DeleteUserRequest>
     {
-        private readonly IMapper _mapper;
-        public DeleteUserService(IMapper mapper)
+        public DeleteUserService(IUserRepository userRepository, IMapper mapper) : base(userRepository)
         {
-            _mapper = mapper;
+
         }
 
         public override async Task<GenericAPIResponse> ExecuteApi(DeleteUserRequest model)
@@ -28,18 +29,13 @@ namespace FT.Travelako.Services.UserAPI.Services
                 return result;
             }
 
-            //var context = new UserAppDbContext();
-            //var user = await context.Users
-            //    .Include(r => r.Role)
-            //    .Where(x => x.Id.ToString().ToLower() == model.Id.ToString())
-            //    .SingleOrDefaultAsync();
+            var user = await _userRepository.GetByIdAsync(model.Id);
 
-            //if (user is not null)
-            //{
-            //    context.Users.Remove(user);
-            //    await context.SaveChangesAsync();
-            //}
-            
+            if (user is not null)
+            {
+                await _userRepository.DeleteAsync(user);
+            }
+
 
             return new GenericAPIResponse();
         }

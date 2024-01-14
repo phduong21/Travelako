@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 
-namespace FT.Travelako.Services.UserAPI.Helper
+namespace FT.Travelako.Common.Helpers
 {
     public static class PasswordHelper
     {

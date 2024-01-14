@@ -12,6 +12,9 @@ namespace FT.Travelako.Services.UserAPI
             var mappingConfig = new MapperConfiguration(c =>
             {
                 c.CreateMap<User, UserDTO>().ReverseMap();
+                c.CreateMap<UpdateUserRequest, User>()
+                    .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+                c.CreateMap<CreateUserRequest, User>();
             });
 
             return mappingConfig;

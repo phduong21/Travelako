@@ -32,18 +32,13 @@ namespace FT.Travelako.Services.UserAPI.Services
                 return result;
             }
 
-            var test = await _userRepository.GetByIdAsync(model.Id);
+            var user = await _userRepository.GetByIdAsync(model.Id);
 
-            //var user = await .Users
-            //    //.Include(r => r.Role)
-            //    .Where(x => x.Id.ToString().ToLower() == model.Id)
-            //    .SingleOrDefaultAsync();
+            if (user == null)
+            {
 
-            //if(user == null)
-            //{
-                
-            //}
-            UserDTO data = _mapper.Map<UserDTO>(test);
+            }
+            UserDTO data = _mapper.Map<UserDTO>(user);
 
             return  new GenericAPIResponse
             {
@@ -51,6 +46,6 @@ namespace FT.Travelako.Services.UserAPI.Services
                 Result = data
             };
         }
-
+         
     }
 }
