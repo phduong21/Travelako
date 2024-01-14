@@ -6,12 +6,10 @@ namespace FT.Travelako.Services.Authentication.Model
     {
         public LoginModel() { }
 
-        [Required]
-        [MaxLength(50)]
+        public string Id { get; set; }
+
         public string UserName { get; set; }
 
-        [Required]
-        [MaxLength(200)]
-        public string Password { get; set; }
+        public string Role { get; set; }
     }
 }

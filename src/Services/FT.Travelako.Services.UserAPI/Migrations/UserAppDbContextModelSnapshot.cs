@@ -22,23 +22,6 @@ namespace FT.Travelako.Services.UserAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FT.Travelako.Services.UserAPI.Models.Role", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("FT.Travelako.Services.UserAPI.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -70,8 +53,9 @@ namespace FT.Travelako.Services.UserAPI.Migrations
                     b.Property<string>("Personalization")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -79,25 +63,7 @@ namespace FT.Travelako.Services.UserAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("FT.Travelako.Services.UserAPI.Models.User", b =>
-                {
-                    b.HasOne("FT.Travelako.Services.UserAPI.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("FT.Travelako.Services.UserAPI.Models.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
