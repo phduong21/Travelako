@@ -28,38 +28,39 @@ namespace FT.Travelako.Services.UserAPI.Services
                 result.Message = "Id cannot be null";
                 return result;
             }
+            await Task.Delay(1000);
+            return new GenericAPIResponse();
+            //var context = new UserAppDbContext();
+            //var user = await context.Users
+            //    .Include(r => r.Role)
+            //    .Where(x => x.Id.ToString().ToLower() == model.Id)
+            //    .SingleOrDefaultAsync();
 
-            var context = new UserAppDbContext();
-            var user = await context.Users
-                .Include(r => r.Role)
-                .Where(x => x.Id.ToString().ToLower() == model.Id)
-                .SingleOrDefaultAsync();
+            //if (user == null)
+            //{
 
-            if (user == null)
-            {
+            //}
 
-            }
+            //user.Email = model.Email;
+            //user.FirstName = model.FirstName;
+            //user.LastName = model.LastName;
+            //user.Address = model.Address;
+            //user.Image = model.Image;
 
-            user.Email = model.Email;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Address = model.Address;
-            user.Image = model.Image;
+            //context.Users.Attach(user);
+            //await context.SaveChangesAsync();
 
-            context.Users.Attach(user);
-            await context.SaveChangesAsync();
+            //var updatedUser = await context.Users
+            //    .Include(r => r.Role)
+            //    .Where(x => x.Id.ToString().ToLower() == model.Id)
+            //    .SingleOrDefaultAsync();
+            //var data = _mapper.Map<UserDTO>(updatedUser);
 
-            var updatedUser = await context.Users
-                .Include(r => r.Role)
-                .Where(x => x.Id.ToString().ToLower() == model.Id)
-                .SingleOrDefaultAsync();
-            var data = _mapper.Map<UserDTO>(updatedUser);
-
-            return new GenericAPIResponse
-            {
-                IsSuccess = true,
-                Result = data
-            };
+            //return new GenericAPIResponse
+            //{
+            //    IsSuccess = true,
+            //    Result = data
+            //};
         }
 
     }

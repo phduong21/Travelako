@@ -28,17 +28,17 @@ namespace FT.Travelako.Services.UserAPI.Services
                 return result;
             }
 
-            var context = new UserAppDbContext();
-            var user = await context.Users
-                .Include(r => r.Role)
-                .Where(x => x.Id.ToString().ToLower() == model.Id.ToString())
-                .SingleOrDefaultAsync();
+            //var context = new UserAppDbContext();
+            //var user = await context.Users
+            //    .Include(r => r.Role)
+            //    .Where(x => x.Id.ToString().ToLower() == model.Id.ToString())
+            //    .SingleOrDefaultAsync();
 
-            if (user is not null)
-            {
-                context.Users.Remove(user);
-                await context.SaveChangesAsync();
-            }
+            //if (user is not null)
+            //{
+            //    context.Users.Remove(user);
+            //    await context.SaveChangesAsync();
+            //}
             
 
             return new GenericAPIResponse();

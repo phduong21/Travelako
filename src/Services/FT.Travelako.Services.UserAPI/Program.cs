@@ -4,6 +4,7 @@ using FT.Travelako.Services.UserAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using FT.Travelako.Service.Core.ServiceDiscovery;
 using FT.Travelako.Services.UserAPI.Installer;
+using FT.Travelako.Services.UserAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<UserAppDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("UserAuthenDB"));
 });
 builder.Services.AddCors();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 IMapper mapper = MappingSettings.RegisterMap().CreateMapper();
 builder.Services.AddSingleton(mapper);

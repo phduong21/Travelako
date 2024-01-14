@@ -1,13 +1,10 @@
 ﻿using FT.Travelako.Common.Entities;
-using FT.Travelako.Common.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace FT.Travelako.Services.UserAPI.Models
 {
-    public class User
+    public class User : EntityBase
     {
-        [Key]
-        public Guid Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
