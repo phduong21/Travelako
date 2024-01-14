@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FT.Travelako.Services.TravelAPI.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class TravelController : ApiBaseController
+    [ApiController]
+    [Route("api/v1/[controller]")]
+    public class TravelController : ApiBaseController
 	{
 		public TravelController(IServiceProvider serviceProvider) : base(serviceProvider)
 		{

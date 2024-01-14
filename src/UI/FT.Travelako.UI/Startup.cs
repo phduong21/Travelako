@@ -1,4 +1,5 @@
 using FT.Travelako.Common.Logging;
+using FT.Travelako.UI.Base;
 using FT.Travelako.UI.Services;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,8 @@ namespace FT.Travelako.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<LoggingDelegatingHandler>();
+            services.AddScoped<IBaseApiClient, BaseApiClient>();
+            services.AddScoped<ITravelService, TravelService>();
 
             //services.AddHttpClient<ICatalogService, CatalogService>(c =>
             //    c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
