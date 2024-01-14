@@ -1,2 +1,2 @@
 -- Migration DB
-Add-Migration InitBookingDB -Context FT.Travelako.Services.BookingAPI.Infrastructure.BookingContext -OutputDir 'Infrastructure/BookingMigration'
+Add-Migration UpdateOrderTable -Context Booking.Infrastructure.Persistence.BookingContext

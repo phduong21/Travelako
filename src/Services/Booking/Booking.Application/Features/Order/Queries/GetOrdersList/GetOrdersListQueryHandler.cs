@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Booking.Application.Contracts.Persistence;
+using Booking.Application.Features.Order.Queries.GetOrderDetails;
 using MediatR;
 
 namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
