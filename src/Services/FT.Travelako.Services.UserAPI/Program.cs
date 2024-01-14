@@ -8,7 +8,7 @@ using FT.Travelako.Services.UserAPI.Repositories;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
+builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<UserAppDbContext>(opts =>
 {

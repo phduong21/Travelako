@@ -1,8 +1,13 @@
-﻿namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Booking.Application.Features.Order.Queries.GetOrderDetails
 {
-    public class OrdersVm
+    public class OrderDetails
     {
-        public string Id { get; set; }
         public string FullName { get; set; }
         public string UserEmail { get; set; }
         public string Phone { get; set; }
@@ -11,6 +16,5 @@
         public decimal TotalPrice { get; set; }
         public int Status { get; set; }
         public Guid TravelId { get; set; }
-        public Guid UserId { get; set; }
     }
 }
