@@ -18,7 +18,7 @@ namespace Booking.Infrastructure
         {
             services.AddDbContext<BookingContext>(opts =>
             {
-                opts.UseSqlServer(configuration.GetConnectionString("Default"));
+                opts.UseSqlServer(configuration.GetConnectionString("UserAuthenDB"));
             });
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
             services.AddScoped<IOrderRepository, OrderRepository>();

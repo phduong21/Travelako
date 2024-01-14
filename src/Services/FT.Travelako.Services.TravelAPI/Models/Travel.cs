@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FT.Travelako.Common.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace FT.Travelako.Services.TravelAPI.Models
 {
-    public class Travel
-    {
-        [Key]
-		public Guid Id { get; set; }
+    public class Travel : EntityBase
+	{
 		public string Title { get; set; }
 		public string Description { get; set; }
 		public string Thumbnail { get; set; }
@@ -18,8 +17,5 @@ namespace FT.Travelako.Services.TravelAPI.Models
 		public string HotelTitle { get; set; }
 		public string HotelPrice { get; set; }
 		public int TrafficType { get; set; }
-		public Guid CreatedBy { get; set; }
-		public DateTime Created { get; set; }
-		public DateTime Modified { get; set; }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Booking.Infrastructure;
 using Booking.Application;
+using FT.Travelako.Service.Core.ServiceDiscovery;
 
 namespace Booking.API.Installer
 {
@@ -8,8 +9,10 @@ namespace Booking.API.Installer
     {
         public void InstallerServicesInAssembly(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddConsul(configuration.GetServiceConfig());
             services.AddApplicationServices();
             services.AddInfrastructureServices(configuration);
+            services.AddHttpContextAccessor();
 
             // General Configuration
             services.AddAutoMapper(typeof(Startup));
