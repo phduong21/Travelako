@@ -12,6 +12,9 @@ services:
   cachedb:
     image: redis/redis-stack:latest
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
   # traveldb:
   #    image: mcr.microsoft.com/mssql/server:2022-latest
 

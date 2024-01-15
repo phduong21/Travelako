@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
 {
-    public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, ApiResult<string>>
+    public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, ApiResult<Order>>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<ApiResult<string>> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResult<Order>> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
             var orderEntity = _mapper.Map<Order>(request);
             var newOrder = await _orderRepository.AddAsync(orderEntity);
@@ -34,7 +34,7 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
             
             //await SendMail(newOrder);
 
-            return ApiResult<string>.Success(newOrder.Id.ToString());
+            return ApiResult<Order>.Success(newOrder);
         }
 
         //private async Task SendMail(Order order)

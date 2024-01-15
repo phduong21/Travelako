@@ -2,6 +2,7 @@
 using Booking.Infrastructure;
 using Booking.Application;
 using FT.Travelako.Service.Core.ServiceDiscovery;
+using MassTransit;
 
 namespace Booking.API.Installer
 {
@@ -13,6 +14,13 @@ namespace Booking.API.Installer
             services.AddApplicationServices();
             services.AddInfrastructureServices(configuration);
             services.AddHttpContextAccessor();
+
+            // MassTransit-RabbitMQ Configuration
+            services.AddMassTransit(config => {
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(configuration["EventBusSettings:HostAddress"]);
+                });
+            });
 
             // General Configuration
             services.AddAutoMapper(typeof(Startup));

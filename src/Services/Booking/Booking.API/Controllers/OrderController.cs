@@ -1,6 +1,11 @@
-﻿using Booking.Application.Features.Order.Queries.GetOrderDetails;
+﻿using AutoMapper;
+using Booking.Application.EventBus;
+using Booking.Application.Features.Order.Queries.GetOrderDetails;
+using Booking.Domain.Entities;
 using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Common.Controller;
+using MassTransit;
+using MassTransit.Transports;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +22,13 @@ namespace Booking.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IMapper _mapper;
 
-        public OrderController(IMediator mediator)
+        public OrderController(IMediator mediator, IPublishEndpoint publishEndpoint)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [HttpGet("get-orders/{userId}")]
@@ -46,6 +54,17 @@ namespace Booking.API.Controllers
         public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
+            var eventMessage = new OrderEvent()
+            {
+                FullName = result.Value.FullName,
+                GuestSize = result.Value.GuestSize,
+                UserEmail = result.Value.UserEmail,
+                Phone = result.Value.Phone,
+                TotalCost = result.Value.TotalCost,
+                TourName = result.Value.TourName,
+            };
+
+            await _publishEndpoint.Publish<OrderEvent>(eventMessage);
             return Ok(result);
         }
 
