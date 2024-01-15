@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using FT.Travelako.EventBus.Messages.Events;
 using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
@@ -22,11 +24,11 @@ namespace FT.Travelako.Services.CouponAPI.EventBusConsumer
 
         public async Task Consume(ConsumeContext<OrderEvent> context)
         {
-            var result = context.Message;
+            var result = JsonConvert.SerializeObject(context.Message);
             //var command = _mapper.Map<CheckoutOrderCommand>(context.Message);
             //var result = await _mediator.Send(command);
 
-            _logger.LogInformation("BasketCheckoutEvent consumed successfully. Created Order Id : {newOrderId}", result);
+            _logger.LogInformation("OrderDetalis Event consumed successfully. Order Id : {newOrderId}", result);
         }
     }
 }

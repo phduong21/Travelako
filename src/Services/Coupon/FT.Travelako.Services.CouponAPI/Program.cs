@@ -37,10 +37,9 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddMassTransit(config => {
 
     config.AddConsumer<OrderConsumer>();
-
     config.UsingRabbitMq((ctx, cfg) => {
         cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
-
+        //cfg.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter("Coupon", false));
         cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
             c.ConfigureConsumer<OrderConsumer>(ctx);
         });

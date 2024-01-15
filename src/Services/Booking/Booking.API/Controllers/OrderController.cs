@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Booking.Application.EventBus;
 using Booking.Application.Features.Order.Queries.GetOrderDetails;
 using Booking.Domain.Entities;
 using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Common.Controller;
+using FT.Travelako.EventBus.Messages.Events;
 using MassTransit;
 using MassTransit.Transports;
 using MediatR;
@@ -14,6 +14,8 @@ using Ordering.Application.Features.Orders.Commands.DeleteOrder;
 using Ordering.Application.Features.Orders.Commands.UpdateOrder;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 using System.Net;
+using static MassTransit.ValidationResultExtensions;
+using OrderEvent = FT.Travelako.EventBus.Messages.Events.OrderEvent;
 
 namespace Booking.API.Controllers
 {
@@ -46,6 +48,19 @@ namespace Booking.API.Controllers
         {
             var query = new GetOrderDetailsQuery(orderId);
             var orders = await _mediator.Send(query);
+            var eventMessage = new OrderEvent()
+            {
+                FullName = orders.FullName,
+                GuestSize = orders.GuestSize,
+                UserEmail = orders.UserEmail,
+                Phone = orders.Phone,
+                TotalCost = orders.TotalPrice,
+                TourName = orders.TourName,
+                TravelId = orders.TravelId,
+                Status = orders.Status,
+            };
+            await _publishEndpoint.Publish<OrderEvent>(eventMessage);
+
             return Ok(orders);
         }
 
@@ -54,17 +69,17 @@ namespace Booking.API.Controllers
         public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
-            var eventMessage = new OrderEvent()
-            {
-                FullName = result.Value.FullName,
-                GuestSize = result.Value.GuestSize,
-                UserEmail = result.Value.UserEmail,
-                Phone = result.Value.Phone,
-                TotalCost = result.Value.TotalCost,
-                TourName = result.Value.TourName,
-            };
+            //var eventMessage = new OrderEvent()
+            //{
+            //    FullName = result.Value.FullName,
+            //    GuestSize = result.Value.GuestSize,
+            //    UserEmail = result.Value.UserEmail,
+            //    Phone = result.Value.Phone,
+            //    TotalCost = result.Value.TotalCost,
+            //    TourName = result.Value.TourName,
+            //};
 
-            await _publishEndpoint.Publish<OrderEvent>(eventMessage);
+            //await _publishEndpoint.Publish<OrderEvent>(eventMessage);
             return Ok(result);
         }
 
