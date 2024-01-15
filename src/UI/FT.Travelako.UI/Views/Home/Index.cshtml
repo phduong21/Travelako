@@ -1,10 +1,13 @@
-﻿@model IEnumerable<FT.Travelako.UI.Models.Travels.TravelDetailResponseModel>
+﻿@model FT.Travelako.UI.Models.Travels.TravelListingResponseModel
 @{
     ViewData["Title"] = "Home";
 }
-@foreach (var travel in Model)
+ @if(Model != null && Model.result.Any())
 {
-	<h1 style="color: red;">@travel.Title</h1>
+	foreach (var travel in Model.result)
+	{
+		<h1 style="color: red;">@travel.title</h1>
+	}
 }
 <!-- Product -->
 <section class="bg0 p-t-23 p-b-130">
