@@ -1,16 +1,20 @@
-﻿using FT.Travelako.Common.Entities;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coupon.Domain.Entities
+namespace Coupon.Application.Features.CouponsUser.Commands.UpdateUserCoupon
 {
-    public class CouponUser : EntityBase
+    public class UpdateUserCouponCommand : IRequest
     {
+        public Guid Id { get; set; }
+
         public string CouponId { get; set; }
+
         public string UserId { get; set; }
+
         public bool? IsUsed { get; set; }
     }
 }
