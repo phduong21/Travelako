@@ -9,6 +9,6 @@
         public string? Address { get; set; }
         public string? Image { get; set; }
         public string? Personalization { get; set; }
-        public string RoleName  { get; set; }
+        public string Role  { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using FT.Travelako.UI.Models;
+using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,20 @@ namespace FT.Travelako.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ITravelService _travelService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ITravelService travelService)
         {
             _logger = logger;
+            _travelService = travelService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var travels = await _travelService.GetTravels();
+            if(travels != null && travels.result.Any())
+                return View(travels);
+            else return View();
         }
 
         public IActionResult Privacy()

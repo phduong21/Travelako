@@ -5,14 +5,18 @@ using FT.Travelako.Services.UserAPI.Data;
 using FT.Travelako.Services.UserAPI.Models;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
 using FT.Travelako.Services.UserAPI.Models.Requests;
+using FT.Travelako.Services.UserAPI.Repositories;
+using FT.Travelako.Services.UserAPI.Services.Base;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace FT.Travelako.Services.UserAPI.Services
 {
-    public class UpdateUserService : BaseExecutionService<UpdateUserRequest>
+    public class UpdateUserService : UserBaseService<UpdateUserRequest>
     {
         private readonly IMapper _mapper;
-        public UpdateUserService(IMapper mapper)
+
+        public UpdateUserService(IUserRepository userRepository, IMapper mapper) : base(userRepository)
         {
             _mapper = mapper;
         }
@@ -29,31 +33,19 @@ namespace FT.Travelako.Services.UserAPI.Services
                 return result;
             }
 
-            var context = new UserAppDbContext();
-            var user = await context.Users
-                .Include(r => r.Role)
-                .Where(x => x.Id.ToString().ToLower() == model.Id)
-                .SingleOrDefaultAsync();
+            var currentUser = await _userRepository.GetByIdAsync(model.Id);
 
-            if (user == null)
+            if (currentUser == null)
             {
 
             }
+            var userToUpdate = _mapper.Map(model, currentUser);
+            var updatedUser = await _userRepository.UpdateUserInformationAsync(userToUpdate);
+            if (updatedUser is null)
+            {
 
-            user.Email = model.Email;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Address = model.Address;
-            user.Image = model.Image;
-
-            context.Users.Attach(user);
-            await context.SaveChangesAsync();
-
-            var updatedUser = await context.Users
-                .Include(r => r.Role)
-                .Where(x => x.Id.ToString().ToLower() == model.Id)
-                .SingleOrDefaultAsync();
-            var data = _mapper.Map<UserDTO>(updatedUser);
+            }
+            UserDTO data = _mapper.Map<UserDTO>(updatedUser);
 
             return new GenericAPIResponse
             {
