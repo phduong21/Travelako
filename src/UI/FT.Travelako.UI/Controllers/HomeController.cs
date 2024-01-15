@@ -19,7 +19,9 @@ namespace FT.Travelako.UI.Controllers
         public async Task<IActionResult> Index()
         {
             var travels = await _travelService.GetTravels();
-            return View(travels);
+            if(travels != null && travels.result.Any())
+                return View(travels);
+            else return View();
         }
 
         public IActionResult Privacy()

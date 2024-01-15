@@ -4,32 +4,35 @@ using FT.Travelako.UI.Models.Travels;
 
 namespace FT.Travelako.UI.Services
 {
-    public class TravelService : ITravelService
-    {
-        private readonly string _remoteServiceBaseUrl = $"http://localhost:5400/travel/v1/Travel";
-        private readonly IBaseApiClient _baseApiClient;
+	public class TravelService : ITravelService
+	{
+		private readonly string _remoteServiceBaseUrl = "travel/v1/Travel";
+		private readonly IBaseApiClient _baseApiClient;
+		private readonly HttpClient _client;
 
-        public TravelService(IBaseApiClient baseApiClient)
-        {
-                _baseApiClient = baseApiClient;
-        }
-        public async Task<TravelDetailResponseModel> GetTravelDetail(string id)
-        {
-            var requestUri = ApiTravel.GetTravelDetail(_remoteServiceBaseUrl, id);
-            var result = await _baseApiClient.GetAsync<TravelDetailResponseModel>(requestUri);
-            return result;
-        }
+		public TravelService(HttpClient client)
+		{
+			_client = client;
+			_baseApiClient = new BaseApiClient("http://host.docker.internal:5400");
+		}
 
-        public async Task<IEnumerable<TravelDetailResponseModel>> GetTravels()
-        {
-            var requestUri = ApiTravel.GetTravels(_remoteServiceBaseUrl);
-            var result = await _baseApiClient.GetListAsync<TravelDetailResponseModel>(requestUri);
-            return result;
-        }
+		public async Task<TravelResponseModel> GetTravelDetail(string id)
+		{
+			var requestUri = ApiTravel.GetTravelDetail(_remoteServiceBaseUrl, id);
+			var result = await _baseApiClient.GetAsync<TravelResponseModel>(requestUri);
+			return result;
+		}
 
-        public Task<IEnumerable<TravelDetailResponseModel>> GetTravelsByUserId(string userId)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public async Task<TravelListingResponseModel> GetTravels()
+		{
+			var requestUri = ApiTravel.GetTravels(_remoteServiceBaseUrl);
+			var result = await _baseApiClient.GetAsync<TravelListingResponseModel>(requestUri);
+			return result;
+		}
+
+		public Task<TravelListingResponseModel> GetTravelsByUserId(string userId)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

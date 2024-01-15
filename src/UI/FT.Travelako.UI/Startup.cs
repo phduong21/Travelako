@@ -51,7 +51,13 @@ namespace FT.Travelako.UI
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
 
-            services.AddRazorPages();
+			services.AddHttpClient<ITravelService, TravelService>(c =>
+				c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
+				.AddHttpMessageHandler<LoggingDelegatingHandler>()
+				.AddPolicyHandler(GetRetryPolicy())
+				.AddPolicyHandler(GetCircuitBreakerPolicy());
+
+			services.AddRazorPages();
 
             services.AddHealthChecks()
                 .AddUrlGroup(new Uri(Configuration["ApiSettings:GatewayAddress"]), "Ocelot API Gw", HealthStatus.Degraded);
