@@ -14,11 +14,13 @@ namespace FT.Travelako.UI.Services
     {
         private readonly HttpClient _client;
         private readonly string _remoteServiceBaseUrl;
+        private readonly string _remoteServicePersonalizeBaseUrl;
         private readonly IBaseService _baseService;
 
         public UserService(HttpClient client, IBaseService baseService)
         {
             _remoteServiceBaseUrl = $"user/v1/User";
+            _remoteServicePersonalizeBaseUrl = $"user/v1/Personalization";
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _baseService = baseService;
         }
@@ -31,7 +33,7 @@ namespace FT.Travelako.UI.Services
                 ApiType = ApiType.POST,
                 Url = _client.BaseAddress + requestUri,
                 Data = model
-            }) ;
+            });
 
             if (result is null)
             {
@@ -72,7 +74,6 @@ namespace FT.Travelako.UI.Services
 
             return JsonConvert.DeserializeObject<IEnumerable<UserDetailResponseModel>>(result.Result.ToString());
         }
-
 
         public async Task<UserDetailResponseModel> GetUserInformation(string userName)
         {
@@ -125,5 +126,34 @@ namespace FT.Travelako.UI.Services
 
             return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());
         }
+
+        public async Task<PersonalizeModel> GetPersonalizeUser(string userId)
+        {
+            var requestUri = ApiUser.GetPersonalizeUser(_remoteServicePersonalizeBaseUrl, userId);
+            var result = await _baseService.ExecuteAsync(new GenericAPIRequest
+            {
+                ApiType = ApiType.GET,
+                Url = _client.BaseAddress + requestUri,
+            });
+
+            if (result is null)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<PersonalizeModel>(result.Result.ToString());
+        }
+
+        public async Task UpdatePersonalizeUser(PersonalizeModel model)
+        {
+            var requestUri = ApiUser.UpdatePersonalizeUser(_remoteServicePersonalizeBaseUrl);
+            var result = await _baseService.ExecuteAsync(new GenericAPIRequest
+            {
+                ApiType = ApiType.PUT,
+                Url = _client.BaseAddress + requestUri,
+                Data = model
+            });
+        }
+
     }
 }

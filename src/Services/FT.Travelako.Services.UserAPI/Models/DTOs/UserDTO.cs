@@ -8,7 +8,7 @@
         public string LastName { get; set; }
         public string? Address { get; set; }
         public string? Image { get; set; }
-        public string? Personalization { get; set; }
+        public List<string>? Personalization { get; set; }
         public string Role  { get; set; }
         public Guid Id { get; protected set; }
     }

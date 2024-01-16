@@ -1,26 +1,23 @@
 ﻿using AutoMapper;
-using FT.Travelako.Common.BaseImplementation;
 using FT.Travelako.Common.BaseModels;
-using FT.Travelako.Services.UserAPI.Data;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Repositories;
 using FT.Travelako.Services.UserAPI.Services.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace FT.Travelako.Services.UserAPI.Services
 {
-    public class GetUserService : UserBaseService<GetUserRequest>
+    public class GetPersonalizeUserService : UserBaseService<GetPersonalizeRequest>
     {
         private readonly IMapper _mapper;
 
-        public GetUserService(IUserRepository userRepository, IMapper mapper) : base(userRepository)
+        public GetPersonalizeUserService(IUserRepository userRepository, IMapper mapper) : base(userRepository)
         {
             _mapper = mapper;
         }
 
 
-        public override async Task<GenericAPIResponse> ExecuteApi(GetUserRequest model)
+        public override async Task<GenericAPIResponse> ExecuteApi(GetPersonalizeRequest model)
         {
             var result = new GenericAPIResponse()
             {
@@ -28,7 +25,7 @@ namespace FT.Travelako.Services.UserAPI.Services
             };
             if(model.Id is null)
             {
-                result.Message = "UserName cannot be null";
+                result.Message = "Id cannot be null";
                 return result;
             }
 
@@ -38,7 +35,7 @@ namespace FT.Travelako.Services.UserAPI.Services
             {
 
             }
-            UserDTO data = _mapper.Map<UserDTO>(user);
+            var data = _mapper.Map<PersonalizeDTO>(user);
 
             return  new GenericAPIResponse
             {

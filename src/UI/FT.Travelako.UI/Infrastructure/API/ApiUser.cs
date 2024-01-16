@@ -8,5 +8,7 @@
         public static string UpdateUser(string baseUri) => $"{baseUri}";
         public static string DeleteUser(string baseUri, string userId) => $"{baseUri}?Id={userId}";
         public static string CreateUser(string baseUri) => $"{baseUri}";
+        public static string UpdatePersonalizeUser(string basePersonalizeUri) => $"{basePersonalizeUri}";
+        public static string GetPersonalizeUser(string basePersonalizeUri, string userId) => $"{basePersonalizeUri}?Id={userId}";
     }
 }
