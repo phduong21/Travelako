@@ -30,9 +30,9 @@ namespace FT.Travelako.UI.Controllers
 			if(!string.IsNullOrEmpty(id))
             {
 				var travel = await _travelService.GetTravelDetail(id);
-				if (travel != null && travel.result.Any() && travel.result.FirstOrDefault() != null)
+				if (travel != null && travel.result != null)
 				{
-					var travelModel = travel.result.FirstOrDefault();
+					var travelModel = travel.result;
 					ViewBag.Title = travelModel?.title;
 					return View(travelModel);
 				}
