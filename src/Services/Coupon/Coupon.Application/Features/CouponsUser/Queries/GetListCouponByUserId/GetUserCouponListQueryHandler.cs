@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Coupon.Application.Contracts.Persistence;
 using Coupon.Domain.Entities;
+using FT.Travelako.Common.Entities;
 using MediatR;
+using System.Linq;
 
 
 namespace Coupon.Application.Features.CouponsUser.Queries.GetListCouponByUserId
@@ -21,16 +23,13 @@ namespace Coupon.Application.Features.CouponsUser.Queries.GetListCouponByUserId
 
         public async Task<List<CouponUserModel>> Handle(GetUserCouponsListQuery request, CancellationToken cancellationToken)
         {
-            var listCoupon = new List<Coupons>();
-            var userCouponList = (await _userCouponRepository.GetCouponsByUser(request.UserId)).ToList();
-            for (int i = 0; i < userCouponList.Count(); i++)
-            {
-                listCoupon.Add(await _couponRepository.GetByIdAsync(userCouponList[i].CouponId));
-            }
-            var couponVM = _mapper.Map<List<CouponUserModel>>(listCoupon);
-            couponVM = _mapper.Map<List<CouponUserModel>>(userCouponList);
+            var couponList = await _couponRepository.GetCouponsByUser(request.BusinessUserId);
+            var userCouponList = await _userCouponRepository.GetCouponsByUser(request.UserId);
 
-            return _mapper.Map<List<CouponUserModel>>(couponVM);
+            var couponVM = couponList.Join(userCouponList, coupon => coupon.Id.ToString(), userCoupon => userCoupon.CouponId,
+                (coupon, userCoupon) => new CouponUserModel(userCoupon.Id.ToString(), userCoupon.CouponId, userCoupon.UserId, userCoupon.IsUsed.Value, coupon.Title, coupon.Code, coupon.Discount, coupon.TimeExpried)).ToList();
+
+            return couponVM;
         }
     }
 }

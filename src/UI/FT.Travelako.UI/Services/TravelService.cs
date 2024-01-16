@@ -16,10 +16,10 @@ namespace FT.Travelako.UI.Services
 			_baseApiClient = new BaseApiClient("http://host.docker.internal:5400");
 		}
 
-		public async Task<TravelResponseModel> GetTravelDetail(string id)
+		public async Task<TravelDetailResponseModel> GetTravelDetail(string id)
 		{
 			var requestUri = ApiTravel.GetTravelDetail(_remoteServiceBaseUrl, id);
-			var result = await _baseApiClient.GetAsync<TravelResponseModel>(requestUri);
+			var result = await _baseApiClient.GetAsync<TravelDetailResponseModel>(requestUri);
 			return result;
 		}
 

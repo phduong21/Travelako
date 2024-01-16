@@ -3,6 +3,21 @@ namespace Coupon.Application.Features.CouponsUser.Queries.GetListCouponByUserId
 {
     public class CouponUserModel
     {
+        public CouponUserModel()
+        {
+            
+        }
+
+        public CouponUserModel(string id, string couponId, string userId, bool isUsed, string title, string code, int discount, TimeSpan timeExpired)
+        {
+            Id = id;
+            CouponId = couponId;
+            UserId = userId;
+            Title = title;
+            Code = code;
+            Discount = discount;
+            TimeExpried = timeExpired;
+        }
         public string Id { get; set; }
         public string CouponId { get; set; }
         public string UserId { get; set; }

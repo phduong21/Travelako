@@ -1,6 +1,6 @@
 ﻿namespace FT.Travelako.UI.Models.Travels
 {
-	public class TravelDetailResponseModel
+	public class TravelDetailModel
 	{
 		public string title { get; set; }
 		public string description { get; set; }
@@ -23,11 +23,11 @@
 
 	public class TravelListingResponseModel : BaseApiResponseModel
 	{
-		public List<TravelDetailResponseModel> result { get; set; }
+		public List<TravelDetailModel> result { get; set; }
 	}
 
-	public class TravelResponseModel : BaseApiResponseModel
+	public class TravelDetailResponseModel : BaseApiResponseModel
 	{
-		public TravelDetailResponseModel result { get; set; }
+		public TravelDetailModel result { get; set; }
 	}
 }
