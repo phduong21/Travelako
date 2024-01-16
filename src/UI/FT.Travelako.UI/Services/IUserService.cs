@@ -11,5 +11,9 @@ namespace FT.Travelako.UI.Services
         Task<UserDetailResponseModel> CreateUser(CreateUserModel model);
         Task<UserDetailResponseModel> UpdateUser(UpdateUserModel model);
         Task DeleteUser(string userId);
+        Task<PersonalizeModel> GetPersonalizeUser(string userId);
+        Task UpdatePersonalizeUser(PersonalizeModel model);
+
+
     }
 }

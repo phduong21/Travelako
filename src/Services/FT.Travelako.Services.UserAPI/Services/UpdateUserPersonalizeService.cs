@@ -35,16 +35,10 @@ namespace FT.Travelako.Services.UserAPI.Services
                 return result;
             }
 
-            if(currentUser.Personalization is not null)
+            currentUser.Personalization ??= new List<string>();
+            if (!currentUser.Personalization.Contains(model.Location))
             {
                 currentUser.Personalization.Add(model.Location);
-            }
-            else
-            {
-                currentUser.Personalization = new List<string>
-                {
-                    model.Location
-                };
             }
 
             var updatedUser = await _userRepository.UpdateUserInformationAsync(currentUser);

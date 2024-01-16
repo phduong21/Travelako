@@ -16,7 +16,7 @@ namespace FT.Travelako.Services.UserAPI.Controllers
         {
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<GenericAPIResponse> UpdateUserPersonalize(PersonalizeRequest model)
         {
             return await ExecutionService<PersonalizeRequest, UpdateUserPersonalizeService>(model);

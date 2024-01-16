@@ -27,7 +27,7 @@ namespace FT.Travelako.UI.Controllers
             //    FirstName = "duong updated 1601"
             //});
             // await _userService.DeleteUser("4f075e3d-a935-45b2-8667-08dc1526dd2b");
-            
+
             //var newUser = await _userService.CreateUser(new Models.Users.CreateUserModel
             //{
             //    FirstName = "new user",
@@ -38,7 +38,12 @@ namespace FT.Travelako.UI.Controllers
             //    Password = "123",
             //    Role = Common.Models.UserRoles.User
             //});
-
+            //var personalize = await _userService.GetPersonalizeUser("4f075e3d-a935-45b2-8667-08dc1526dd2b");
+            //await _userService.UpdatePersonalizeUser(new Models.Users.PersonalizeModel
+            //{
+            //    Id = "4f075e3d-a935-45b2-8667-08dc1526dd2b",
+            //    Location = "Danang"
+            //});
             var travels = await _travelService.GetTravels();
             if (travels != null && travels.result.Any())
                 return View(travels);
