@@ -2,8 +2,7 @@
 
 namespace FT.Travelako.Services.UserAPI.Models.Requests
 {
-    public class GetUserRequest : IBaseRequestModel
+    public class GetAllUserRequest : IBaseRequestModel
     {
-        public string UserName { get; set;}
     }
 }

@@ -26,13 +26,13 @@ namespace FT.Travelako.Services.UserAPI.Services
             {
                 IsSuccess = false
             };
-            if(model.Id is null)
+            if(model.UserName is null)
             {
-                result.Message = "Id cannot be null";
+                result.Message = "UserName cannot be null";
                 return result;
             }
 
-            var user = await _userRepository.GetByIdAsync(model.Id);
+            var user = await _userRepository.GetUserByUserName(model.UserName);
 
             if (user == null)
             {

@@ -9,15 +9,19 @@ namespace FT.Travelako.UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ITravelService _travelService;
+        private readonly IUserService _userService;
 
-        public HomeController(ILogger<HomeController> logger, ITravelService travelService)
+        public HomeController(ILogger<HomeController> logger, ITravelService travelService, IUserService userService)
         {
             _logger = logger;
             _travelService = travelService;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Index()
         {
+            var allUser = await _userService.GetAllUsers();
+            var user = await _userService.GetUserInformation("duong123");
             var travels = await _travelService.GetTravels();
             if(travels != null && travels.result.Any())
                 return View(travels);
