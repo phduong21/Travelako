@@ -9,5 +9,6 @@ namespace FT.Travelako.Services.UserAPI.Repositories
         Task<User> UpdateUserInformationAsync(User entity);
 
         Task<User> GetUserByUserName(string userName);
+        Task DeleteUser(User user);
     }
 }

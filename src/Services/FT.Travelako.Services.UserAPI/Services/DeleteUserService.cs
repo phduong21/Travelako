@@ -33,7 +33,8 @@ namespace FT.Travelako.Services.UserAPI.Services
 
             if (user is not null)
             {
-                await _userRepository.DeleteAsync(user);
+                user.IsDeleted = true;
+                await _userRepository.DeleteUser(user);
             }
 
 

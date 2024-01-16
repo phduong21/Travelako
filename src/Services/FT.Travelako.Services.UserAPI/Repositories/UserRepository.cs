@@ -14,7 +14,13 @@ namespace FT.Travelako.Services.UserAPI.Repositories
         {
             _dbContext = dbContext;
         }
-         
+
+        public async Task DeleteUser(User user)
+        {
+            _dbContext.Users.Attach(user);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<User> GetUserByUserName(string userName)
         {
             return await _dbContext.Users.Where(x => x.UserName == userName).FirstOrDefaultAsync();

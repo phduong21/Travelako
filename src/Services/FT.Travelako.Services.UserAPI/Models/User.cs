@@ -14,5 +14,6 @@ namespace FT.Travelako.Services.UserAPI.Models
         public string? Image { get; set; }
         public string? Personalization { get; set; }
         public string Role { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

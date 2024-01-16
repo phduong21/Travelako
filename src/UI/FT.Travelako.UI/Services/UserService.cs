@@ -31,7 +31,7 @@ namespace FT.Travelako.UI.Services
                 ApiType = ApiType.POST,
                 Url = _client.BaseAddress + requestUri,
                 Data = model
-            }) ;
+            });
 
             if (result is null)
             {

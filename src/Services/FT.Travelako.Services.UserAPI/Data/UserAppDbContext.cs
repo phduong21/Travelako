@@ -1,6 +1,7 @@
 ﻿using FT.Travelako.Common.Database;
 using FT.Travelako.Services.UserAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace FT.Travelako.Services.UserAPI.Data
 {
@@ -26,5 +27,12 @@ namespace FT.Travelako.Services.UserAPI.Data
         //public UserAppDbContext() { }
         public DbSet<User> Users { get; set; }
         //public DbSet<Role> Roles { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<User>()
+                        .HasQueryFilter(p => p.IsDeleted == false);
+
+        }
     }
 }
