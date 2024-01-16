@@ -1,4 +1,5 @@
-﻿using FT.Travelako.UI.Services;
+﻿using FT.Travelako.UI.Models.Users.ViewModel;
+using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FT.Travelako.UI.Controllers
@@ -11,7 +12,22 @@ namespace FT.Travelako.UI.Controllers
         {
             _userService = userService;
         }
-        public IActionResult Index()
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(SignUpVM model)
+        {
+            // Perform registration logic here
+            // For simplicity, let's assume registration is successful
+
+            // Redirect to a thank you page or login page
+            return RedirectToAction("ThankYou");
+        }
+
+        public ActionResult ThankYou()
         {
             return View();
         }
