@@ -114,7 +114,8 @@ namespace FT.Travelako.UI.Services
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
             {
                 ApiType = ApiType.PUT,
-                Url = _client.BaseAddress + requestUri
+                Url = _client.BaseAddress + requestUri,
+                Data = model
             });
 
             if (result is null)
