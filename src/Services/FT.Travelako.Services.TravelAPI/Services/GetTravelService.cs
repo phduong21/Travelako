@@ -30,7 +30,7 @@ namespace FT.Travelako.Services.TravelAPI.Services
 						{
 							result.Result = travel;
 							result.IsSuccess = true;
-							result.Message = "Suucess";
+							result.Message = "Success";
 							return result;
 						}
 						else
@@ -47,7 +47,7 @@ namespace FT.Travelako.Services.TravelAPI.Services
 						{
 							result.Result = travel;
 							result.IsSuccess = true;
-							result.Message = "Suucess";
+							result.Message = "Success";
 							return result;
 						}
 						else
@@ -64,7 +64,7 @@ namespace FT.Travelako.Services.TravelAPI.Services
                         {
                             result.Result = travel;
                             result.IsSuccess = true;
-                            result.Message = "Suucess";
+                            result.Message = "Success";
                             return result;
                         }
                         else

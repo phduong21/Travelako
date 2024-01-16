@@ -14,6 +14,11 @@ namespace FT.Travelako.UI.Infrastructure.API
             return $"{baseUri}/GetTravel";
         }
 
+        public static string GetTravelsByLocation(string baseUri, string location)
+        {
+            return $"{baseUri}/GetTravel?location={location}";
+        }
+
         public static string GetTravelDetail(string baseUri, string TravelId)
         {
             return $"{baseUri}/GetTravel?id={TravelId}";

@@ -27,6 +27,9 @@ namespace FT.Travelako.UI.Controllers
         [Route("travel/{id}")]
         public async Task<IActionResult> Detail(string id)
         {
+            // get user by token
+            // update user persionalization by travel location
+
 			if(!string.IsNullOrEmpty(id))
             {
 				var travel = await _travelService.GetTravelDetail(id);
