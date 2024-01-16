@@ -6,6 +6,6 @@ namespace FT.Travelako.UI.Services
     {
         Task<TravelListingResponseModel> GetTravelsByUserId(string userId);
         Task<TravelListingResponseModel> GetTravels();
-        Task<TravelResponseModel> GetTravelDetail(string id);
+        Task<TravelListingResponseModel> GetTravelDetail(string id);
     }
 }

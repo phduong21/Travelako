@@ -43,8 +43,14 @@
         @Html.Partial("_About")
     }
 
+    <!-- Render Body -->
     @RenderBody()
     
+    @if (ViewData["Title"] == "Home")
+    {
+        <!-- Service -->
+        @Html.Partial("_Service")
+    }
 
     <!-- Footer -->
     @Html.Partial("_Footer")
