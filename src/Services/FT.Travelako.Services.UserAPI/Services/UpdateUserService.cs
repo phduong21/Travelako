@@ -40,6 +40,7 @@ namespace FT.Travelako.Services.UserAPI.Services
 
             }
             var userToUpdate = _mapper.Map(model, currentUser);
+            userToUpdate.LastModifiedDate = DateTime.Now;
             var updatedUser = await _userRepository.UpdateUserInformationAsync(userToUpdate);
             if (updatedUser is null)
             {
