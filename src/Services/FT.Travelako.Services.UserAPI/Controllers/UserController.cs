@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FT.Travelako.Services.TravelAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class UserController : ApiBaseController
     {
@@ -26,17 +26,17 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 
         #region GET
         [HttpGet]
-        public async Task<GenericAPIResponse> GetUserById([FromQuery] GetUserRequest model)
+        public async Task<GenericAPIResponse> GetUserByUserName([FromQuery] GetUserRequest model)
         {
             return await ExecutionService<GetUserRequest, GetUserService>(model);
         }
 
 
-        //[HttpGet("getAllUser")]
-        //public async Task<GenericAPIResponse> GetTravel([FromRoute] GetUserRequestDTO? model)
-        //{
-        //    return await ExecutionService<GetUserRequestDTO, GetUserService>(model);
-        //}
+        [HttpGet("GetAllUser")]
+        public async Task<GenericAPIResponse> GetTravel([FromRoute] GetAllUserRequest? model)
+        {
+            return await ExecutionService<GetAllUserRequest, GetAllUserService>(model);
+        }
 
         #endregion
 

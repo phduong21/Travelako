@@ -22,9 +22,6 @@
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
       "UseServiceDiscovery": true,
       "RouteIsCaseSensitive": false,
-      "LoadBalancerOptions": {
-        "Type": "LeastConnection"
-      },
       "QoSOptions": {
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 5000,

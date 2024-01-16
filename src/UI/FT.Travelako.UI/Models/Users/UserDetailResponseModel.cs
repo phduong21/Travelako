@@ -1,6 +1,8 @@
-﻿namespace FT.Travelako.Services.UserAPI.Models.DTOs
+﻿using FT.Travelako.Common.Models;
+
+namespace FT.Travelako.UI.Models.Users
 {
-    public class UserDTO
+    public class UserDetailResponseModel
     {
         public string UserName { get; set; }
         public string Email { get; set; }
@@ -9,7 +11,6 @@
         public string? Address { get; set; }
         public string? Image { get; set; }
         public string? Personalization { get; set; }
-        public string Role  { get; set; }
-        public Guid Id { get; protected set; }
+        public UserRoles Role { get; set; }
     }
 }
