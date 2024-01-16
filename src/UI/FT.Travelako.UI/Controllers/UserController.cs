@@ -14,7 +14,7 @@ namespace FT.Travelako.UI.Controllers
         {
             _userService = userService;
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
