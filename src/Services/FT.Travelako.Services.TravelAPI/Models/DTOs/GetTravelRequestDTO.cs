@@ -4,7 +4,7 @@ namespace FT.Travelako.Services.TravelAPI.Models.DTOs
 {
     public class GetTravelRequestDTO : IBaseRequestModel
     {
-        public string? Id { get; set; }
         public string? UserId { get; set; }
+        public string? Loaction { get; set; }
     }
 }
