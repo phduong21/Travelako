@@ -1,6 +1,11 @@
-﻿using Booking.Application.Features.Order.Queries.GetOrderDetails;
+﻿using AutoMapper;
+using Booking.Application.Features.Order.Queries.GetOrderDetails;
+using Booking.Domain.Entities;
 using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Common.Controller;
+using FT.Travelako.EventBus.Messages.Events;
+using MassTransit;
+using MassTransit.Transports;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +14,8 @@ using Ordering.Application.Features.Orders.Commands.DeleteOrder;
 using Ordering.Application.Features.Orders.Commands.UpdateOrder;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 using System.Net;
+using static MassTransit.ValidationResultExtensions;
+using OrderEvent = FT.Travelako.EventBus.Messages.Events.OrderEvent;
 
 namespace Booking.API.Controllers
 {
@@ -17,10 +24,13 @@ namespace Booking.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IMapper _mapper;
 
-        public OrderController(IMediator mediator)
+        public OrderController(IMediator mediator, IPublishEndpoint publishEndpoint)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [HttpGet("get-orders/{userId}")]
@@ -38,6 +48,19 @@ namespace Booking.API.Controllers
         {
             var query = new GetOrderDetailsQuery(orderId);
             var orders = await _mediator.Send(query);
+            var eventMessage = new OrderEvent()
+            {
+                FullName = orders.FullName,
+                GuestSize = orders.GuestSize,
+                UserEmail = orders.UserEmail,
+                Phone = orders.Phone,
+                TotalCost = orders.TotalPrice,
+                TourName = orders.TourName,
+                TravelId = orders.TravelId,
+                Status = orders.Status,
+            };
+            await _publishEndpoint.Publish<OrderEvent>(eventMessage);
+
             return Ok(orders);
         }
 
@@ -46,6 +69,17 @@ namespace Booking.API.Controllers
         public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
+            //var eventMessage = new OrderEvent()
+            //{
+            //    FullName = result.Value.FullName,
+            //    GuestSize = result.Value.GuestSize,
+            //    UserEmail = result.Value.UserEmail,
+            //    Phone = result.Value.Phone,
+            //    TotalCost = result.Value.TotalCost,
+            //    TourName = result.Value.TourName,
+            //};
+
+            //await _publishEndpoint.Publish<OrderEvent>(eventMessage);
             return Ok(result);
         }
 

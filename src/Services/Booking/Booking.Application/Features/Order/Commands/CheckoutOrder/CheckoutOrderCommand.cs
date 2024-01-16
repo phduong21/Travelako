@@ -1,9 +1,10 @@
 ﻿using Booking.Application.Models;
+using Booking.Domain.Entities;
 using MediatR;
 
 namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
 {
-    public class CheckoutOrderCommand : IRequest<ApiResult<string>>
+    public class CheckoutOrderCommand : IRequest<ApiResult<Order>>
     {
         public string FullName { get; set; }
         public string UserEmail { get; set; }
