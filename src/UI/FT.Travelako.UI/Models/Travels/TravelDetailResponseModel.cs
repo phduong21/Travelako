@@ -26,8 +26,8 @@
 		public List<TravelDetailResponseModel> result { get; set; }
 	}
 
-	public class TravelResponseModel : BaseApiResponseModel
-	{
-		public TravelDetailResponseModel result { get; set; }
-	}
+	//public class TravelResponseModel : BaseApiResponseModel
+	//{
+	//	public TravelDetailResponseModel result { get; set; }
+	//}
 }
