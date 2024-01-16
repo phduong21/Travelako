@@ -20,7 +20,7 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
         [HttpPost]
         public async Task<GenericAPIResponse> CreateUser([FromBody] CreateUserRequest model)
         {
-            return await ExecutionService<CreateUserRequest, CreateUserservice>(model);
+            return await ExecutionService<CreateUserRequest, CreateUserService>(model);
         }
         #endregion
 

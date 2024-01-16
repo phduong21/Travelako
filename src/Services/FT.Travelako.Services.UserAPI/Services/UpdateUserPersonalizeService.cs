@@ -40,7 +40,7 @@ namespace FT.Travelako.Services.UserAPI.Services
             {
                 currentUser.Personalization.Add(model.Location);
             }
-
+            currentUser.LastModifiedDate = DateTime.Now;
             var updatedUser = await _userRepository.UpdateUserInformationAsync(currentUser);
             UserDTO data = _mapper.Map<UserDTO>(updatedUser);
 
