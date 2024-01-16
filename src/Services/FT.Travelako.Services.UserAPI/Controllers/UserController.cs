@@ -2,6 +2,7 @@
 using FT.Travelako.Common.Controller;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,6 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
     {
         public UserController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-         
         }
 
         #region CREATE

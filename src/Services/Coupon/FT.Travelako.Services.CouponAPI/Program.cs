@@ -40,7 +40,7 @@ builder.Services.AddMassTransit(config => {
     config.UsingRabbitMq((ctx, cfg) => {
         cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
         //cfg.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter("Coupon", false));
-        cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
+        cfg.ReceiveEndpoint(EventBusConstants.OrderQueue, c => {
             c.ConfigureConsumer<OrderConsumer>(ctx);
         });
     });

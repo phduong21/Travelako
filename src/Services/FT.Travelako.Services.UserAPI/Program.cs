@@ -6,6 +6,9 @@ using FT.Travelako.Service.Core.ServiceDiscovery;
 using FT.Travelako.Services.UserAPI.Installer;
 using FT.Travelako.Services.UserAPI.Repositories;
 using System.Text.Json.Serialization;
+using MassTransit;
+using FT.Travelako.Services.UserAPI.EventBusConsumer;
+using FT.Travelako.EventBus.Messages.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddConsul(builder.Configuration.GetServiceConfig());
@@ -20,6 +23,20 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 IMapper mapper = MappingSettings.RegisterMap().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// Add MassTransit
+builder.Services.AddMassTransit(config => {
+
+    config.AddConsumer<TravelConsumer>();
+    config.UsingRabbitMq((ctx, cfg) => {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+        //cfg.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter("Coupon", false));
+        cfg.ReceiveEndpoint(EventBusConstants.TravelQueue, c => {
+            c.ConfigureConsumer<TravelConsumer>(ctx);
+        });
+    });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers()

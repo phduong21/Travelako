@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using FT.Travelako.Service.Core.ServiceDiscovery;
 using FT.Travelako.Services.TravelAPI.Installer;
 using FT.Travelako.Services.TravelAPI.Repositories;
+using MassTransit;
 
 namespace FT.Travelako.Services.TravelAPI
 {
@@ -25,6 +26,15 @@ namespace FT.Travelako.Services.TravelAPI
             IMapper mapper = MappingSettings.RegisterMap().CreateMapper();
             builder.Services.AddSingleton(mapper);
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Add Masstransit
+            builder.Services.AddMassTransit(config => {
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(configuration["EventBusSettings:HostAddress"]);
+                    //cfg.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter("Order", false));
+                });
+            });
+
             // Add services to the container.
 
             builder.Services.AddControllers();

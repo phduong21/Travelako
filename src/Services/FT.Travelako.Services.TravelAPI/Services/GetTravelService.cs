@@ -1,16 +1,24 @@
 ﻿using FT.Travelako.Common.BaseModels;
+using FT.Travelako.EventBus.Messages.Events;
 using FT.Travelako.Services.TravelAPI.Models.DTOs;
 using FT.Travelako.Services.TravelAPI.Repositories;
+using MassTransit;
+using MassTransit.Transports;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace FT.Travelako.Services.TravelAPI.Services
 {
 	public class GetTravelService : BaseService<GetTravelRequestDTO>
 	{
-		public GetTravelService(ITravelRepository travelRepository) : base(travelRepository)
-		{
-		}
+        private readonly IPublishEndpoint _publishEndpoint;
 
-		public override async Task<GenericAPIResponse> ExecuteApi(GetTravelRequestDTO model)
+        public GetTravelService(ITravelRepository travelRepository, IPublishEndpoint publishEndpoint) : base(travelRepository)
+        {
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
+        }
+
+        public override async Task<GenericAPIResponse> ExecuteApi(GetTravelRequestDTO model)
 		{
 			try
 			{
@@ -58,7 +66,12 @@ namespace FT.Travelako.Services.TravelAPI.Services
 						}
 					}
 				}
-				return result;
+    
+				var eventMessage = JsonConvert.DeserializeObject<TravelEvent>(result.Data.ToString());
+                await _publishEndpoint.Publish<TravelEvent>(eventMessage);
+
+
+                return result;
 			}
 			catch (Exception ex)
 			{
