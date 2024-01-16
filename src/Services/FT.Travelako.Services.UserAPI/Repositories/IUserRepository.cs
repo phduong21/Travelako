@@ -10,5 +10,7 @@ namespace FT.Travelako.Services.UserAPI.Repositories
 
         Task<User> GetUserByUserName(string userName);
         Task DeleteUser(User user);
+
+        Task<bool> IsUserNameOrEmailAlreadyExists(string userName, string email);
     }
 }

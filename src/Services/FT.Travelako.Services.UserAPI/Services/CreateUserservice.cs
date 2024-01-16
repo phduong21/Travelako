@@ -12,10 +12,10 @@ using FT.Travelako.Services.UserAPI.Models;
 
 namespace FT.Travelako.Services.UserAPI.Services
 {
-    public class CreateUserservice : UserBaseService<CreateUserRequest>
+    public class CreateUserService : UserBaseService<CreateUserRequest>
     {
         private readonly IMapper _mapper;
-        public CreateUserservice(IUserRepository userRepository, IMapper mapper) : base(userRepository)
+        public CreateUserService(IUserRepository userRepository, IMapper mapper) : base(userRepository)
         {
             _mapper = mapper;
         }
@@ -26,14 +26,11 @@ namespace FT.Travelako.Services.UserAPI.Services
                 IsSuccess = false
             };
 
-
-            var user = await _userRepository.GetUserByUserName(model.UserName);
-
-            if (user != null)
+            if (!StringHelper.IsEmail(model.Email))
             {
                 return result;
             }
-            if (!StringHelper.IsEmail(model.Email))
+            if (await _userRepository.IsUserNameOrEmailAlreadyExists(model.UserName, model.Email))
             {
                 return result;
             }
@@ -44,7 +41,7 @@ namespace FT.Travelako.Services.UserAPI.Services
             userToCreate.CreatedDate = DateTime.Now;
             var createdUser = await _userRepository.AddAsync(userToCreate);
             
-            var userDto = _mapper.Map<User>(createdUser);
+            var userDto = _mapper.Map<UserDTO>(createdUser);
             return new GenericAPIResponse
             {
                 IsSuccess = true,
