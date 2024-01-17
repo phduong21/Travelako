@@ -1,27 +1,25 @@
-﻿using Coupon.Application.Features.Coupon.Commands.CreateCoupon;
-using Coupon.Application.Features.Coupon.Commands.DeleteCoupon;
-using Coupon.Application.Features.Coupon.Commands.UpdateCoupon;
-using Coupon.Application.Features.Coupon.Queries.GetListCoupons;
-using FT.Travelako.Common.BaseModels;
-using FT.Travelako.Common.Controller;
-using FT.Travelako.Services.CouponAPI.Filter;
-using FT.Travelako.Services.CouponAPI.Models.DTOs;
-using FT.Travelako.Services.CouponAPI.Services;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using FT.Travelako.Common.Controller;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using FT.Travelako.Services.CouponAPI.Services;
+using MediatR;
+using FT.Travelako.Services.CouponAPI.Filter;
+using Microsoft.AspNetCore.Authorization;
 using System.Net;
+using Coupon.Application.Features.CouponsUser.Queries.GetListCouponByUserId;
+using Coupon.Application.Features.CouponsUser.Commands.CreateUserCoupon;
+using Coupon.Application.Features.CouponsUser.Commands.UpdateUserCoupon;
+using Coupon.Application.Features.CouponsUser.Commands.DeleteUserCoupon;
 
 namespace FT.Travelako.Services.CouponAPI.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class CouponController : ApiBaseController
+    public class UserCouponController : ApiBaseController
     {
         private IDistributedCache _cache;
         private readonly IMediator _mediator;
-        public CouponController(IServiceProvider serviceProvider, IDistributedCache cache, IMediator mediator) : base(serviceProvider)
+        public UserCouponController(IServiceProvider serviceProvider, IDistributedCache cache, IMediator mediator) : base(serviceProvider)
         {
             _cache = cache;
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
@@ -29,48 +27,48 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
 
 
 
-        [HttpGet("{userId}", Name = "GetCouponsByUserId")]
+        [HttpGet("{userId}", Name = "GetUsersCouponsByUserId")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
-        [ProducesResponseType(typeof(IEnumerable<CouponViewModel>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<CouponViewModel>>> GetCouponsByUserId(string userId)
+        [ProducesResponseType(typeof(IEnumerable<CouponUserModel>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<CouponUserModel>>> GetUsersCouponsByUserId(string userId, string businessUserId)
         {
-            var query = new GetCouponsListQuery(userId);
+            var query = new GetUserCouponsListQuery(userId, businessUserId);
             var orders = await _mediator.Send(query);
             return Ok(orders);
         }
 
-        [HttpPost(Name = "CreateCoupon")]
+        [HttpPost(Name = "CreateUserCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> CreateCoupon([FromBody] CreateCouponCommand command)
+        public async Task<ActionResult<int>> CreateUserCoupon([FromBody] CreateUserCouponCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
         }
 
-        [HttpPut(Name = "UpdateCoupon")]
+        [HttpPut(Name = "UpdateUserCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> UpdateCoupon([FromBody] UpdateCouponCommand command)
+        public async Task<ActionResult> UpdateUserCoupon([FromBody] UpdateUserCouponCommand command)
         {
             await _mediator.Send(command);
             return NoContent();
         }
 
-        [HttpDelete("{id}", Name = "DeleteCoupon")]
+        [HttpDelete("{id}", Name = "DeleteUserCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> DeleteCoupon(string id)
+        public async Task<ActionResult> DeleteUserCoupon(string id)
         {
-            var command = new DeleteCouponCommand() { Id = id };
+            var command = new DeleteUserCouponCommand() { Id = id };
             await _mediator.Send(command);
             return NoContent();
         }
