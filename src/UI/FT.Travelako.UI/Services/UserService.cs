@@ -5,6 +5,7 @@ using FT.Travelako.UI.Models.Orders;
 using FT.Travelako.UI.Models.Travels;
 using FT.Travelako.UI.Models.Users;
 using FT.Travelako.UI.Services.Base;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using static FT.Travelako.Common.Utility.StaticData;
 
@@ -16,13 +17,17 @@ namespace FT.Travelako.UI.Services
         private readonly string _remoteServiceBaseUrl;
         private readonly string _remoteServicePersonalizeBaseUrl;
         private readonly IBaseService _baseService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly string token;
 
-        public UserService(HttpClient client, IBaseService baseService)
+        public UserService(HttpClient client, IBaseService baseService, IHttpContextAccessor httpContextAccessor)
         {
             _remoteServiceBaseUrl = $"user/v1/User";
             _remoteServicePersonalizeBaseUrl = $"user/v1/Personalization";
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _baseService = baseService;
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+            token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
         }
 
         public async Task<UserDetailResponseModel> CreateUser(CreateUserModel model)

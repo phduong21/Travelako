@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NuGet.Common;
 using System.Text;
 
 namespace FT.Travelako.UI.Base
@@ -6,12 +7,15 @@ namespace FT.Travelako.UI.Base
     public class BaseApiClient : IBaseApiClient
     {
         private readonly string _baseUrl;
-        
-        public BaseApiClient(string baseUrl = null)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly string token;
+        public BaseApiClient(string baseUrl = null, IHttpContextAccessor httpContextAccessor = null)
         {
             _baseUrl = baseUrl;
+            _httpContextAccessor = httpContextAccessor;
+            token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
         }
-        
+
         public async Task<List<T>> GetListAsync<T>(string requestUri, bool requiredLogin = false, string baseApiUrl = null)
         {
             string url = string.IsNullOrWhiteSpace(baseApiUrl) ? $"{_baseUrl}/{requestUri}" : $"{baseApiUrl}/{requestUri}";
