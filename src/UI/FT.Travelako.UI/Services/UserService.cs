@@ -1,12 +1,14 @@
 ﻿using FT.Travelako.Common.BaseModels;
 using FT.Travelako.UI.Extensions;
 using FT.Travelako.UI.Infrastructure.API;
+using FT.Travelako.UI.Models.Authentication;
 using FT.Travelako.UI.Models.Orders;
 using FT.Travelako.UI.Models.Travels;
 using FT.Travelako.UI.Models.Users;
 using FT.Travelako.UI.Services.Base;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 using static FT.Travelako.Common.Utility.StaticData;
 
 namespace FT.Travelako.UI.Services
@@ -160,5 +162,20 @@ namespace FT.Travelako.UI.Services
             });
         }
 
+        public UserModel GetCurrentUser()
+        {
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                var jwt = new JwtSecurityToken(token);
+                if (jwt != null)
+                {
+                    var result = new UserModel();
+                    result.UserName = jwt.Claims.First(c => c.Type == "name").Value;
+                    result.Id = jwt.Claims.First(c => c.Type == "id").Value;
+                    return result;
+                }
+            }
+            return null;
+        }
     }
 }

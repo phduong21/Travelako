@@ -9,11 +9,13 @@ namespace FT.Travelako.UI.Controllers
     {
         private readonly ILogger<TravelController> _logger;
         private readonly ITravelService _travelService;
+        private readonly IUserService _userService;
 
-        public TravelController(ILogger<TravelController> logger, ITravelService travelService)
+        public TravelController(ILogger<TravelController> logger, ITravelService travelService, IUserService userService)
         {
             _logger = logger;
             _travelService = travelService;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Index()
@@ -27,20 +29,27 @@ namespace FT.Travelako.UI.Controllers
         [Route("travel/{id}")]
         public async Task<IActionResult> Detail(string id)
         {
-            // get user by token
-            // update user persionalization by travel location
-
 			if(!string.IsNullOrEmpty(id))
             {
 				var travel = await _travelService.GetTravelDetail(id);
 				if (travel != null && travel.result != null)
 				{
-					var travelModel = travel.result;
+                    // update user personalize by token
+                    var currentUser = _userService.GetCurrentUser();
+                    if (currentUser != null)
+                    {
+                        await _userService.UpdatePersonalizeUser(new Models.Users.PersonalizeModel
+                        {
+                            Id = currentUser.Id,
+                            Location = travel.result.location
+                        });
+                    }
+                    var travelModel = travel.result;
 					ViewBag.Title = travelModel?.title;
 					return View(travelModel);
 				}
 			}
-            return View("Error");
+            return View("NotFound");
         }
     }
 }
