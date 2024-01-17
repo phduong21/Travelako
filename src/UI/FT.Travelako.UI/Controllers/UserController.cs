@@ -82,7 +82,7 @@ namespace FT.Travelako.UI.Controllers
             });
             if(login.Name.Length > 0)
             {
-                //HttpContext.Session.SetString("AccessToken", login.Name);
+                HttpContext.Session.SetString("AccessToken", login.Name);
 
                 return Redirect("/Home/Index");
             }
