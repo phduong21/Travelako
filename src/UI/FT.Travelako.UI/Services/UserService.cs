@@ -99,7 +99,7 @@ namespace FT.Travelako.UI.Services
             return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());  
         }
 
-        public async Task<UserDetailResponseModel> GetUserInformationById(string userId)
+        public async Task<UserDetailResponseModelNew> GetUserInformationById(string userId)
         {
             var requestUri = ApiUser.GetUserInfoById(_remoteServiceBaseUrl, userId);
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
@@ -113,7 +113,7 @@ namespace FT.Travelako.UI.Services
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());
+            return JsonConvert.DeserializeObject<UserDetailResponseModelNew>(result.Result.ToString());
         }
 
         public async Task<UserDetailResponseModel> UpdateUser(UpdateUserModel model)

@@ -7,7 +7,7 @@ namespace FT.Travelako.UI.Services
     public interface IUserService
     {
         Task<UserDetailResponseModel> GetUserInformation(string userName);
-        Task<UserDetailResponseModel> GetUserInformationById(string userId);
+        Task<UserDetailResponseModelNew> GetUserInformationById(string userId);
         Task<IEnumerable<UserDetailResponseModel>> GetAllUsers();
         Task<UserDetailResponseModel> CreateUser(CreateUserModel model);
         Task<UserDetailResponseModel> UpdateUser(UpdateUserModel model);
