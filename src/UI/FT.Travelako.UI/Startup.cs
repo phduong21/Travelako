@@ -30,22 +30,11 @@ namespace FT.Travelako.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddTransient<LoggingDelegatingHandler>();
             services.AddScoped<IBaseService, BaseService>();
             services.AddScoped<IBaseApiClient, BaseApiClient>();
             services.AddScoped<ITravelService, TravelService>();
-
-            //services.AddHttpClient<ICatalogService, CatalogService>(c =>
-            //    c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-            //    .AddHttpMessageHandler<LoggingDelegatingHandler>()
-            //    .AddPolicyHandler(GetRetryPolicy())
-            //    .AddPolicyHandler(GetCircuitBreakerPolicy());
-
-            //services.AddHttpClient<IBasketService, BasketService>(c =>
-            //    c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-            //    .AddHttpMessageHandler<LoggingDelegatingHandler>()
-            //    .AddPolicyHandler(GetRetryPolicy())
-            //    .AddPolicyHandler(GetCircuitBreakerPolicy());
 
             services.AddHttpClient<IOrderService, OrderService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
@@ -65,8 +54,19 @@ namespace FT.Travelako.UI
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
 
-            services.AddRazorPages();
+            services.AddHttpClient<IAuthenticationService, AuthenticationService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
+                .AddPolicyHandler(GetRetryPolicy())
+                .AddPolicyHandler(GetCircuitBreakerPolicy());
 
+            services.AddRazorPages();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddHealthChecks()
                 .AddUrlGroup(new Uri(Configuration["ApiSettings:GatewayAddress"]), "Ocelot API Gw", HealthStatus.Degraded);
         }
@@ -88,7 +88,7 @@ namespace FT.Travelako.UI
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
