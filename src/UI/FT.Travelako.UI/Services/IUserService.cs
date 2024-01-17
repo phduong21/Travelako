@@ -1,4 +1,5 @@
 ﻿using FT.Travelako.Common.BaseModels;
+using FT.Travelako.UI.Models.Authentication;
 using FT.Travelako.UI.Models.Users;
 
 namespace FT.Travelako.UI.Services
@@ -13,6 +14,7 @@ namespace FT.Travelako.UI.Services
         Task DeleteUser(string userId);
         Task<PersonalizeModel> GetPersonalizeUser(string userId);
         Task UpdatePersonalizeUser(PersonalizeModel model);
+        UserModel GetCurrentUser();
 
 
     }

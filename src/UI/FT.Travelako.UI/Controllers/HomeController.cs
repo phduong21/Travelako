@@ -1,7 +1,9 @@
 using FT.Travelako.UI.Models;
 using FT.Travelako.UI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace FT.Travelako.UI.Controllers
 {
@@ -20,6 +22,7 @@ namespace FT.Travelako.UI.Controllers
 
         public async Task<IActionResult> Index()
         {
+
             //var allUser = await _userService.GetAllUsers();
             //var user = await _userService.GetUserInformation("duong123");
             //var updateUser = await _userService.UpdateUser(new Models.Users.UpdateUserModel{
@@ -34,7 +37,17 @@ namespace FT.Travelako.UI.Controllers
             //    Id = "4f075e3d-a935-45b2-8667-08dc1526dd2b",
             //    Location = "Danang"
             //});
-            var travels = await _travelService.GetTravels();
+            var currentUser = _userService.GetCurrentUser();
+            var persionalize = string.Empty;
+            if (currentUser != null)
+            {
+                var personalizeModel = await _userService.GetPersonalizeUser(currentUser.Id);
+                if(personalizeModel != null && personalizeModel.Personalization != null && personalizeModel.Personalization.Any())
+                {
+                    persionalize = string.Join(",", personalizeModel.Personalization.ToArray());
+                }
+            }
+            var travels = await _travelService.GetTravels(persionalize);
             if (travels != null && travels.result.Any())
                 return View(travels);
             else return View();

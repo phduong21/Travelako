@@ -33,7 +33,7 @@ namespace FT.Travelako.UI
             services.AddHttpContextAccessor();
             services.AddTransient<LoggingDelegatingHandler>();
             services.AddScoped<IBaseService, BaseService>();
-            services.AddScoped<IBaseApiClient, BaseApiClient>();
+            //services.AddScoped<IBaseApiClient, BaseApiClient>();
             services.AddScoped<ITravelService, TravelService>();
 
             services.AddHttpClient<IOrderService, OrderService>(c =>
