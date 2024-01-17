@@ -9777,3 +9777,12 @@ h6,
   padding: 0;
   list-style-type: none;
 }
+
+.link-recent-travel {
+    height: 100px !important;
+}
+
+.img-recent-travel {
+    max-width: 50% !important;
+    height: 100% !important;
+}

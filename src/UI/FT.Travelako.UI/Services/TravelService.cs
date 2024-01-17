@@ -42,24 +42,5 @@ namespace FT.Travelako.UI.Services
             var result = await _baseApiClient.GetAsync<TravelListingResponseModel>(requestUri);
             return result;
         }
-
-		//private UserModel GetUser(string userId) 
-		//{
-		//	var allUser = await _userService.GetAllUsers();
-		//	var user = await _userService.GetUserInformation("duong123");
-		//	var updateUser = await _userService.UpdateUser(new Models.Users.UpdateUserModel
-		//	{
-		//		Id = "69121893-3AFC-4F92-85F3-40BB5E7C7E29",
-		//		FirstName = "duong updated 1601"
-		//	});
-		//	await _userService.DeleteUser("4f075e3d-a935-45b2-8667-08dc1526dd2b");
-
-		//	var personalize = await _userService.GetPersonalizeUser("4f075e3d-a935-45b2-8667-08dc1526dd2b");
-		//	await _userService.UpdatePersonalizeUser(new Models.Users.PersonalizeModel
-		//	{
-		//		Id = "4f075e3d-a935-45b2-8667-08dc1526dd2b",
-		//		Location = "Danang"
-		//	});
-		//}
     }
 }
