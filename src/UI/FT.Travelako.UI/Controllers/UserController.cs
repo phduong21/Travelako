@@ -84,7 +84,7 @@ namespace FT.Travelako.UI.Controllers
             {
                 HttpContext.Session.SetString("AccessToken", login.Name);
 
-                return Redirect("/Home/Index");
+                return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError(string.Empty, "Login failed. Please check your information.");
             return View("Login", model);

@@ -1,4 +1,4 @@
-﻿@model FT.Travelako.UI.Models.Travels.TravelListingResponseModel
+﻿@model FT.Travelako.UI.Models.Travels.ViewModel.TravelListingViewModel
 @{
     ViewData["Title"] = "Home";
 }
@@ -6,13 +6,13 @@
 <div class="container-fluid py-5">
 	<div class="container pt-5 pb-3">
 		<div class="text-center mb-3 pb-3">
-			<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Packages</h6>
+			<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Newest</h6>
 			<h1>Pefect Tour Packages</h1>
 		</div>
 		<div class="row">
-			@if (Model != null && Model.result.Any())
+			@if (Model != null && Model.NewTravels != null && Model.NewTravels.result.Any())
 			{
-				foreach (var travel in Model.result)
+				foreach (var travel in Model.NewTravels.result)
 				{
 					<div class="col-lg-4 col-md-6 mb-4">
 						<div class="package-item bg-white mb-2">
@@ -40,4 +40,40 @@
 	</div>
 </div>
 <!-- Packages End -->
+@if (Model != null && Model.SuggestTravels != null && Model.SuggestTravels.result.Any())
+{
+	<div class="container-fluid py-5">
+		<div class="container pt-5 pb-3">
+			<div class="text-center mb-3 pb-3">
+				<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Best Choice</h6>
+				<h1>Suggestion Tour For You</h1>
+			</div>
+			<div class="row">
+				@foreach (var travel in Model.SuggestTravels.result)
+				{
+					<div class="col-lg-4 col-md-6 mb-4">
+						<div class="package-item bg-white mb-2">
+							<img class="img-fluid" src="@travel.thumbnail" alt="">
+							<div class="p-4">
+								<div class="d-flex justify-content-between mb-3">
+									<small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i>@travel.location</small>
+									<small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>3 days</small>
+									<small class="m-0"><i class="fa fa-user text-primary mr-2"></i>@travel.province</small>
+								</div>
+								<a class="h5 text-decoration-none travel-title" asp-controller="Travel" asp-action="Detail"
+								   asp-route-id="@travel.id">@travel.title</a>
+								<div class="border-top mt-4 pt-4">
+									<div class="d-flex justify-content-between">
+										<h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
+										<h5 class="m-0">$@travel.hotelPrice</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+}
 

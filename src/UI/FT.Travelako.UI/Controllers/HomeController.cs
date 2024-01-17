@@ -1,4 +1,6 @@
 using FT.Travelako.UI.Models;
+using FT.Travelako.UI.Models.Travels;
+using FT.Travelako.UI.Models.Travels.ViewModel;
 using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,19 +39,27 @@ namespace FT.Travelako.UI.Controllers
             //    Id = "4f075e3d-a935-45b2-8667-08dc1526dd2b",
             //    Location = "Danang"
             //});
-            var currentUser = _userService.GetCurrentUser();
-            var persionalize = string.Empty;
+            var travelViewModel = new TravelListingViewModel();
+            var currentUser = _userService.GetCurrentUser();;
             if (currentUser != null)
             {
                 var personalizeModel = await _userService.GetPersonalizeUser(currentUser.Id);
                 if(personalizeModel != null && personalizeModel.Personalization != null && personalizeModel.Personalization.Any())
                 {
-                    persionalize = string.Join(",", personalizeModel.Personalization.ToArray());
+                    var persionalize = string.Join(",", personalizeModel.Personalization.ToArray());
+                    var suggestTravels = await _travelService.GetTravels(persionalize);
+                    if (suggestTravels != null && suggestTravels.result.Any())
+                    {
+                        travelViewModel.SuggestTravels = suggestTravels;
+                    }
                 }
             }
-            var travels = await _travelService.GetTravels(persionalize);
-            if (travels != null && travels.result.Any())
-                return View(travels);
+            var newTravels = await _travelService.GetTravels();
+            if (newTravels != null && newTravels.result.Any())
+            {
+                travelViewModel.NewTravels = newTravels;
+                return View(travelViewModel);
+            }
             else return View();
         }
 
