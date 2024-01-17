@@ -44,6 +44,17 @@ namespace FT.Travelako.UI.Services
             }
         }
 
+        public async Task<OrderResponseModel> UpdateOrderStatus(OrderStatus orderStatus)
+        {
+            var updateOrderStatus = ApiOrder.UpdateOrderStatus(_remoteServiceBaseUrl);
+            var response = await _client.PostAsJsonAsync(updateOrderStatus, orderStatus);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Something went wrong when calling api.");
+            }
+            return await response.ReadContentAs<OrderResponseModel>();
+        }
+
         public async Task DeleteOrder(string userId)
         {
             var deleteOrderUri = ApiOrder.DeleteOrder(_remoteServiceBaseUrl, userId);
