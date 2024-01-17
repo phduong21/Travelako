@@ -35,18 +35,6 @@ namespace FT.Travelako.UI
             services.AddScoped<IBaseApiClient, BaseApiClient>();
             services.AddScoped<ITravelService, TravelService>();
 
-            //services.AddHttpClient<ICatalogService, CatalogService>(c =>
-            //    c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-            //    .AddHttpMessageHandler<LoggingDelegatingHandler>()
-            //    .AddPolicyHandler(GetRetryPolicy())
-            //    .AddPolicyHandler(GetCircuitBreakerPolicy());
-
-            //services.AddHttpClient<IBasketService, BasketService>(c =>
-            //    c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-            //    .AddHttpMessageHandler<LoggingDelegatingHandler>()
-            //    .AddPolicyHandler(GetRetryPolicy())
-            //    .AddPolicyHandler(GetCircuitBreakerPolicy());
-
             services.AddHttpClient<IOrderService, OrderService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
                 .AddHttpMessageHandler<LoggingDelegatingHandler>()
@@ -60,6 +48,12 @@ namespace FT.Travelako.UI
 				.AddPolicyHandler(GetCircuitBreakerPolicy());
 
             services.AddHttpClient<IUserService, UserService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
+                .AddPolicyHandler(GetRetryPolicy())
+                .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+            services.AddHttpClient<IAuthenticationService, AuthenticationService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
                 .AddHttpMessageHandler<LoggingDelegatingHandler>()
                 .AddPolicyHandler(GetRetryPolicy())
