@@ -1,8 +1,10 @@
 ﻿using FT.Travelako.Common.Entities;
+using FT.Travelako.Common.Helpers;
 using FT.Travelako.Common.Models;
 using FT.Travelako.UI.Models.Users.ViewModel;
 using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Common;
 
 namespace FT.Travelako.UI.Controllers
 {
@@ -10,11 +12,13 @@ namespace FT.Travelako.UI.Controllers
     {
         private readonly IUserService _userService;
         private readonly IAuthenticationService _authenService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserController(IUserService userService, IAuthenticationService authenService)
+        public UserController(IUserService userService, IAuthenticationService authenService, IHttpContextAccessor httpContextAccessor)
         {
             _userService = userService;
             _authenService = authenService;
+            _httpContextAccessor = httpContextAccessor;
         }
         public IActionResult Index()
         {
@@ -51,10 +55,6 @@ namespace FT.Travelako.UI.Controllers
 
             if (registrationSuccess)
             {
-                //var accessToken = await GetAccessTokenAsync("your_client_id", "your_client_secret");
-
-                //HttpContext.Session.SetString("AccessToken", accessToken);
-
                 return RedirectToAction("Login");
             }
 
@@ -80,7 +80,7 @@ namespace FT.Travelako.UI.Controllers
                 Username = model.Username,
                 Password = model.Password
             });
-            if(login.Name.Length > 0)
+            if(login != null && login.Name.Length > 0)
             {
                 HttpContext.Session.SetString("AccessToken", login.Name);
 
@@ -88,6 +88,36 @@ namespace FT.Travelako.UI.Controllers
             }
             ModelState.AddModelError(string.Empty, "Login failed. Please check your information.");
             return View("Login", model);
+        }
+
+        public IActionResult UserInfo()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            var token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var userId = JwtHelper.GetClaimValue(token, "id");
+            if (string.IsNullOrEmpty(userId))
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var currentUser = await _userService.GetUserInformationById(userId);
+            if(currentUser == null)
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            string imgPath = "/img/default-profile-img.jpg";
+            ViewBag.ImagePath = imgPath;
+
+            return View(currentUser);
         }
     }
 }
