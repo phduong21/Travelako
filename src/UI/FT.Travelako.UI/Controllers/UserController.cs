@@ -6,7 +6,6 @@ using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Common;
 using Microsoft.AspNetCore.Authorization;
-using FT.Travelako.UI.Attributes;
 
 namespace FT.Travelako.UI.Controllers
 {
