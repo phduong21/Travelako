@@ -85,7 +85,7 @@ namespace FT.Travelako.UI.Controllers
             if(login != null && login.Token.Length > 0)
             {
                 HttpContext.Session.SetString("AccessToken", login.Token);
-
+                
                 return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError(string.Empty, "Login failed. Please check your information.");
@@ -119,6 +119,7 @@ namespace FT.Travelako.UI.Controllers
         }
 
         //[AccessTokenAuthorize]
+        [Route("/requiretoken/edituser")]
         public async Task<IActionResult> EditUser()
         {
             var userId = JwtHelper.GetClaimValue("", "id");
