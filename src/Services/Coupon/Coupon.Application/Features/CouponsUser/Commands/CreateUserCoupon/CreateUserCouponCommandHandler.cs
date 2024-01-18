@@ -2,7 +2,6 @@
 using Booking.Application.Models;
 using Coupon.Application.Contracts.Persistence;
 using Coupon.Domain.Entities;
-using FT.Travelako.Common.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
