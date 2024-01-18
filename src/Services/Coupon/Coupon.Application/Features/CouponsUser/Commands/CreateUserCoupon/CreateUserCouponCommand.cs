@@ -10,7 +10,7 @@ namespace Coupon.Application.Features.CouponsUser.Commands.CreateUserCoupon
 {
     public class CreateUserCouponCommand : IRequest<ApiResult<string>>
     {
-        public string CouponId { get; set; }
+        public string BusinessId { get; set; }
 
         public string UserId { get; set; }
 

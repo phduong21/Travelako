@@ -7,7 +7,7 @@ namespace Coupon.Application.Features.CouponsUser.Commands.CreateUserCoupon
     {
         public CreateUserCouponCommandValidator()
         {
-            RuleFor(p => p.CouponId)
+            RuleFor(p => p.BusinessId)
                 .NotEmpty().WithMessage("{CouponId} is required.")
                 .Custom((id,context) => {
                     if (!Guid.TryParse(id, out var couponId))

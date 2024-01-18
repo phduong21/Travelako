@@ -1,0 +1,26 @@
+﻿@using FT.Travelako.UI.Models.Orders
+
+@{
+    ViewData["Title"] = "OrdersHistory";
+    @model IEnumerable<OrderResponseModel>
+
+}
+
+<h1>OrdersHistory</h1>
+
+<section class="esh-orders_new-section">
+    <article class="esh-orders_new-titles row">
+        <section class="esh-orders_new-title col-xs-12">Order details</section>
+    </article>
+    @foreach (var item in Model)
+    {
+        <article class="esh-orders-items row">
+            <section class="esh-orders-item col-xs-2">@Html.DisplayFor(modelItem => item.TourName)</section>
+            <section class="esh-orders-item col-xs-4">@Html.DisplayFor(modelItem => item.GuestSize)</section>
+            <section class="esh-orders-item col-xs-2">$ @Html.DisplayFor(modelItem => item.TotalPrice)</section>
+            <section class="esh-orders-item col-xs-1">
+                <a class="esh-orders-link" asp-controller="Booking" asp-action="Detail" asp-route-orderId="@item.Id">Detail</a>
+            </section>
+        </article>
+    }
+</section>

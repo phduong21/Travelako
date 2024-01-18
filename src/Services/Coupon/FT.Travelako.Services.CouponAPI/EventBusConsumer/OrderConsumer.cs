@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Coupon.Application.Features.CouponsUser.Commands.CreateUserCoupon;
 using FT.Travelako.EventBus.Messages.Events;
 using MassTransit;
 using MediatR;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FT.Travelako.Services.CouponAPI.EventBusConsumer
 {
-    public class OrderConsumer : IConsumer<OrderEvent>
+    public class OrderConsumer : IConsumer<CouponEvent>
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
@@ -22,13 +23,17 @@ namespace FT.Travelako.Services.CouponAPI.EventBusConsumer
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task Consume(ConsumeContext<OrderEvent> context)
+        public async Task Consume(ConsumeContext<CouponEvent> context)
         {
-            var result = JsonConvert.SerializeObject(context.Message);
-            //var command = _mapper.Map<CheckoutOrderCommand>(context.Message);
-            //var result = await _mediator.Send(command);
+            var command = new CreateUserCouponCommand()
+            {
+                UserId = context.Message.UserId,
+                BusinessId = context.Message.BusinessId,
+                IsUsed = false
+            };
+            await _mediator.Send(command);
 
-            _logger.LogInformation("OrderDetalis Event consumed successfully. Order Id : {newOrderId}", result);
+            _logger.LogInformation("OrderDetalis Event consumed successfully.");
         }
     }
 }

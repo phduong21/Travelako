@@ -21,6 +21,7 @@ namespace FT.Travelako.Common.Repositories
                                        bool disableTracking = true);
         Task<T> GetByIdAsync(string id);
         Task<T> AddAsync(T entity);
+        Task<List<T>> AddRangeAsync(List<T> entities);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
     }
