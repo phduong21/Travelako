@@ -1,5 +1,6 @@
 ﻿using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Common.Controller;
+using FT.Travelako.Services.UserAPI.Filter;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +26,9 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
         #endregion
 
         #region GET
-        [HttpGet]
+        [HttpGet("GetUserByUserName")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "administrator")]
         public async Task<GenericAPIResponse> GetUserByUserName([FromQuery] GetUserRequest model)
         {
             return await ExecutionService<GetUserRequest, GetUserService>(model);

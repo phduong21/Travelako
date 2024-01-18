@@ -22,17 +22,17 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 			return await ExecutionService<GetTravelRequestDTO, GetTravelService>(model);
 		}
 
-        [AuthorizeFTFilter]
-        [Authorize(Roles = "business")]
         [HttpPost("CreateTravel")]
+		[AuthorizeFTFilter]
+		[Authorize(Roles = "administrator")]
 		public async Task<GenericAPIResponse> CreateTravel([FromBody] CreateTravelRequestDTO? model)
 		{
 			return await ExecutionService<CreateTravelRequestDTO, CreateTravelService>(model);
 		}
 
+        [HttpDelete("DeleteTravel")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business")]
-        [HttpDelete("DeleteTravel")]
 		public async Task<GenericAPIResponse> DeleteTravel([FromBody] DeleteTravelRequestDTO? model)
 		{
 			return await ExecutionService<DeleteTravelRequestDTO, DeleteTravelService>(model);
