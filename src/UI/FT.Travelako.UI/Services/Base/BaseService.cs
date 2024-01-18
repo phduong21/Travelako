@@ -19,10 +19,11 @@ namespace FT.Travelako.UI.Services.Base
         {
             try
             {
+                var token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
                 var client = _httpClientFactory.CreateClient("TravelakoAPI");
                 var message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
-                message.Headers.Add("Authorization", "Bearer " + request.AccessToken);
+                message.Headers.Add("Authorization", "Bearer " + token);
                 //token
 
                 message.RequestUri = new Uri(request.Url);
