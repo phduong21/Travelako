@@ -5,6 +5,8 @@ using FT.Travelako.UI.Models.Users.ViewModel;
 using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Common;
+using Microsoft.AspNetCore.Authorization;
+using FT.Travelako.UI.Attributes;
 
 namespace FT.Travelako.UI.Controllers
 {
@@ -68,6 +70,7 @@ namespace FT.Travelako.UI.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginVM model)
         {
             if (!ModelState.IsValid)
@@ -87,18 +90,14 @@ namespace FT.Travelako.UI.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError(string.Empty, "Login failed. Please check your information.");
-            return View("Login", model);
-        }
 
-        public IActionResult UserInfo()
-        {
-            return View();
+            return View("Login", model);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUserInfo()
         {
-            var token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
 
             if (string.IsNullOrEmpty(token))
             {
@@ -109,7 +108,7 @@ namespace FT.Travelako.UI.Controllers
             {
                 return View("~/Views/User/Unauthorize.cshtml");
             }
-            var currentUser = await _userService.GetUserInformationById(userId, token);
+            var currentUser = await _userService.GetUserInformationById(userId);
             if(currentUser == null)
             {
                 return View("~/Views/User/Unauthorize.cshtml");
@@ -118,6 +117,22 @@ namespace FT.Travelako.UI.Controllers
             ViewBag.ImagePath = imgPath;
 
             return View(currentUser);
+        }
+
+        //[AccessTokenAuthorize]
+        public async Task<IActionResult> EditUser()
+        {
+            var userId = JwtHelper.GetClaimValue("", "id");
+            if (string.IsNullOrEmpty(userId))
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var currentUser = await _userService.GetUserInformationById(userId);
+            if (currentUser == null)
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            return View();
         }
     }
 }
