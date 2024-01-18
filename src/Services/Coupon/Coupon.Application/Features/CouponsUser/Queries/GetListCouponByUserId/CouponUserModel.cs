@@ -8,7 +8,7 @@ namespace Coupon.Application.Features.CouponsUser.Queries.GetListCouponByUserId
             
         }
 
-        public CouponUserModel(string id, string couponId, string userId, bool isUsed, string title, string code, int discount, TimeSpan timeExpired)
+        public CouponUserModel(string id, string couponId, string userId, bool isUsed, string title, string code, int discount, int timeExpired)
         {
             Id = id;
             CouponId = couponId;
@@ -25,6 +25,6 @@ namespace Coupon.Application.Features.CouponsUser.Queries.GetListCouponByUserId
         public string Title { get; set; }
         public string Code { get; set; }
         public int Discount { get; set; }
-        public TimeSpan TimeExpried { get; set; }
+        public int TimeExpried { get; set; }
     }
 }

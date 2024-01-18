@@ -24,7 +24,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         public CouponController(IServiceProvider serviceProvider, IDistributedCache cache, IMediator mediator) : base(serviceProvider)
         {
             _cache = cache;
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _mediator = mediator;
         }
 
 
@@ -40,7 +40,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
             return Ok(orders);
         }
 
-        [HttpPost(Name = "CreateCoupon")]
+        [HttpPost("CreateCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -50,7 +50,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut(Name = "UpdateCoupon")]
+        [HttpPut()]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -62,7 +62,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}", Name = "DeleteCoupon")]
+        [HttpDelete()]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

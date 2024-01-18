@@ -13,10 +13,8 @@ namespace Coupon.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<CreateCouponCommand,Coupons>()
-                .ForMember(c => c.TimeExpried, cc => cc.MapFrom(ccc => new TimeSpan(ccc.TimeExpried,0,0,0))).ReverseMap();
-            CreateMap<UpdateCouponCommand,Coupons>()
-                .ForMember(c => c.TimeExpried, cc => cc.MapFrom(ccc => new TimeSpan(ccc.TimeExpried, 0, 0, 0))).ReverseMap();
+            CreateMap<Coupons,CreateCouponCommand>().ReverseMap();
+            CreateMap<Coupons,UpdateCouponCommand>().ReverseMap();
             CreateMap<Coupons, CouponViewModel>().ReverseMap();
             CreateMap<CouponUser, CreateUserCouponCommand>().ReverseMap();
             CreateMap<CouponUser, UpdateUserCouponCommand>().ReverseMap();
