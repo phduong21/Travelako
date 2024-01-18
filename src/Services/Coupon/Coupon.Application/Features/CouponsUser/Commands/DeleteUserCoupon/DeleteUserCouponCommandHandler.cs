@@ -15,9 +15,9 @@ namespace Coupon.Application.Features.CouponsUser.Commands.DeleteUserCoupon
 
         public DeleteUserCouponCommandHandler(ICouponUserRepository userCouponRepository, IMapper mapper, ILogger<DeleteUserCouponCommandHandler> logger)
         {
-            _userCouponRepository = userCouponRepository ?? throw new ArgumentNullException(nameof(userCouponRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _userCouponRepository = userCouponRepository;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task Handle(DeleteUserCouponCommand request, CancellationToken cancellationToken)

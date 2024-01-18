@@ -13,7 +13,7 @@ namespace Coupon.Application.Features.Coupon.Queries.GetListCoupons
 
         public GetCouponsListQuery(string userId )
         {
-            UserId = userId ?? throw new ArgumentNullException(nameof(userId));
+            UserId = userId;
         }
     }
 }

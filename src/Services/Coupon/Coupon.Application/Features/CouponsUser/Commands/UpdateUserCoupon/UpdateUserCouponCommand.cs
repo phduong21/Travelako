@@ -9,7 +9,7 @@ namespace Coupon.Application.Features.CouponsUser.Commands.UpdateUserCoupon
 {
     public class UpdateUserCouponCommand : IRequest
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string CouponId { get; set; }
 

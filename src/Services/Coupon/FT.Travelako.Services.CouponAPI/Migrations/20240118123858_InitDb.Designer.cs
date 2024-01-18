@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FT.Travelako.Services.CouponAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240115154551_UpdateCouponsUser")]
-    partial class UpdateCouponsUser
+    [Migration("20240118123858_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,8 +87,8 @@ namespace FT.Travelako.Services.CouponAPI.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("TimeExpried")
-                        .HasColumnType("time");
+                    b.Property<int>("TimeExpried")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()

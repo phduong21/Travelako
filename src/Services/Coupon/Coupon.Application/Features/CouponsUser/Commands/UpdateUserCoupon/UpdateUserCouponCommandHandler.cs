@@ -28,13 +28,14 @@ namespace Coupon.Application.Features.CouponsUser.Commands.UpdateUserCoupon
 
         public async Task Handle(UpdateUserCouponCommand request, CancellationToken cancellationToken)
         {
-            var couponToUpdate = await _userCouponRepository.GetByIdAsync(request.Id.ToString());
+            var couponToUpdate = await _userCouponRepository.GetByIdAsync(request.Id);
             if (couponToUpdate == null)
             {
                 throw new NotFoundException(nameof(CouponUser), request.Id);
             }
 
-            _mapper.Map(request, couponToUpdate, typeof(UpdateUserCouponCommand), typeof(CouponUser));
+            couponToUpdate.CouponId = request.CouponId ?? couponToUpdate.CouponId;
+            couponToUpdate.IsUsed = request.IsUsed ?? couponToUpdate.IsUsed;
 
             await _userCouponRepository.UpdateAsync(couponToUpdate);
 
