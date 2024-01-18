@@ -11,5 +11,7 @@
         public int Status { get; set; }
         public Guid TravelId { get; set; }
         public Guid UserId { get; set; }
+        public string BusinessId { get; set; }
+        public string CouponCode { get; set; }
     }
 }
