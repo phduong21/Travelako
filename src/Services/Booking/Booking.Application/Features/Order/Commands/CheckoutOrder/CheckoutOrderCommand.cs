@@ -6,6 +6,8 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
 {
     public class CheckoutOrderCommand : IRequest<ApiResult<Order>>
     {
+        public Guid UserId { get; set; }
+        public string BusinessId { get; set; }
         public string FullName { get; set; }
         public string UserEmail { get; set; }
         public string Phone { get; set; }
@@ -15,6 +17,5 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
         public decimal TotalCost { get; set; }
         public int Status { get; set; }
         public Guid TravelId { get; set; }
-        public Guid UserId { get; set; }
     }
 }
