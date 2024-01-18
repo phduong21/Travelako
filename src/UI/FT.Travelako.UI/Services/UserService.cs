@@ -99,16 +99,17 @@ namespace FT.Travelako.UI.Services
             return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());  
         }
 
-        public async Task<UserDetailResponseModelNew> GetUserInformationById(string userId)
+        public async Task<UserDetailResponseModelNew> GetUserInformationById(string userId, string token)
         {
-            var requestUri = ApiUser.GetUserInfoById(_remoteServiceBaseUrl, userId);
+            var requestUri = ApiUser.GetUserInfoById(_remoteServiceBaseUrl+ "/GetUserByUserName", userId);
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
             {
                 ApiType = ApiType.GET,
-                Url = _client.BaseAddress + requestUri
+                Url = _client.BaseAddress + requestUri,
+                AccessToken = token
             });
 
-            if (result is null)
+            if (result == null || result.Result == null)
             {
                 return null;
             }

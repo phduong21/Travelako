@@ -22,7 +22,7 @@ namespace FT.Travelako.UI.Services
             _baseService = baseService;
         }
 
-        public async Task<AuthenticationToken> LoginUser(LoginModel model)
+        public async Task<AuthenRespone> LoginUser(LoginModel model)
         {
             var requestUri = ApiAuthen.Login(_remoteServiceBaseUrl);
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
@@ -37,7 +37,7 @@ namespace FT.Travelako.UI.Services
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<AuthenticationToken>(result.Data.ToString());
+            return JsonConvert.DeserializeObject<AuthenRespone>(result.Data.ToString());
         }
     }
 }

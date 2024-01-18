@@ -4,6 +4,7 @@ using Coupon.Application.Contracts.Persistence;
 using Coupon.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Net.WebSockets;
 
 namespace Coupon.Application.Features.Coupon.Commands.CreateCoupon
 {
@@ -22,7 +23,16 @@ namespace Coupon.Application.Features.Coupon.Commands.CreateCoupon
 
         public async Task<ApiResult<string>> Handle(CreateCouponCommand request, CancellationToken cancellationToken)
         {
-            var couponEntity = _mapper.Map<Coupons>(request);
+            var couponEntity = new Coupons()
+            {
+                Title = request.Title,
+                Code = request.Code,
+                Discount = request.Discount,
+                Condition = request.Condition,
+                TimeExpried = request.TimeExpried,
+                CreatedBy = request.CreatedBy,
+            };
+            
             var newCoupon = await _couponRepository.AddAsync(couponEntity);
 
             _logger.LogInformation($"Coupon {newCoupon.Id} is successfully created.");

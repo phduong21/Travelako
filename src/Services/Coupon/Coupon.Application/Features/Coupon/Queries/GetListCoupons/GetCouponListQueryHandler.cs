@@ -16,14 +16,19 @@ namespace Coupon.Application.Features.Coupon.Queries.GetListCoupons
 
         public GetCouponListQueryHandler(ICouponRepository couponRepository, IMapper mapper)
         {
-            _couponRepository = couponRepository ?? throw new ArgumentNullException(nameof(couponRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _couponRepository = couponRepository;
+            _mapper = mapper;
         }
 
         public async Task<List<CouponViewModel>> Handle(GetCouponsListQuery request, CancellationToken cancellationToken)
         {
-            var orderList = await _couponRepository.GetCouponsByUser(request.UserId);
-            return _mapper.Map<List<CouponViewModel>>(orderList);
+            var result = new List<CouponViewModel>();
+            var couponList = await _couponRepository.GetCouponsByUser(request.UserId);
+            foreach (var item in couponList)
+            {
+                result.Add(new CouponViewModel(item));
+            }
+            return result;
         }
     }
 }

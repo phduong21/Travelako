@@ -84,8 +84,8 @@ namespace FT.Travelako.Services.CouponAPI.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("TimeExpried")
-                        .HasColumnType("time");
+                    b.Property<int>("TimeExpried")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()

@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
+using Booking.API.Filter;
 using Booking.Application.Features.Order.Queries.GetOrderDetails;
-using Booking.Domain.Entities;
-using FT.Travelako.Common.BaseModels;
-using FT.Travelako.Common.Controller;
-using FT.Travelako.EventBus.Messages.Events;
 using MassTransit;
-using MassTransit.Transports;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +11,7 @@ using Ordering.Application.Features.Orders.Commands.UpdateOrder;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 using System.Net;
 using static MassTransit.ValidationResultExtensions;
-using OrderEvent = FT.Travelako.EventBus.Messages.Events.OrderEvent;
+using CouponEvent = FT.Travelako.EventBus.Messages.Events.CouponEvent;
 
 namespace Booking.API.Controllers
 {
@@ -34,6 +30,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpGet("get-orders/{userId}")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserId(string userId)
         {
@@ -43,47 +41,40 @@ namespace Booking.API.Controllers
         }
 
         [HttpGet("get-order/{orderId}")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(OrderDetails), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<OrderDetails>> GetOrderById(string orderId)
         {
             var query = new GetOrderDetailsQuery(orderId);
             var orders = await _mediator.Send(query);
-            var eventMessage = new OrderEvent()
-            {
-                FullName = orders.FullName,
-                GuestSize = orders.GuestSize,
-                UserEmail = orders.UserEmail,
-                Phone = orders.Phone,
-                TotalCost = orders.TotalPrice,
-                TourName = orders.TourName,
-                TravelId = orders.TravelId,
-                Status = orders.Status,
-            };
-            await _publishEndpoint.Publish<OrderEvent>(eventMessage);
-
             return Ok(orders);
         }
 
         [HttpPost("check-out")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
-            //var eventMessage = new OrderEvent()
-            //{
-            //    FullName = result.Value.FullName,
-            //    GuestSize = result.Value.GuestSize,
-            //    UserEmail = result.Value.UserEmail,
-            //    Phone = result.Value.Phone,
-            //    TotalCost = result.Value.TotalCost,
-            //    TourName = result.Value.TourName,
-            //};
 
-            //await _publishEndpoint.Publish<OrderEvent>(eventMessage);
+            var query = new GetOrdersListQuery(command.UserId.ToString());
+            var orders = await _mediator.Send(query);
+            var eventMessage = new CouponEvent()
+            {
+                UserId = command.UserId.ToString(),
+                BusinessId = command.BusinessId,
+                Count = orders.Count
+            };
+
+            await _publishEndpoint.Publish<CouponEvent>(eventMessage);
             return Ok(result);
         }
 
         [HttpPut("UpdateOrder")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -94,6 +85,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpDelete("{id}", Name = "DeleteOrder")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

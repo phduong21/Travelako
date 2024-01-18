@@ -24,12 +24,12 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         public CouponController(IServiceProvider serviceProvider, IDistributedCache cache, IMediator mediator) : base(serviceProvider)
         {
             _cache = cache;
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _mediator = mediator;
         }
 
 
 
-        [HttpGet("{userId}", Name = "GetCouponsByUserId")]
+        [HttpGet("GetCouponsByUserId")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(typeof(IEnumerable<CouponViewModel>), (int)HttpStatusCode.OK)]
@@ -40,7 +40,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
             return Ok(orders);
         }
 
-        [HttpPost(Name = "CreateCoupon")]
+        [HttpPost("CreateCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -50,7 +50,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut(Name = "UpdateCoupon")]
+        [HttpPut("UpdateCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -59,10 +59,10 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         public async Task<ActionResult> UpdateCoupon([FromBody] UpdateCouponCommand command)
         {
             await _mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
 
-        [HttpDelete("{id}", Name = "DeleteCoupon")]
+        [HttpDelete("DeleteCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -72,7 +72,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         {
             var command = new DeleteCouponCommand() { Id = id };
             await _mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
     }
 }

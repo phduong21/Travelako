@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home";
 }
 <!-- Packages Start -->
-<div class="container-fluid py-5">
+<div id="travel-list" class="container-fluid py-5">
 	<div class="container pt-5 pb-3">
 		<div class="text-center mb-3 pb-3">
 			<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Newest</h6>
@@ -20,7 +20,7 @@
 							<div class="p-4">
 								<div class="d-flex justify-content-between mb-3">
 									<small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i>@travel.location</small>
-									<small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>3 days</small>
+									<small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>@travel.createdDate.ToString("dd MMMM yyyy")</small>
 									<small class="m-0"><i class="fa fa-user text-primary mr-2"></i>@travel.province</small>
 								</div>
 								<a class="h5 text-decoration-none travel-title" asp-controller="Travel" asp-action="Detail" 

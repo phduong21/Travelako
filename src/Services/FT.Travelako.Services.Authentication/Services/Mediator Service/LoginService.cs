@@ -51,7 +51,7 @@ namespace FT.Travelako.Services.Authentication.Services.Mediator_Service
                         var tokenData = _authen.GenerateAuthToken(new Model.LoginModel() { UserName = user.UserName, Role = user.Role, Id = user.Id.ToString() });
                         result.Data = tokenData;
                         await _cache.RemoveAsync($"user-{user.Id}");
-                        await _cache.SetRecordAsync($"user-{user.Id}", tokenData.Name);
+                        await _cache.SetRecordAsync($"user-{user.Id}", tokenData.Token);
                     }
                 }
             }
@@ -59,8 +59,6 @@ namespace FT.Travelako.Services.Authentication.Services.Mediator_Service
             {
                 return result;
             }
-            
-
             return result;
         }
     }
