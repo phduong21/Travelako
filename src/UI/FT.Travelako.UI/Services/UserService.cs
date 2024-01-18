@@ -109,7 +109,7 @@ namespace FT.Travelako.UI.Services
                 AccessToken = token
             });
 
-            if (result is null)
+            if (result == null || result.Result == null)
             {
                 return null;
             }
