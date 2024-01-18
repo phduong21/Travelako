@@ -1,13 +1,7 @@
 ﻿using AutoMapper;
 using Booking.Application.Features.Order.Queries.GetOrderDetails;
-using Booking.Domain.Entities;
-using FT.Travelako.Common.BaseModels;
-using FT.Travelako.Common.Controller;
-using FT.Travelako.EventBus.Messages.Events;
 using MassTransit;
-using MassTransit.Transports;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Features.Orders.Commands.CheckoutOrder;
 using Ordering.Application.Features.Orders.Commands.DeleteOrder;
@@ -56,10 +50,14 @@ namespace Booking.API.Controllers
         public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
+
+            var query = new GetOrdersListQuery(command.UserId.ToString());
+            var orders = await _mediator.Send(query);
             var eventMessage = new CouponEvent()
             {
                 UserId = command.UserId.ToString(),
                 BusinessId = command.BusinessId,
+                Count = orders.Count
             };
 
             await _publishEndpoint.Publish<CouponEvent>(eventMessage);

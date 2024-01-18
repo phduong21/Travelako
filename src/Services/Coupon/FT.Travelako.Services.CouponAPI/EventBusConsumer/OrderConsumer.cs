@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Coupon.Application.Features.CouponsUser.Commands.CreateUserCoupon;
+using Coupon.Application.Features.CouponsUser.Commands.CreateUserCoupons;
 using FT.Travelako.EventBus.Messages.Events;
 using MassTransit;
 using MediatR;
@@ -25,11 +26,12 @@ namespace FT.Travelako.Services.CouponAPI.EventBusConsumer
 
         public async Task Consume(ConsumeContext<CouponEvent> context)
         {
-            var command = new CreateUserCouponCommand()
+            var command = new CreateUserCouponsCommand()
             {
                 UserId = context.Message.UserId,
                 BusinessId = context.Message.BusinessId,
-                IsUsed = false
+                IsUsed = false,
+                CountBooking = context.Message.Count <= 0 ? 0: context.Message.Count
             };
             await _mediator.Send(command);
 

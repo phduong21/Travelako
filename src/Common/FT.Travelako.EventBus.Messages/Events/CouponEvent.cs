@@ -10,5 +10,6 @@ namespace FT.Travelako.EventBus.Messages.Events
     {
         public string UserId { get; set; }
         public string BusinessId { get; set; }
+        public int Count { get; set; }
     }
 }
