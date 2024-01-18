@@ -5,6 +5,6 @@ namespace FT.Travelako.Services.Authentication.Services
 {
     public interface IJwtTokenService
     {
-        public AuthenticationToken? GenerateAuthToken(LoginModel loginModel);
+        public AuthenRespone? GenerateAuthToken(LoginModel loginModel);
     }
 }

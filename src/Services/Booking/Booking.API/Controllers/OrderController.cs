@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Booking.API.Filter;
 using Booking.Application.Features.Order.Queries.GetOrderDetails;
 using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Features.Orders.Commands.CheckoutOrder;
 using Ordering.Application.Features.Orders.Commands.DeleteOrder;
@@ -28,6 +30,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpGet("get-orders/{userId}")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserId(string userId)
         {
@@ -37,6 +41,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpGet("get-order/{orderId}")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(OrderDetails), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<OrderDetails>> GetOrderById(string orderId)
         {
@@ -46,6 +52,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpPost("check-out")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
@@ -65,6 +73,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpPut("UpdateOrder")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -75,6 +85,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpDelete("{id}", Name = "DeleteOrder")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

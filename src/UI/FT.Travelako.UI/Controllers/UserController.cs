@@ -80,9 +80,9 @@ namespace FT.Travelako.UI.Controllers
                 Username = model.Username,
                 Password = model.Password
             });
-            if(login != null && login.Name.Length > 0)
+            if(login != null && login.Token.Length > 0)
             {
-                HttpContext.Session.SetString("AccessToken", login.Name);
+                HttpContext.Session.SetString("AccessToken", login.Token);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -109,7 +109,7 @@ namespace FT.Travelako.UI.Controllers
             {
                 return View("~/Views/User/Unauthorize.cshtml");
             }
-            var currentUser = await _userService.GetUserInformationById(userId);
+            var currentUser = await _userService.GetUserInformationById(userId, token);
             if(currentUser == null)
             {
                 return View("~/Views/User/Unauthorize.cshtml");

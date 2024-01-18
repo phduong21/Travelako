@@ -18,7 +18,7 @@ namespace FT.Travelako.Services.Authentication.Services
             _logger = logger;
 
         }
-        public AuthenticationToken? GenerateAuthToken(LoginModel user)
+        public AuthenRespone? GenerateAuthToken(LoginModel user)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SecretKey.ToString()));
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -37,10 +37,9 @@ namespace FT.Travelako.Services.Authentication.Services
             );
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-            return new AuthenticationToken()
+            return new AuthenRespone()
             {
-                Name = tokenString,
-                Value = ((int)expirationTimeStamp.Subtract(DateTime.Now).TotalSeconds).ToString()
+                Token = tokenString
             };
         }
     }

@@ -24,7 +24,7 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 
         [HttpPost("CreateTravel")]
 		[AuthorizeFTFilter]
-		[Authorize(Roles = "administrator")]
+		[Authorize(Roles = "business,administrator")]
 		public async Task<GenericAPIResponse> CreateTravel([FromBody] CreateTravelRequestDTO? model)
 		{
 			return await ExecutionService<CreateTravelRequestDTO, CreateTravelService>(model);
@@ -32,14 +32,14 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 
         [HttpDelete("DeleteTravel")]
         [AuthorizeFTFilter]
-        [Authorize(Roles = "business")]
+        [Authorize(Roles = "business,administrator")]
 		public async Task<GenericAPIResponse> DeleteTravel([FromBody] DeleteTravelRequestDTO? model)
 		{
 			return await ExecutionService<DeleteTravelRequestDTO, DeleteTravelService>(model);
 		}
 
         [AuthorizeFTFilter]
-        [Authorize(Roles = "business")]
+        [Authorize(Roles = "business,administrator")]
         [HttpPut("UpdateTravel")]
 		public async Task<GenericAPIResponse> UpdateTravel([FromBody] UpdateTravelRequestDTO? model)
 		{
