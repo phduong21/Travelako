@@ -1,7 +1,9 @@
 ﻿using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Common.Controller;
+using FT.Travelako.Services.TravelAPI.Filter;
 using FT.Travelako.Services.TravelAPI.Models.DTOs;
 using FT.Travelako.Services.TravelAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FT.Travelako.Services.TravelAPI.Controllers
@@ -20,19 +22,25 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 			return await ExecutionService<GetTravelRequestDTO, GetTravelService>(model);
 		}
 
-		[HttpPost("CreateTravel")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "business")]
+        [HttpPost("CreateTravel")]
 		public async Task<GenericAPIResponse> CreateTravel([FromBody] CreateTravelRequestDTO? model)
 		{
 			return await ExecutionService<CreateTravelRequestDTO, CreateTravelService>(model);
 		}
 
-		[HttpDelete("DeleteTravel")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "business")]
+        [HttpDelete("DeleteTravel")]
 		public async Task<GenericAPIResponse> DeleteTravel([FromBody] DeleteTravelRequestDTO? model)
 		{
 			return await ExecutionService<DeleteTravelRequestDTO, DeleteTravelService>(model);
 		}
 
-		[HttpPut("UpdateTravel")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "business")]
+        [HttpPut("UpdateTravel")]
 		public async Task<GenericAPIResponse> UpdateTravel([FromBody] UpdateTravelRequestDTO? model)
 		{
 			return await ExecutionService<UpdateTravelRequestDTO, UpdateTravelService>(model);

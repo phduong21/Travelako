@@ -28,7 +28,7 @@ namespace FT.Travelako.UI.Services
 		{
 			var requestUri = ApiTravel.GetTravels(_remoteServiceBaseUrl);
 			var result = await _baseApiClient.GetAsync<TravelListingResponseModel>(requestUri);
-			if(personalizasion != null && !string.IsNullOrWhiteSpace(personalizasion))
+			if(personalizasion != null && result.result != null && result.result.Any() && !string.IsNullOrWhiteSpace(personalizasion))
 			{
 				result.result = result.result.Where(x => personalizasion.ToLower().Contains(x.location.ToLower())).ToList();
 
