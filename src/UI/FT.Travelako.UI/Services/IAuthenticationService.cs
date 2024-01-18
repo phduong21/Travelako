@@ -5,6 +5,6 @@ namespace FT.Travelako.UI.Services
 {
     public interface IAuthenticationService
     {
-        Task<AuthenticationToken> LoginUser(LoginModel model);
+        Task<AuthenRespone> LoginUser(LoginModel model);
     }
 }

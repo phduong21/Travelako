@@ -22,21 +22,25 @@ namespace Coupon.Application.Features.Coupon.Commands.UpdateCoupon
 
         public UpdateCouponCommandHandler(ICouponRepository couponRepository, IMapper mapper, ILogger<UpdateCouponCommandHandler> logger)
         {
-            _couponRepository = couponRepository ?? throw new ArgumentNullException(nameof(couponRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _couponRepository = couponRepository;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task Handle(UpdateCouponCommand request, CancellationToken cancellationToken)
         {
-            var couponToUpdate = await _couponRepository.GetByIdAsync(request.Id.ToString());
+            var couponToUpdate = await _couponRepository.GetByIdAsync(request.Id);
             if (couponToUpdate == null)
             {
                 throw new NotFoundException(nameof(Coupons), request.Id);
             }
 
-            _mapper.Map(request, couponToUpdate, typeof(UpdateCouponCommand), typeof(Coupons));
-
+            couponToUpdate.Title = request.Title ?? couponToUpdate.Title;
+            couponToUpdate.Code = request.Title ?? couponToUpdate.Title;
+            couponToUpdate.Discount = request.Discount == 0 ? request.Discount : couponToUpdate.Discount;
+            couponToUpdate.Condition = request.Condition == 0 ? request.Condition : couponToUpdate.Condition;
+            couponToUpdate.TimeExpried = request.TimeExpried == 0 ? request.TimeExpried : couponToUpdate.TimeExpried;
+            couponToUpdate.LastModifiedBy = request.LastModifiedBy;
             await _couponRepository.UpdateAsync(couponToUpdate);
 
             _logger.LogInformation($"Order {couponToUpdate.Id} is successfully updated.");

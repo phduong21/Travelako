@@ -22,8 +22,13 @@ namespace Coupon.Application.Features.Coupon.Queries.GetListCoupons
 
         public async Task<List<CouponViewModel>> Handle(GetCouponsListQuery request, CancellationToken cancellationToken)
         {
-            var orderList = await _couponRepository.GetCouponsByUser(request.UserId);
-            return _mapper.Map<List<CouponViewModel>>(orderList);
+            var result = new List<CouponViewModel>();
+            var couponList = await _couponRepository.GetCouponsByUser(request.UserId);
+            foreach (var item in couponList)
+            {
+                result.Add(new CouponViewModel(item));
+            }
+            return result;
         }
     }
 }

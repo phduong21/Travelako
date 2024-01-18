@@ -8,9 +8,11 @@ namespace FT.Travelako.UI.Services.Base
     public class BaseService : IBaseService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public BaseService(IHttpClientFactory httpClientFactory)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public BaseService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
         {
             _httpClientFactory = httpClientFactory;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<GenericAPIResponse> ExecuteAsync(GenericAPIRequest request)
@@ -20,6 +22,7 @@ namespace FT.Travelako.UI.Services.Base
                 var client = _httpClientFactory.CreateClient("TravelakoAPI");
                 var message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
+                message.Headers.Add("Authorization", "Bearer " + request.AccessToken);
                 //token
 
                 message.RequestUri = new Uri(request.Url);

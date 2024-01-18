@@ -29,7 +29,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
 
 
 
-        [HttpGet("{userId}", Name = "GetCouponsByUserId")]
+        [HttpGet("GetCouponsByUserId")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(typeof(IEnumerable<CouponViewModel>), (int)HttpStatusCode.OK)]
@@ -50,7 +50,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut()]
+        [HttpPut("UpdateCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -59,10 +59,10 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         public async Task<ActionResult> UpdateCoupon([FromBody] UpdateCouponCommand command)
         {
             await _mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
 
-        [HttpDelete()]
+        [HttpDelete("DeleteCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -72,7 +72,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         {
             var command = new DeleteCouponCommand() { Id = id };
             await _mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
     }
 }

@@ -7,58 +7,73 @@
 <h2>Sign Up</h2>
 
 <style>
-    .form-container {
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px; 
+    .form {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 360px;
+        margin: 0 auto 100px;
+        padding: 45px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
 
-    .form-column {
-        width: 48%; 
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-    }
-
-        .form-group label {
-            margin-bottom: 5px;
-        }
-
-        .form-group input,
-        .form-group select {
+        .form .form-control {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+            background: #f2f2f2;
             width: 100%;
-            padding: 8px;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
             box-sizing: border-box;
-            margin-bottom: 10px; 
+            font-size: 14px;
         }
 
-        .form-group::after {
-            content: "";
-            display: table;
-            clear: both;
+            .form .form-control.select {
+                padding: 0;
+            }
+
+        .form button {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #4CAF50;
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            cursor: pointer;
         }
 
-    .btn-container {
-        text-align: center;
-    }
+            .form button:hover, .form button:active, .form button:focus {
+                background: #43A047;
+            }
 
-    .btn-signup {
-        width: 150px; 
-    }
+        .form .message {
+            margin: 15px 0 0;
+            color: #b3b3b3;
+            font-size: 12px;
+        }
+
+            .form .message a {
+                color: #4CAF50;
+                text-decoration: none;
+            }
+
+        .form .register-form {
+            display: none;
+        }
 </style>
 
 
 
 @using (Html.BeginForm("Register", "User", FormMethod.Post, new { @class = "form-container" }))
 {
-    <div class="form-column">
+    <div class="form">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         <div class="form-group">
             @Html.LabelFor(model => model.Username)
             @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
@@ -82,9 +97,7 @@
             @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-column">
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName)
             @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
@@ -105,28 +118,9 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Role)
-            @Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Administrator", "Business", "User" }), "Select Role", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Administrator", "Business", "User" }), "Select Role", new { @class = "form-control select" })
             @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="btn-container">
-        <button type="submit" class="btn btn-primary btn-signup">Sign Up</button>
+        <button type="submit">Sign up</button>
     </div>
 }
-
-<script>
-    $(document).ready(function () {
-        $("#roleDropdown").on('change', function () {
-            var selectedValue = $(this).val();
-            if (selectedValue === "") {
-                $(this).find('option[value=""]').remove();
-            }
-        });
-    });
-</script>
-
-@section scripts {
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-}
-

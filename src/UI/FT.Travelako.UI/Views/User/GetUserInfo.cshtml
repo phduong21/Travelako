@@ -1,0 +1,173 @@
+﻿@model FT.Travelako.UI.Models.Users.UserDetailResponseModelNew
+
+
+@{
+    ViewBag.Title = "User Information";
+}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s ease;
+    }
+
+    .user-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        overflow: hidden;
+    }
+
+        .user-container:hover {
+            transform: scale(1.02);
+            background-color: #f0f0f0;
+        }
+
+    .profile-container {
+        overflow: hidden;
+        border-radius: 50%;
+        margin-right: 30px;
+        border: 8px solid #fff;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+    }
+
+    .user-container:hover .profile-image {
+        transform: scale(1.05);
+    }
+
+    .user-container:hover .profile-container {
+        border-color: #3498db;
+    }
+
+    .user-details {
+        flex-grow: 1;
+        text-align: left;
+        color: #333;
+    }
+
+    h2 {
+        color: #3498db;
+        margin-bottom: 10px;
+        font-size: 2.5em;
+        transition: color 0.3s ease;
+    }
+
+    .user-container:hover h2 {
+        color: #1e6eb4;
+    }
+
+    p {
+        margin: 12px 0;
+        color: #777;
+        font-size: 1.5em;
+    }
+
+    .edit-button,
+    .cancel-button,
+    .deactivate-button,
+    .delete-button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2em;
+        transition: transform 0.2s ease;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .edit-button {
+        background-color: #3498db;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    .cancel-button {
+        background-color: #e74c3c;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    .deactivate-button {
+        background-color: #e74c3c;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    .delete-button {
+        background-color: #e74c3c;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+        .edit-button:hover,
+        .cancel-button:hover,
+        .deactivate-button:hover,
+        .delete-button:hover {
+            transform: scale(1.05);
+        }
+
+    .hide {
+        display: none;
+    }
+
+    .hide-delete .delete-button {
+        display: none;
+    }
+</style>
+<div class="user-container">
+    <div class="profile-container">
+        <img src="@ViewBag.ImagePath" alt="User Profile Image" class="profile-image">
+    </div>
+    <div class="user-details">
+        <h2>@Model.UserName</h2>
+        <p>First Name: @Model.FirstName</p>
+        <p>Last Name: @Model.LastName</p>
+        <p>Address: @Model.Address</p>
+        <p>Email: @Model.Email</p>
+        <p>Role: @Model.Role</p>
+        <button class="edit-button" onclick="toggleButtons()">Edit</button>
+        <button class="cancel-button hide" onclick="toggleButtons()">Cancel</button>
+        <button class="deactivate-button" onclick="deactivateUser()">Deactivate</button>
+    </div>
+</div>
+
+<script>
+    function toggleButtons() {
+        const editButton = document.querySelector('.edit-button');
+        const cancelButton = document.querySelector('.cancel-button');
+        const deactivateButton = document.querySelector('.deactivate-button');
+
+        editButton.classList.toggle('hide');
+        cancelButton.classList.toggle('hide');
+        deactivateButton.classList.toggle('hide-delete');
+    }
+
+    function deactivateUser() {
+        // Add logic to handle deactivation
+        console.log('User deactivated');
+    }
+
+</script>

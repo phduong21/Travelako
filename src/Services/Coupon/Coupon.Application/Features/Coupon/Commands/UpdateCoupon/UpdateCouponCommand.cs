@@ -10,7 +10,7 @@ namespace Coupon.Application.Features.Coupon.Commands.UpdateCoupon
 {
     public class UpdateCouponCommand : IRequest
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
 
         public string Code { get; set; }

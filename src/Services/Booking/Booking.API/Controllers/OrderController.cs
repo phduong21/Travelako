@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
+using Booking.API.Filter;
 using Booking.Application.Features.Order.Queries.GetOrderDetails;
-using Booking.Domain.Entities;
-using FT.Travelako.Common.BaseModels;
-using FT.Travelako.Common.Controller;
-using FT.Travelako.EventBus.Messages.Events;
 using MassTransit;
-using MassTransit.Transports;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +30,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpGet("get-orders/{userId}")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserId(string userId)
         {
@@ -43,6 +41,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpGet("get-order/{orderId}")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(OrderDetails), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<OrderDetails>> GetOrderById(string orderId)
         {
@@ -52,14 +52,20 @@ namespace Booking.API.Controllers
         }
 
         [HttpPost("check-out")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
+
+            var query = new GetOrdersListQuery(command.UserId.ToString());
+            var orders = await _mediator.Send(query);
             var eventMessage = new CouponEvent()
             {
                 UserId = command.UserId.ToString(),
                 BusinessId = command.BusinessId,
+                Count = orders.Count
             };
 
             await _publishEndpoint.Publish<CouponEvent>(eventMessage);
@@ -67,6 +73,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpPut("UpdateOrder")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -77,6 +85,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpDelete("{id}", Name = "DeleteOrder")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

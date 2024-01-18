@@ -1,5 +1,6 @@
 ﻿using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Common.Controller;
+using FT.Travelako.Services.UserAPI.Filter;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,7 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 
         #region CREATE
         [HttpPost]
+        [AllowAnonymous]
         public async Task<GenericAPIResponse> CreateUser([FromBody] CreateUserRequest model)
         {
             return await ExecutionService<CreateUserRequest, CreateUserService>(model);
@@ -25,7 +27,9 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
         #endregion
 
         #region GET
-        [HttpGet]
+        [HttpGet("GetUserByUserName")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         public async Task<GenericAPIResponse> GetUserByUserName([FromQuery] GetUserRequest model)
         {
             return await ExecutionService<GetUserRequest, GetUserService>(model);
@@ -33,6 +37,8 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 
 
         [HttpGet("GetAllUser")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         public async Task<GenericAPIResponse> GetTravel([FromRoute] GetAllUserRequest? model)
         {
             return await ExecutionService<GetAllUserRequest, GetAllUserService>(model);
@@ -42,6 +48,8 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 
         #region PUT
         [HttpPut]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         public async Task<GenericAPIResponse> UpdateUserById([FromBody] UpdateUserRequest model)
         {
             return await ExecutionService<UpdateUserRequest, UpdateUserService>(model);
@@ -50,6 +58,8 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 
         #region DELETE
         [HttpDelete]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         public async Task<GenericAPIResponse> DeleteUserById([FromQuery] DeleteUserRequest model)
         {
             return await ExecutionService<DeleteUserRequest, DeleteUserService>(model);
