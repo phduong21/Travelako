@@ -90,9 +90,17 @@
                         </div>
                         <div class="bg-white mb-3" style="padding: 30px;">
                             <div class="d-flex mb-3">
-                                <a class="text-primary text-uppercase text-decoration-none" href="">Admin</a>
+                                <a class="text-primary text-uppercase text-decoration-none" href="">
+                                    <i class="fa fa-hotel"></i>&nbsp;@Model.TravelDetail.hotelTitle
+                                </a>
                                 <span class="text-primary px-2">|</span>
-                                <a class="text-primary text-uppercase text-decoration-none" href="">Tours & Travel</a>
+                                <a class="text-primary text-uppercase text-decoration-none" href="">
+                                    <i class="fas fa-dollar-sign"></i>&nbsp;@Model.TravelDetail.hotelPrice
+                                </a>
+                                <span class="text-primary px-2">|</span>
+                                <a class="text-primary text-uppercase text-decoration-none" href="">
+                                    <i class="far fa-map"></i>&nbsp;@Model.TravelDetail.province
+                                </a>
                             </div>
                             <h2 class="mb-3">@Model.TravelDetail.title</h2>
 
@@ -102,10 +110,14 @@
 
                         </div>
                     </div>
+                    <a asp-controller="Booking" asp-action="Checkout" asp-route-id="@Model.TravelDetail.id" type="submit" value="Start payment" class="btn btn-primary font-weight-semi-bold py-2 px-3">
+                        Booking now
+                    </a>
                 }
+               
                 <!-- Blog Detail End -->
                 <!-- Comment Form Start -->
-                <div class="bg-white mb-3" style="padding: 30px;">
+                @* <div class="bg-white mb-3" style="padding: 30px;">
                     <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Booking Form</h4>
                     <form method="post" enctype="multipart/form-data" asp-controller="Booking" asp-action="Booking">
                         <div class="form-group">
@@ -126,11 +138,10 @@
                             <textarea id="message" cols="30" rows="5" class="form-control" name="Message"></textarea>
                         </div>
                         <div class="form-group mb-0">
-                            <input type="submit" value="Start payment"
-                                   class="btn btn-primary font-weight-semi-bold py-2 px-3">
+                            
                         </div>
                     </form>
-                </div>
+                </div> *@
                 <!-- Comment Form End -->
             </div>
 
@@ -176,6 +187,42 @@
                     </div>
                 </div>
 
+                <!-- Recent Post -->
+                <div class="mb-5">
+                    <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Recent Post</h4>
+                    @if(Model.RecentTravels != null && Model.RecentTravels.result.Any())
+                    {
+                        foreach (var travel in Model.RecentTravels.result.Take(3))
+                        {
+                            <a class="d-flex align-items-center text-decoration-none bg-white mb-3 link-recent-travel"
+                                asp-controller="Travel" asp-action="Detail" asp-route-id="@travel.id">
+                                <img class="img-fluid img-recent-travel" src="@travel.thumbnail" alt="">
+                                <div class="pl-3">
+                                    <h6 class="m-1">@travel.title</h6>
+                                    <small>@travel.location</small>
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+
+                <!-- Tag Cloud -->
+                <div class="mb-5">
+                    <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Tag Cloud</h4>
+                    <div class="d-flex flex-wrap m-n1">
+                        @{
+                            var tags = Model.TravelDetail.tag?.Split(',').ToList();
+                        }
+                        @if(tags != null && tags.Any())
+                        {
+                            foreach (var tag in tags)
+                            {
+                                <a href="" class="btn btn-light m-1">@tag</a>
+                            }
+                        }
+                    </div>
+                </div>
+
                 <!-- Category List -->
                 <div class="mb-5">
                     <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Categories</h4>
@@ -214,42 +261,6 @@
                                 <span class="badge badge-primary badge-pill">98</span>
                             </li>
                         </ul>
-                    </div>
-                </div>
-
-                <!-- Recent Post -->
-                <div class="mb-5">
-                    <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Recent Post</h4>
-                    @if(Model.RecentTravels != null && Model.RecentTravels.result.Any())
-                    {
-                        foreach (var travel in Model.RecentTravels.result.Take(3))
-                        {
-                            <a class="d-flex align-items-center text-decoration-none bg-white mb-3 link-recent-travel"
-                                asp-controller="Travel" asp-action="Detail" asp-route-id="@travel.id">
-                                <img class="img-fluid img-recent-travel" src="@travel.thumbnail" alt="">
-                                <div class="pl-3">
-                                    <h6 class="m-1">@travel.title</h6>
-                                    <small>@travel.location</small>
-                                </div>
-                            </a>
-                        }
-                    }
-                </div>
-
-                <!-- Tag Cloud -->
-                <div class="mb-5">
-                    <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Tag Cloud</h4>
-                    <div class="d-flex flex-wrap m-n1">
-                        @{
-                            var tags = Model.TravelDetail.tag?.Split(',').ToList();
-                        }
-                        @if(tags != null && tags.Any())
-                        {
-                            foreach (var tag in tags)
-                            {
-                                <a href="" class="btn btn-light m-1">@tag</a>
-                            }
-                        }
                     </div>
                 </div>
             </div>

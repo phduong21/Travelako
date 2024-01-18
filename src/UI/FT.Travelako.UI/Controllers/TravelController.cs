@@ -1,3 +1,4 @@
+using FT.Travelako.UI.Models.Travels;
 using FT.Travelako.UI.Models.Travels.ViewModel;
 using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -43,13 +44,38 @@ namespace FT.Travelako.UI.Controllers
                             Id = currentUser.Id,
                             Location = travel.result.location
                         });
-                        travelViewModel.Author = await _userService.GetUserInformationById(travel.result.createdBy);
+                        
                     }
+
+                    travelViewModel.Author = await _userService.GetUserInformationById(travel.result.createdBy);
 
                     var recentTravels = await _travelService.GetTravels();
                     if (recentTravels != null && recentTravels.result != null && recentTravels.result.Any())
                     {
-                        travelViewModel.RecentTravels.result = recentTravels.result;
+                        var travels = recentTravels.result.Where(x => x.id != id).Select(x => new TravelDetailModel
+                        {
+                            title = x.title,
+                            description = x.description,
+                            thumbnail = x.thumbnail,
+                            images = x.images,
+                            content = x.content,
+                            province = x.province,
+                            location = x.province,
+                            tag = x.tag,
+                            status = x.status,
+                            hotelTitle = x.hotelTitle,
+                            hotelPrice = x.hotelPrice,
+                            trafficType = x.trafficType,
+                            id = x.id,
+                            createdBy = x.createdBy,
+                            createdDate = x.createdDate,
+                            lastModifiedBy = x.lastModifiedBy,
+                            lastModifiedDate = x.lastModifiedDate
+                        });
+                        if(travels != null && travels.Any())
+                        {
+                            travelViewModel.RecentTravels.result = travels.ToList();
+                        }
                     }
 
                     travelViewModel.TravelDetail = travel.result;
