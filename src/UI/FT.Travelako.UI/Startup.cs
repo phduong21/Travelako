@@ -96,6 +96,7 @@ namespace FT.Travelako.UI
 
             app.UseRouting();
             app.UseSession();
+            //app.UseMiddleware<SessionCheckMiddleware>();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

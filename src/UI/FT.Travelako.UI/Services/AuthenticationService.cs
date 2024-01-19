@@ -32,7 +32,7 @@ namespace FT.Travelako.UI.Services
                 Data = model
             });
 
-            if (result is null)
+            if (result is null || result.IsSuccess == false)
             {
                 return null;
             }
