@@ -23,7 +23,6 @@ namespace FT.Travelako.UI.Extensions
             var dataAsString = JsonSerializer.Serialize(data);
             var content = new StringContent(dataAsString);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
             return httpClient.PostAsync(url, content);
         }
 

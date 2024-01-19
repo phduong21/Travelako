@@ -36,11 +36,17 @@ namespace FT.Travelako.UI
             //services.AddScoped<IBaseApiClient, BaseApiClient>();
             services.AddScoped<ITravelService, TravelService>();
 
-            services.AddHttpClient<IOrderService, OrderService>(c =>
+            services.AddHttpClient<ICouponService, CouponService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
                 .AddHttpMessageHandler<LoggingDelegatingHandler>()
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+            services.AddHttpClient<IOrderService, OrderService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
+                .AddPolicyHandler(GetRetryPolicy());
+                //.AddPolicyHandler(GetCircuitBreakerPolicy());
 
 			services.AddHttpClient<ITravelService, TravelService>(c =>
 				c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
@@ -59,6 +65,7 @@ namespace FT.Travelako.UI
                 .AddHttpMessageHandler<LoggingDelegatingHandler>()
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(GetCircuitBreakerPolicy());
+
 
             services.AddRazorPages();
             services.AddSession(options =>

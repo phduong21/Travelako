@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FT.Travelako.UI.Models.Coupon;
+using FT.Travelako.UI.Models.Travels;
+using System.ComponentModel.DataAnnotations;
 
-namespace FT.Travelako.UI.Models.Orders.ViewModel
+namespace FT.Travelako.UI.Models.Orders
 {
-    public class OrderViewModel
+    public class Order
     {
         [Required(ErrorMessage = "Username is required")]
         public string FullName { get; set; }
@@ -19,5 +21,8 @@ namespace FT.Travelako.UI.Models.Orders.ViewModel
         [DataType(DataType.Date)]
         public DateTime BookAt { get; set; }
         public decimal TotalCost { get; set; }
+        public string? CouponCode { get; set; }
+        public string? TravelId { get; set; }
+
     }
 }
