@@ -21,9 +21,8 @@ namespace FT.Travelako.UI.Models.Orders
         [DataType(DataType.Date)]
         public DateTime BookAt { get; set; }
         public decimal TotalCost { get; set; }
-        public List<CouponResponseModel> Coupons { get; set; }
-        public TravelDetailModel TravelDetails { get; set; }
-        public string CouponCode { get; set; }
+        public string? CouponCode { get; set; }
+        public string? TravelId { get; set; }
 
     }
 }

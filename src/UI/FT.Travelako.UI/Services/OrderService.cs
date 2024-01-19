@@ -15,15 +15,16 @@ namespace FT.Travelako.UI.Services
     {
         private readonly HttpClient _client;
         private readonly string _remoteServiceBaseUrl;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly HttpContext _context;
         private readonly string token;
 
 
-        public OrderService(HttpClient client)
+        public OrderService(HttpClient client, IHttpContextAccessor context)
         {
             _remoteServiceBaseUrl = $"/booking/v1/Order";
             _client = client ?? throw new ArgumentNullException(nameof(client));
-            token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
+            //token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
+            token = context.HttpContext.Session.GetString("AccessToken");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 

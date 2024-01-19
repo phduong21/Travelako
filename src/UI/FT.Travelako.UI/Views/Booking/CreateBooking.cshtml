@@ -1,6 +1,9 @@
 ﻿@model FT.Travelako.UI.Models.Orders.Order
 @{
     ViewData["Title"] = "Booking";
+    SelectList couponCode = ViewBag.CouponCode;
+    string tourName = ViewBag.TourName;
+    string price = ViewBag.TourPrice;
 }
 
 <h1>Booking</h1>
@@ -58,8 +61,8 @@
     <div class="form-column">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <p>Tour Name: @Model.TravelDetails.content</p>
-            <p>Tour Name: @Model.TravelDetails.hotelPrice</p>
+            <p>Tour Name: @tourName</p>
+            <p>Tour Price: @price</p>
         </div>
 
         <div class="form-group">
@@ -94,7 +97,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CouponCode)
-            @Html.DropDownListFor(model => model.CouponCode, new SelectList(Model.Coupons.Select(x => x.Code).ToList()), new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.CouponCode, couponCode, new { @class = "form-control" })
         </div>
     </div>
     <div class="btn-container">
