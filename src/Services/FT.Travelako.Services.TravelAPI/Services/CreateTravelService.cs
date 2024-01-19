@@ -38,7 +38,7 @@ namespace FT.Travelako.Services.TravelAPI.Services
 				{
 					result.Result = travelResult;
 					result.IsSuccess = true;
-					result.Message = "Suucess";
+					result.Message = "Success";
 				}
 				return result;
 			}

@@ -2,17 +2,17 @@
   "Routes": [
     {
       "Servicename": "AuthenService",
-      "DownstreamPathTemplate": "/api/UserManagerment/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/authen/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
       "UseServiceDiscovery": true,
       "RouteIsCaseSensitive": false,
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 5000,
-        "TimeoutValue": 2000
-      }
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 5000,
+      //  "TimeoutValue": 2000
+      //}
     },
     {
       "Servicename": "UserService",
@@ -22,14 +22,11 @@
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
       "UseServiceDiscovery": true,
       "RouteIsCaseSensitive": false,
-      "LoadBalancerOptions": {
-        "Type": "LeastConnection"
-      },
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 5000,
-        "TimeoutValue": 2000
-      }
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 5000,
+      //  "TimeoutValue": 2000
+      //}
     },
     {
       "Servicename": "BookingService",
@@ -39,11 +36,11 @@
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
       "UseServiceDiscovery": true,
       "RouteIsCaseSensitive": false,
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 5000,
-        "TimeoutValue": 2000
-      }
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 5000,
+      //  "TimeoutValue": 2000
+      //}
     },
     {
       "Servicename": "TravelService",
@@ -53,11 +50,11 @@
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
       "UseServiceDiscovery": true,
       "RouteIsCaseSensitive": false,
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 5000,
-        "TimeoutValue": 2000
-      }
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 5000,
+      //  "TimeoutValue": 2000
+      //}
     },
     {
       "Servicename": "CouponService",
@@ -67,11 +64,11 @@
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT", "PATCH" ],
       "UseServiceDiscovery": true,
       "RouteIsCaseSensitive": false,
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 5000,
-        "TimeoutValue": 2000
-      }
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 5000,
+      //  "TimeoutValue": 2000
+      //}
     }
   ],
   "GlobalConfiguration": {

@@ -1,19 +1,33 @@
 ﻿namespace FT.Travelako.UI.Models.Travels
 {
-    public class TravelDetailResponseModel
-    {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Thumbnail { get; set; }
-        public string Images { get; set; }
-        public string Content { get; set; }
-        public string Province { get; set; }
-        public string Location { get; set; }
-        public string Tag { get; set; }
-        public int Status { get; set; }
-        public string HotelTitle { get; set; }
-        public string HotelPrice { get; set; }
-        public int TrafficType { get; set; }
-    }
+	public class TravelDetailModel
+	{
+		public string title { get; set; }
+		public string description { get; set; }
+		public string thumbnail { get; set; }
+		public string images { get; set; }
+		public string content { get; set; }
+		public string province { get; set; }
+		public string location { get; set; }
+		public string tag { get; set; }
+		public int status { get; set; }
+		public string hotelTitle { get; set; }
+		public string hotelPrice { get; set; }
+		public int trafficType { get; set; }
+		public string id { get; set; }
+		public string createdBy { get; set; }
+		public DateTime createdDate { get; set; }
+		public string lastModifiedBy { get; set; }
+		public object lastModifiedDate { get; set; }
+	}
+
+	public class TravelListingResponseModel : BaseApiResponseModel
+	{
+		public List<TravelDetailModel> result { get; set; }
+	}
+
+	public class TravelDetailResponseModel : BaseApiResponseModel
+	{
+		public TravelDetailModel result { get; set; }
+	}
 }

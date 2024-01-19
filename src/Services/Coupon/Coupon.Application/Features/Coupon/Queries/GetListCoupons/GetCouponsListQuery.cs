@@ -11,9 +11,9 @@ namespace Coupon.Application.Features.Coupon.Queries.GetListCoupons
     {
         public string UserId { get; set; }
 
-        public GetCouponsListQuery(string userId)
+        public GetCouponsListQuery(string userId )
         {
-            UserId = userId ?? throw new ArgumentNullException(nameof(userId));
+            UserId = userId;
         }
     }
 }

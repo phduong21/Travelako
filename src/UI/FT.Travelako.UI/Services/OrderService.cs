@@ -1,10 +1,12 @@
 ﻿using FT.Travelako.UI.Extensions;
 using FT.Travelako.UI.Infrastructure.API;
 using FT.Travelako.UI.Models.Orders;
+using NuGet.Common;
 using NuGet.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace FT.Travelako.UI.Services
@@ -13,11 +15,17 @@ namespace FT.Travelako.UI.Services
     {
         private readonly HttpClient _client;
         private readonly string _remoteServiceBaseUrl;
+        private readonly HttpContext _context;
+        private readonly string token;
 
-        public OrderService(HttpClient client)
+
+        public OrderService(HttpClient client, IHttpContextAccessor context)
         {
             _remoteServiceBaseUrl = $"/booking/v1/Order";
             _client = client ?? throw new ArgumentNullException(nameof(client));
+            //token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
+            token = context.HttpContext.Session.GetString("AccessToken");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
         public async Task<IEnumerable<OrderResponseModel>> GetOrdersByUserId(string userId)
@@ -42,6 +50,17 @@ namespace FT.Travelako.UI.Services
             {
                 throw new Exception("Something went wrong when calling api.");
             }
+        }
+
+        public async Task<OrderResponseModel> UpdateOrderStatus(OrderStatus orderStatus)
+        {
+            var updateOrderStatus = ApiOrder.UpdateOrderStatus(_remoteServiceBaseUrl);
+            var response = await _client.PostAsJsonAsync(updateOrderStatus, orderStatus);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Something went wrong when calling api.");
+            }
+            return await response.ReadContentAs<OrderResponseModel>();
         }
 
         public async Task DeleteOrder(string userId)

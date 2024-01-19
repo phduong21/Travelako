@@ -1,4 +1,6 @@
-﻿namespace FT.Travelako.UI.Models.Orders
+﻿using FT.Travelako.UI.Models.Travels;
+
+namespace FT.Travelako.UI.Models.Orders
 {
     public class OrderResponseModel
     {
@@ -12,5 +14,15 @@
         public int Status { get; set; }
         public Guid TravelId { get; set; }
         public Guid UserId { get; set; }
+    }
+
+    public class OrderListingResponseModel : BaseApiResponseModel
+    {
+        public List<OrderResponseModel> result { get; set; }
+    }
+
+    public class OrderDetailsResponseModel : BaseApiResponseModel
+    {
+        public OrderResponseModel result { get; set; }
     }
 }

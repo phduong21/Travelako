@@ -5,6 +5,16 @@ services:
     ports:
      - "8500:8500"
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    environment:
+     - RABBITMQ_DEFAULT_USER=admin
+     - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+
   # traveldb:
   #   container_name: traveldb
   #   restart: always 
@@ -51,12 +61,15 @@ services:
       - ServiceConfig__Port=80
       - ServiceConfig__HealthCheckEndPoint=healthcheck
       - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+      - "EventBusSettings:HostAddress=amqp://admin:admin@host.docker.internal:5672"
+
     ports:
       - "5600:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     depends_on:
       - consul
+      - rabbitmq
       # - traveldb
 
   travel_service:
@@ -89,12 +102,14 @@ services:
       - ServiceConfig__Port=80
       - ServiceConfig__HealthCheckEndPoint=healthcheck
       - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+      - "EventBusSettings:HostAddress=amqp://admin:admin@host.docker.internal:5672"
     ports:
       - "5200:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     depends_on:
       - consul
+      - rabbitmq
       # - traveldb 
 
   authentication_service:

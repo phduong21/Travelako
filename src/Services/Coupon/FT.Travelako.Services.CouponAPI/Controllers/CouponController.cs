@@ -24,23 +24,23 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         public CouponController(IServiceProvider serviceProvider, IDistributedCache cache, IMediator mediator) : base(serviceProvider)
         {
             _cache = cache;
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _mediator = mediator;
         }
 
 
 
-        [HttpGet("{userId}", Name = "GetCouponsByUserId")]
+        [HttpGet("GetCouponsByUserId/{userId}")]
         [AuthorizeFTFilter]
-        [Authorize(Roles = "business,administrator")]
+        //[Authorize(Roles = "business,administrator")]
         [ProducesResponseType(typeof(IEnumerable<CouponViewModel>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<CouponViewModel>>> GetCouponsByUserName(string userId)
+        public async Task<ActionResult<IEnumerable<CouponViewModel>>> GetCouponsByUserId(string userId)
         {
             var query = new GetCouponsListQuery(userId);
             var orders = await _mediator.Send(query);
             return Ok(orders);
         }
 
-        [HttpPost(Name = "CreateCoupon")]
+        [HttpPost("CreateCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -50,7 +50,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut(Name = "UpdateCoupon")]
+        [HttpPut("UpdateCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -59,10 +59,10 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         public async Task<ActionResult> UpdateCoupon([FromBody] UpdateCouponCommand command)
         {
             await _mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
 
-        [HttpDelete("{id}", Name = "DeleteCoupon")]
+        [HttpDelete("DeleteCoupon")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -72,7 +72,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         {
             var command = new DeleteCouponCommand() { Id = id };
             await _mediator.Send(command);
-            return NoContent();
+            return Ok();
         }
     }
 }

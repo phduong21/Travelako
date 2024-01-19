@@ -4,8 +4,8 @@ namespace FT.Travelako.UI.Services
 {
     public interface ITravelService
     {
-        Task<IEnumerable<TravelDetailResponseModel>> GetTravelsByUserId(string userId);
-        Task<IEnumerable<TravelDetailResponseModel>> GetTravels();
+        Task<TravelListingResponseModel> GetTravelsByUserId(string userId);
+        Task<TravelListingResponseModel> GetTravels(string personalizasion = null);
         Task<TravelDetailResponseModel> GetTravelDetail(string id);
     }
 }

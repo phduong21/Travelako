@@ -1,13 +1,10 @@
 ﻿using FT.Travelako.Common.Entities;
-using FT.Travelako.Common.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace FT.Travelako.Services.UserAPI.Models
 {
-    public class User
+    public class User : EntityBase
     {
-        [Key]
-        public Guid Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -15,11 +12,8 @@ namespace FT.Travelako.Services.UserAPI.Models
         public string LastName { get; set; }
         public string? Address { get; set; }
         public string? Image { get; set; }
-        public string? Personalization { get; set; }
+        public List<string>? Personalization { get; set; }
         public string Role { get; set; }
-
-        // public Guid UserCouponId { get; set; }
-        // public UserCoupon UserCoupon { get; set; }
-        // public ICollection<Booking> Bookings { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

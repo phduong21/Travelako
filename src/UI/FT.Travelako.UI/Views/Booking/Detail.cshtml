@@ -1,0 +1,19 @@
+﻿@using FT.Travelako.UI.Models.Orders
+
+@{
+    ViewData["Title"] = "Detail";
+    @model OrderResponseModel
+}
+
+<h1>Detail</h1>
+
+<div class="container">
+    <div class="card esh-campaigns-items">
+        <div class="card-block">
+            <h4 class="card-title">@Model.TourName</h4>
+            <p class="card-text">@Model.GuestSize</p>
+            <p class="card-text">@Model.Status</p>
+            <p class="card-text">@Model.TotalPrice</p>
+        </div>
+    </div>
+</div>

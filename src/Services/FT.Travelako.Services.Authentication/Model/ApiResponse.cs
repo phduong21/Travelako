@@ -8,4 +8,9 @@
 
         public object Data { get; set; }
     }
+
+    public class AuthenRespone
+    {
+        public string Token { get; set; }
+    }
 }

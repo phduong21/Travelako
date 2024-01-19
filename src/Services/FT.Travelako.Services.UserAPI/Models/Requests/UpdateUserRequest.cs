@@ -4,7 +4,6 @@ namespace FT.Travelako.Services.UserAPI.Models.Requests
 {
     public class UpdateUserRequest : IBaseRequestModel
     {
-        public string Id { get; set; }
         public string? Email { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

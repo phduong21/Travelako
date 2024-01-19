@@ -10,5 +10,7 @@ namespace Coupon.Domain.Entities
     public class CouponUser : EntityBase
     {
         public string CouponId { get; set; }
+        public string UserId { get; set; }
+        public bool? IsUsed { get; set; }
     }
 }

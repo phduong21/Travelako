@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using NuGet.Common;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace FT.Travelako.UI.Base
@@ -6,12 +8,15 @@ namespace FT.Travelako.UI.Base
     public class BaseApiClient : IBaseApiClient
     {
         private readonly string _baseUrl;
-        
-        public BaseApiClient(string baseUrl = null)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly string token;
+        public BaseApiClient(string baseUrl, IHttpContextAccessor httpContextAccessor)
         {
             _baseUrl = baseUrl;
+            _httpContextAccessor = httpContextAccessor;
+            token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
         }
-        
+
         public async Task<List<T>> GetListAsync<T>(string requestUri, bool requiredLogin = false, string baseApiUrl = null)
         {
             string url = string.IsNullOrWhiteSpace(baseApiUrl) ? $"{_baseUrl}/{requestUri}" : $"{baseApiUrl}/{requestUri}";
@@ -21,8 +26,7 @@ namespace FT.Travelako.UI.Base
                 {
                     if (requiredLogin)
                     {
-                        // var token = await HttpContext.GetTokenAsync("access_token");
-                        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     }
                     var response = await client.GetAsync(url);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -46,7 +50,7 @@ namespace FT.Travelako.UI.Base
                     if (requiredLogin)
                     {
                         // var token = await HttpContext.GetTokenAsync("access_token");
-                        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     }
                     var response = await client.GetAsync(url);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -74,7 +78,7 @@ namespace FT.Travelako.UI.Base
                     if (requiredLogin)
                     {
                         // var token = await HttpContext.GetTokenAsync("access_token");
-                        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     }
                     var response = await client.PostAsync(url, httpContent);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -102,7 +106,7 @@ namespace FT.Travelako.UI.Base
                     if (requiredLogin)
                     {
                         // var token = await HttpContext.GetTokenAsync("access_token");
-                        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     }
                     var response = await client.PutAsync(url, httpContent);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -124,7 +128,7 @@ namespace FT.Travelako.UI.Base
                     if (requiredLogin)
                     {
                         // var token = await HttpContext.GetTokenAsync("access_token");
-                        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     }
                     var response = await client.DeleteAsync(url);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)

@@ -1,4 +1,5 @@
 ﻿using Coupon.Domain.Entities;
+using FT.Travelako.Common.Entities;
 using FT.Travelako.Common.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Coupon.Application.Contracts.Persistence
 {
-    internal class ICouponUserRepository /*: IAsyncRepository<CouponUser>*/
+    public interface ICouponUserRepository : IAsyncRepository<CouponUser>
     {
+        Task<IEnumerable<CouponUser>> GetCouponsByUser(string userId);
     }
 }

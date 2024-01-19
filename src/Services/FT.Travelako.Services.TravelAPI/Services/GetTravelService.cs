@@ -15,7 +15,7 @@ namespace FT.Travelako.Services.TravelAPI.Services
 			try
 			{
 				var result = new GenericAPIResponse();
-				if (model == null && model?.Id == null && model?.UserId == null)
+				if (model?.Id == null && model?.UserId == null)
 				{
 					result.Result = await _travelRepository.GetAllAsync();
 					result.IsSuccess = true;
@@ -30,7 +30,7 @@ namespace FT.Travelako.Services.TravelAPI.Services
 						{
 							result.Result = travel;
 							result.IsSuccess = true;
-							result.Message = "Suucess";
+							result.Message = "Success";
 							return result;
 						}
 						else
@@ -40,14 +40,14 @@ namespace FT.Travelako.Services.TravelAPI.Services
 							result.Message = $"Do not exist travel {model.Id}";
 						}
 					}
-					else
+					else if(!string.IsNullOrWhiteSpace(model.Id))
 					{
 						var travel = await _travelRepository.GetByIdAsync(model.Id);
 						if (travel != null)
 						{
 							result.Result = travel;
 							result.IsSuccess = true;
-							result.Message = "Suucess";
+							result.Message = "Success";
 							return result;
 						}
 						else
@@ -57,6 +57,23 @@ namespace FT.Travelako.Services.TravelAPI.Services
 							result.Message = $"Do not exist travel {model.Id}";
 						}
 					}
+					else if(!string.IsNullOrWhiteSpace(model.Loaction))
+					{
+                        var travel = await _travelRepository.GetAsync(x => model.Loaction.Contains(x.Location));
+                        if (travel != null)
+                        {
+                            result.Result = travel;
+                            result.IsSuccess = true;
+                            result.Message = "Success";
+                            return result;
+                        }
+                        else
+                        {
+                            result.Result = null;
+                            result.IsSuccess = true;
+                            result.Message = $"Do not exist travel {model.Id}";
+                        }
+                    }
 				}
 				return result;
 			}

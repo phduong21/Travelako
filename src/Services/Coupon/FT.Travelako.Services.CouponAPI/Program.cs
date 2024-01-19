@@ -4,6 +4,12 @@ using FT.Travelako.Services.CouponAPI.Data;
 using FT.Travelako.Services.CouponAPI.Installer;
 using Microsoft.EntityFrameworkCore;
 using FT.Travelako.Service.Core.ServiceDiscovery;
+using MassTransit.MultiBus;
+using MassTransit;
+using FT.Travelako.EventBus.Messages.Common;
+using FT.Travelako.Services.CouponAPI.EventBusConsumer;
+using System.Reflection;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +26,27 @@ IMapper mapper = MappingSettings.RegisterMap().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// MassTransit-RabbitMQ Configuration
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+});
 
+
+builder.Services.AddMassTransit(config => {
+
+    config.AddConsumer<OrderConsumer>();
+    config.UsingRabbitMq((ctx, cfg) => {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+        //cfg.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter("Coupon", false));
+        cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
+            c.ConfigureConsumer<OrderConsumer>(ctx);
+        });
+    });
+});
+
+builder.Services.AddScoped<OrderConsumer>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -1,6 +1,7 @@
-﻿using Booking.Application.Features.Order.Queries.GetOrderDetails;
-using FT.Travelako.Common.BaseModels;
-using FT.Travelako.Common.Controller;
+﻿using AutoMapper;
+using Booking.API.Filter;
+using Booking.Application.Features.Order.Queries.GetOrderDetails;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ using Ordering.Application.Features.Orders.Commands.DeleteOrder;
 using Ordering.Application.Features.Orders.Commands.UpdateOrder;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 using System.Net;
+using static MassTransit.ValidationResultExtensions;
+using CouponEvent = FT.Travelako.EventBus.Messages.Events.CouponEvent;
 
 namespace Booking.API.Controllers
 {
@@ -17,13 +20,18 @@ namespace Booking.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IMapper _mapper;
 
-        public OrderController(IMediator mediator)
+        public OrderController(IMediator mediator, IPublishEndpoint publishEndpoint)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [HttpGet("get-orders/{userId}")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserId(string userId)
         {
@@ -33,6 +41,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpGet("get-order/{orderId}")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(OrderDetails), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<OrderDetails>> GetOrderById(string orderId)
         {
@@ -42,14 +52,29 @@ namespace Booking.API.Controllers
         }
 
         [HttpPost("check-out")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
+
+            var query = new GetOrdersListQuery(command.UserId.ToString());
+            var orders = await _mediator.Send(query);
+            var eventMessage = new CouponEvent()
+            {
+                UserId = command.UserId.ToString(),
+                BusinessId = command.BusinessId,
+                Count = orders.Count
+            };
+
+            await _publishEndpoint.Publish<CouponEvent>(eventMessage);
             return Ok(result);
         }
 
         [HttpPut("UpdateOrder")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -60,6 +85,8 @@ namespace Booking.API.Controllers
         }
 
         [HttpDelete("{id}", Name = "DeleteOrder")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

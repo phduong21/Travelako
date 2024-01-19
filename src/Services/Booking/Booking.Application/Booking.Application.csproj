@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\FT.Travelako.Common\FT.Travelako.Common.csproj" />
+    <ProjectReference Include="..\..\..\Common\FT.Travelako.EventBus.Messages\FT.Travelako.EventBus.Messages.csproj" />
     <ProjectReference Include="..\Booking.Domain\Booking.Domain.csproj" />
   </ItemGroup>
 

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace FT.Travelako.Services.Authentication.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class UserManagermentController : ApiBaseController
     {
