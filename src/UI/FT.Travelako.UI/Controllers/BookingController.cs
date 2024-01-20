@@ -73,7 +73,14 @@ namespace FT.Travelako.UI.Controllers
             ViewBag.TourName = travel.result.title;
             ViewBag.TourPrice = travel.result.hotelPrice;
             ViewBag.CouponCode = new SelectList(coupon.Select(x => x.Code).ToList());
-            TempData["TravelId"] = travel.result.id;
+            ViewBag.Coupon = coupon.Select(x => new CouponOrder
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Code = x.Code,
+                Discount = x.Discount
+            }).ToList();
+			TempData["TravelId"] = travel.result.id;
             TempData["BusinessId"] = travel.result.createdBy;
             TempData["TourName"] = travel.result.title;
             TempData["Price"] = travel.result.hotelPrice;
