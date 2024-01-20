@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Booking.API.Filter;
 using Booking.Application.Features.Order.Queries.GetOrderDetails;
+using Booking.Application.Models;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -32,8 +33,8 @@ namespace Booking.API.Controllers
         [HttpGet("get-orders/{userId}")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "user,business,administrator")]
-        [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserId(string userId)
+        [ProducesResponseType(typeof(ApiResult<List<OrdersVm>>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ApiResult<List<OrdersVm>>>> GetOrdersByUserId(string userId)
         {
             var query = new GetOrdersListQuery(userId);
             var orders = await _mediator.Send(query);
@@ -43,8 +44,8 @@ namespace Booking.API.Controllers
         [HttpGet("get-order/{orderId}")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "user,business,administrator")]
-        [ProducesResponseType(typeof(OrderDetails), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<OrderDetails>> GetOrderById(string orderId)
+        [ProducesResponseType(typeof(ApiResult<OrdersVm>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ApiResult<OrdersVm>>> GetOrderById(string orderId)
         {
             var query = new GetOrderDetailsQuery(orderId);
             var orders = await _mediator.Send(query);
@@ -55,7 +56,7 @@ namespace Booking.API.Controllers
         [AuthorizeFTFilter]
         [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<string>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
+        public async Task<ActionResult<ApiResult<OrdersVm>>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
 
@@ -65,7 +66,7 @@ namespace Booking.API.Controllers
             {
                 UserId = command.UserId.ToString(),
                 BusinessId = command.BusinessId,
-                Count = orders.Count
+                Count = orders.Result.Count
             };
 
             await _publishEndpoint.Publish<CouponEvent>(eventMessage);

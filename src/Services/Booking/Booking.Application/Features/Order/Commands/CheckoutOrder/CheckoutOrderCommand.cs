@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
 {
-    public class CheckoutOrderCommand : IRequest<ApiResult<Order>>
+    public class CheckoutOrderCommand : IRequest<ApiResult<OrdersVm>>
     {
         public Guid UserId { get; set; }
         public string BusinessId { get; set; }

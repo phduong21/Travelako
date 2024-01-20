@@ -1,4 +1,4 @@
-﻿namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
+﻿namespace Booking.Application.Models
 {
     public class OrdersVm
     {
@@ -8,9 +8,10 @@
         public string Phone { get; set; }
         public string TourName { get; set; }
         public int GuestSize { get; set; }
-        public decimal TotalPrice { get; set; }
+        public decimal TotalCost { get; set; }
         public int Status { get; set; }
         public Guid TravelId { get; set; }
         public Guid UserId { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

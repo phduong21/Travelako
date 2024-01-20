@@ -19,21 +19,21 @@ namespace FT.Travelako.UI.Services
     {
         private readonly HttpClient _client;
         private readonly string _remoteServiceBaseUrl;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly HttpContext _context;
         private readonly string token;
 
-        public CouponService(HttpClient client, IBaseService baseService, IHttpContextAccessor httpContextAccessor)
+        public CouponService(HttpClient client, IBaseService baseService, IHttpContextAccessor context)
         {
-            _remoteServiceBaseUrl = $"coupon/v1/Coupon";
+            _remoteServiceBaseUrl = $"coupon/v1/UserCoupon";
             _client = client ?? throw new ArgumentNullException(nameof(client));
-            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
-            token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
+            //_context = context ?? throw new ArgumentNullException(nameof(context));
+            token = context.HttpContext.Session.GetString("AccessToken");
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
-        public async Task<List<CouponResponseModel>> GetCouponByUserId(string userId)
+        public async Task<List<CouponResponseModel>> GetCouponByUserId(string userId, string businessUserId)
         {
-            var getCouponByUserIdUri = ApiCoupon.GetCouponsByUserId(_remoteServiceBaseUrl, userId);
+            var getCouponByUserIdUri = ApiCoupon.GetUsersCouponsByUserId(_remoteServiceBaseUrl, userId, businessUserId);
             var response = await _client.GetAsync(getCouponByUserIdUri);
             return await response.ReadContentAs<List<CouponResponseModel>>();
         }
