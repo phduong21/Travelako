@@ -69,7 +69,7 @@ namespace FT.Travelako.UI.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var coupon = await _couponService.GetCouponByUserId(currentUser.Id);
+            var coupon = await _couponService.GetCouponByUserId(currentUser.Id, travel.result.createdBy);
             ViewBag.TourName = travel.result.title;
             ViewBag.TourPrice = travel.result.hotelPrice;
             ViewBag.CouponCode = new SelectList(coupon.Select(x => x.Code).ToList());
