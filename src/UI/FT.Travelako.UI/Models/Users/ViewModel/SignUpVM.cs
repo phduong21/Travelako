@@ -28,7 +28,7 @@ namespace FT.Travelako.UI.Models.Users.ViewModel
 
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Role is required")]
-        public string Role { get; set; }
+        [Display(Name = "Are you a travel seller?")]
+        public bool IsTravelSeller { get; set; }
     }
 }

@@ -33,11 +33,6 @@ namespace FT.Travelako.UI.Services
         public async Task<UserDetailResponseModel> CreateUser(SignUpVM model)
         {
             var requestUri = ApiUser.CreateUser(_remoteServiceBaseUrl);
-
-            if (!Enum.TryParse(model.Role, out UserRoles role))
-            {
-                return null;
-            }
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
             {
                 ApiType = ApiType.POST,
@@ -50,7 +45,7 @@ namespace FT.Travelako.UI.Services
                     Email = model.Email,
                     Address = model.Address,
                     Password = model.Password,
-                    Role = role
+                    Role = model.IsTravelSeller ? UserRoles.Business : UserRoles.User
                 }
             });
 

@@ -117,9 +117,8 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Role)
-            @Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Administrator", "Business", "User" }), "Select Role", new { @class = "form-control select" })
-            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.IsTravelSeller)
+            <input type="checkbox" asp-for="IsTravelSeller" />
         </div>
         <button type="submit">Sign up</button>
         <p class="message">Already registered? <a href="/User/Login">Login here</a></p>
