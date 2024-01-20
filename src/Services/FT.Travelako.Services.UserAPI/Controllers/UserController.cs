@@ -37,8 +37,8 @@ namespace FT.Travelako.Services.TravelAPI.Controllers
 
 
         [HttpGet("GetAllUser")]
-        //[AuthorizeFTFilter]
-        //[Authorize(Roles = "administrator")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "administrator")]
         public async Task<GenericAPIResponse> GetTravel([FromRoute] GetAllUserRequest? model)
         {
             return await ExecutionService<GetAllUserRequest, GetAllUserService>(model);
