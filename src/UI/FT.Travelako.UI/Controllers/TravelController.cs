@@ -51,7 +51,7 @@ namespace FT.Travelako.UI.Controllers
                     var businessUser = (await _userService.GetAllBusinessUsers()).FirstOrDefault(x => x.Id.ToLower() == travel.result.createdBy.ToLower());
                     if (businessUser != null)
                     {
-                        travelViewModel.Author = new UserDetailResponseModelNew(businessUser);
+                        travelViewModel.Author = businessUser;
                     }
 
 

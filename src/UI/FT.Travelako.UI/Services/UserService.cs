@@ -178,7 +178,7 @@ namespace FT.Travelako.UI.Services
             return null;
         }
 
-        public async Task<IEnumerable<UserDetailResponseViewModel>> GetAllBusinessUsers()
+        public async Task<IEnumerable<UserDetailResponseModelNew>> GetAllBusinessUsers()
         {
             var requestUri = ApiUser.GetAllBusnessUser(_remoteServiceBaseUrl);
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
@@ -192,7 +192,7 @@ namespace FT.Travelako.UI.Services
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<UserDetailResponseViewModel>>(result.Result.ToString());
+            return JsonConvert.DeserializeObject<IEnumerable<UserDetailResponseModelNew>>(result.Result.ToString());
         }
     }
 }
