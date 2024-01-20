@@ -1,6 +1,8 @@
 ﻿using FT.Travelako.UI.Extensions;
 using FT.Travelako.UI.Infrastructure.API;
+using FT.Travelako.UI.Models;
 using FT.Travelako.UI.Models.Orders;
+using FT.Travelako.UI.Models.Orders.ViewModel;
 using NuGet.Common;
 using NuGet.Configuration;
 using System;
@@ -32,17 +34,19 @@ namespace FT.Travelako.UI.Services
         {
             var getOrderByUserIdUri = ApiOrder.GetOrdersByUserId(_remoteServiceBaseUrl, userId);
             var response = await _client.GetAsync(getOrderByUserIdUri);
-            return await response.ReadContentAs<List<OrderResponseModel>>();
+            var result = await response.ReadContentAs<BaseApiResponseModel<List<OrderResponseModel>>>();
+            return result.Result;
         }
 
         public async Task<OrderResponseModel> GetOrderDetails(string orderId)
         {
             var getOrderByUserIdUri = ApiOrder.GetOrderDetails(_remoteServiceBaseUrl, orderId);
             var response = await _client.GetAsync(getOrderByUserIdUri);
-            return await response.ReadContentAs<OrderResponseModel>();
+            var result = await response.ReadContentAs<BaseApiResponseModel<OrderResponseModel>>();
+            return result.Result;
         }
 
-        public async Task CheckoutOrder(CheckoutModel checkoutModel)
+        public async Task<OrderResponseModel> CheckoutOrder(CheckoutModel checkoutModel)
         {
             var checkoutOrderUri = ApiOrder.CheckOutOrder(_remoteServiceBaseUrl);
             var response = await _client.PostAsJsonAsync(checkoutOrderUri, checkoutModel);
@@ -50,6 +54,8 @@ namespace FT.Travelako.UI.Services
             {
                 throw new Exception("Something went wrong when calling api.");
             }
+            var result = await response.ReadContentAs<BaseApiResponseModel<OrderResponseModel>>();
+            return result.Result;
         }
 
         public async Task<OrderResponseModel> UpdateOrderStatus(OrderStatus orderStatus)
@@ -60,7 +66,8 @@ namespace FT.Travelako.UI.Services
             {
                 throw new Exception("Something went wrong when calling api.");
             }
-            return await response.ReadContentAs<OrderResponseModel>();
+            var result = await response.ReadContentAs<BaseApiResponseModel<OrderResponseModel>>();
+            return result.Result;
         }
 
         public async Task DeleteOrder(string userId)

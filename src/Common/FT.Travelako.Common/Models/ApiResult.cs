@@ -2,9 +2,9 @@
 {
     public class ApiResult<T>(bool succeeded, IEnumerable<string> errors)
     {
-        public T Value { get; set; }
+        public T Result { get; set; }
 
-        public bool Succeeded { get; init; } = succeeded;
+        public bool IsSuccess { get; init; } = succeeded;
 
         public string Message { get; set; }
 
@@ -18,7 +18,7 @@
         public static ApiResult<T> Success(T value)
         {
             var res = new ApiResult<T>(true, Array.Empty<string>());
-            res.Value = value;
+            res.Result = value;
             return res;
         }
 
@@ -30,7 +30,7 @@
         public static ApiResult<T> Failure(T value)
         {
             var res = new ApiResult<T>(false, Array.Empty<string>());
-            res.Value = value;
+            res.Result = value;
             return res;
         }
 

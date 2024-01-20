@@ -4,9 +4,9 @@ namespace FT.Travelako.UI.Infrastructure.API
 {
     public static class ApiCoupon
     {
-        public static string GetCouponsByUserId(string baseUri, string userId)
+        public static string GetUsersCouponsByUserId(string baseUri, string userId, string businessUserId)
         {
-            return $"{baseUri}/GetCouponsByUserId/{userId}";
+            return $"{baseUri}/GetUsersCouponsByUserId?userId={userId}&businessUserId={businessUserId}";
         }
     }
 }

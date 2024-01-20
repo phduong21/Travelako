@@ -62,7 +62,8 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <p>Tour Name: @tourName</p>
-            <p>Tour Price: @price</p>
+            <p>Tour Price: @price /person</p>
+            <p>Total Price: </p>
         </div>
 
         <div class="form-group">
@@ -86,7 +87,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GuestSize)
             @Html.TextBoxFor(model => model.GuestSize, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.GuestSize, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.GuestSize, "", new { @class = "text-danger guestSize" })
         </div>
 
         <div class="form-group">
@@ -104,5 +105,9 @@
         <button type="submit" class="btn btn-primary btn-signup">Book</button>
     </div>
 }
+
+<script>
+
+</script>
 
 

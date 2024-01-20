@@ -21,21 +21,44 @@ namespace FT.Travelako.UI.Controllers
             _couponService = couponService ?? throw new ArgumentNullException(nameof(couponService));
         }
 
-        public async Task<IActionResult> OrdersHistory(string userId)
+        public async Task<IActionResult> OrdersHistory()
         {
             var currentUser = _userService.GetCurrentUser();
             if (currentUser != null)
             {
                 var orders = await _orderService.GetOrdersByUserId(currentUser.Id);
-                return View(orders);
+                var listOrderDetails = orders.Select(x => new OrderDetails() {
+                    Id = x.Id,
+                    TravelId = x.TravelId.ToString(),
+                    TourName = x.TourName,
+                    TotalPrice = x.TotalCost,
+                    GuestSize = x.GuestSize,
+                    CreateDated = x.CreatedDate.ToString("dd MM yyyy")
+                });
+                var listOrders = new ListOrders();
+                listOrders.Orders.AddRange(listOrderDetails);
+                return View(listOrders);
             }
             return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Detail(string orderId)
         {
-            var orders = await _orderService.GetOrderDetails(orderId);
-            return View(orders);
+            var order = await _orderService.GetOrderDetails(orderId);
+            if (order == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var orderDetails = new OrderDetails()
+            {
+                Id = order.Id,
+                TravelId = order.TravelId.ToString(),
+                TourName = order.TourName,
+                TotalPrice = order.TotalCost,
+                GuestSize = order.GuestSize,
+                CreateDated = order.CreatedDate.ToString("dd MM yyyy")
+            };
+            return View(orderDetails);
         }
 
         public async Task<IActionResult> CreateBooking(string id)
@@ -46,7 +69,7 @@ namespace FT.Travelako.UI.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var coupon = await _couponService.GetCouponByUserId(currentUser.Id);
+            var coupon = await _couponService.GetCouponByUserId(currentUser.Id, travel.result.createdBy);
             ViewBag.TourName = travel.result.title;
             ViewBag.TourPrice = travel.result.hotelPrice;
             ViewBag.CouponCode = new SelectList(coupon.Select(x => x.Code).ToList());
@@ -83,11 +106,11 @@ namespace FT.Travelako.UI.Controllers
                 TourName = Convert.ToString(TempData["TourName"]),
                 CouponCode = model.CouponCode,
             };
-            await _orderService.CheckoutOrder(order);
-            return RedirectToAction("Index", "Home");
+            var newOrder = await _orderService.CheckoutOrder(order);
+            return RedirectToAction("Detail", "Booking", new { orderId = newOrder.Id });
         }
 
-        public async Task<IActionResult> UpdateOrderStatus(OrderStatus orderStatus)
+		public async Task<IActionResult> UpdateOrderStatus(OrderStatus orderStatus)
         {
             await _orderService.UpdateOrderStatus(orderStatus);
             return View();

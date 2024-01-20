@@ -16,4 +16,11 @@ namespace Booking.Domain.Entities
         public Guid TravelId { get; set; }
         public Guid UserId { get; set; }
     }
+
+    public enum Status
+    {
+        Draft,
+        Payment,
+        Ordered
+    }
 }

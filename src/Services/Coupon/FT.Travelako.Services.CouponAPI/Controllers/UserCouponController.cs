@@ -29,7 +29,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
 
         [HttpGet("GetUsersCouponsByUserId")]
         [AuthorizeFTFilter]
-        [Authorize(Roles = "business,administrator")]
+        [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(typeof(IEnumerable<CouponUserModel>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<CouponUserModel>>> GetUsersCouponsByUserId(string userId, string businessUserId)
         {
