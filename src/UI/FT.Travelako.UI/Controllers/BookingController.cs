@@ -87,8 +87,8 @@ namespace FT.Travelako.UI.Controllers
             var price = Convert.ToDecimal(TempData["Price"]);
             if (!ModelState.IsValid)
             {
-                return View("CheckoutAsync", model);
-            }
+		        return RedirectToAction("CreateBooking", "Booking", model.TravelId);
+	        }
             var currentUser = _userService.GetCurrentUser();
 
             var order = new CheckoutModel()
