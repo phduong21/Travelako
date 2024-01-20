@@ -24,5 +24,5 @@ namespace FT.Travelako.UI.Models.Orders
         public string? CouponCode { get; set; }
         public string? TravelId { get; set; }
 
-    }
+	}
 }

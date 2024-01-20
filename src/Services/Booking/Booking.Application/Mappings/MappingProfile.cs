@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Booking.Application.Features.Order.Queries.GetOrderDetails;
+using Booking.Application.Models;
 using Booking.Domain.Entities;
 using Ordering.Application.Features.Orders.Commands.CheckoutOrder;
 using Ordering.Application.Features.Orders.Commands.UpdateOrder;
-using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 
 namespace Booking.Application.Mappings
 {
@@ -12,7 +12,6 @@ namespace Booking.Application.Mappings
         public MappingProfile()
         {
             CreateMap<Order, OrdersVm>().ReverseMap();
-            CreateMap<Order, OrderDetails>().ReverseMap();
             CreateMap<Order, CheckoutOrderCommand>().ReverseMap();
             CreateMap<Order, UpdateOrderCommand>().ReverseMap();
         }

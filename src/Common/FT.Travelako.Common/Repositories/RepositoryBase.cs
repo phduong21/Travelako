@@ -58,7 +58,7 @@ namespace FT.Travelako.Common.Repositories
 
         public virtual async Task<T> GetByIdAsync(string id)
         {
-            return await _dbContext.Set<T>().FindAsync(Guid.Parse(id));
+            return await _dbContext.Set<T>().Where(x => x.Id == Guid.Parse(id)).FirstOrDefaultAsync();
         }
 
         public async Task<T> AddAsync(T entity)

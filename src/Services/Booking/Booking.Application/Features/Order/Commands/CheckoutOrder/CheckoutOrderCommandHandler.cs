@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
 {
-    public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, ApiResult<Order>>
+    public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, ApiResult<OrdersVm>>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
@@ -25,16 +25,18 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<ApiResult<Order>> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResult<OrdersVm>> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
             var orderEntity = _mapper.Map<Order>(request);
-            var newOrder = await _orderRepository.AddAsync(orderEntity);
-            
-            _logger.LogInformation($"Order {newOrder.Id} is successfully created.");
+            await _orderRepository.AddAsync(orderEntity);
+            var order = await _orderRepository.GetByIdAsync(orderEntity.Id.ToString());
+            var newOrder = _mapper.Map<OrdersVm>(order);
+
+            _logger.LogInformation($"Order {order.Id} is successfully created.");
             
             //await SendMail(newOrder);
 
-            return ApiResult<Order>.Success(newOrder);
+            return ApiResult<OrdersVm>.Success(newOrder);
         }
 
         //private async Task SendMail(Order order)

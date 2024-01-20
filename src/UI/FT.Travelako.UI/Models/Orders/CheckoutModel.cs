@@ -2,6 +2,7 @@
 {
     public class CheckoutModel
     {
+        public string Id { get; set; }
         public string FullName { get; set; }
         public string UserEmail { get; set; }
         public string Phone { get; set; }

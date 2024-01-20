@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Booking.Application.Contracts.Persistence;
+using Booking.Application.Models;
 using MediatR;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 
 namespace Booking.Application.Features.Order.Queries.GetOrderDetails
 {
-    public class GetOrderDetailsQueryHandler : IRequestHandler<GetOrderDetailsQuery, OrderDetails>
+    public class GetOrderDetailsQueryHandler : IRequestHandler<GetOrderDetailsQuery, ApiResult<OrdersVm>>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
@@ -16,10 +17,11 @@ namespace Booking.Application.Features.Order.Queries.GetOrderDetails
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<OrderDetails> Handle(GetOrderDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<ApiResult<OrdersVm>> Handle(GetOrderDetailsQuery request, CancellationToken cancellationToken)
         {
             var orderDetails = await _orderRepository.GetByIdAsync(request.OrderId);
-            return _mapper.Map<OrderDetails>(orderDetails);
+            var order = _mapper.Map<OrdersVm>(orderDetails);
+            return ApiResult<OrdersVm>.Success(order);
         }
     }
 }
