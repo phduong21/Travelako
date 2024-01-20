@@ -33,3 +33,11 @@ document.getElementById("GuestSize").addEventListener('change', updateTotalCost)
 //        document.getElementById("totalCost").innerHTML = "$ " + totalCost;
 //    }
 //});
+
+function validateForm() {
+    let x = document.forms["myForm"]["fname"].value;
+    if (x == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+}

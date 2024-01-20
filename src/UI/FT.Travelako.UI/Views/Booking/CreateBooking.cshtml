@@ -13,36 +13,42 @@
         <h2 class="booking-h2">New Booking Form</h2>
     </div>
     <div class="booking-d-flex">
-        <form class="booking-form" asp-action="Checkout" asp-controller="Booking" method="post">
+        @using (Html.BeginForm("Checkout", "Booking", FormMethod.Post, htmlAttributes: new
+        {
+            @class = "booking-form"
+        }))
+        {
             <div class="boking-form-info">
                 <label class="booking-label">
                     <span class="fname">Full name <span class="booking-required">*</span></span>
-                    @Html.TextBoxFor(model => model.FullName, new { @class = "booking-input-text" })
+                    @Html.TextBoxFor(model => model.FullName, new { @class = "booking-input-text", @required = "required" })
                     @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                 </label>
                 <label class="booking-label">
                     <span>Phone <span class="booking-required">*</span></span>
-                    @Html.TextBoxFor(model => model.Phone, new { @class = "booking-input-tel" })
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "booking-input-tel", @required = "required" })
                     @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                 </label>
                 <label class="booking-label">
                     <span>Email Address <span class="booking-required">*</span></span>
-                    @Html.TextBoxFor(model => model.Email, new { @class = "booking-input-email" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "booking-input-email", @required = "required", @type = "email" })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </label>
                 <label class="booking-label">
                     <span>Guest size <span class="booking-required">*</span></span>
-                    @Html.TextBoxFor(model => model.GuestSize, new { @class = "booking-input-text" })
+                    @Html.TextBoxFor(model => model.GuestSize, new { @class = "booking-input-text", @required = "required", @type = "number", @min = "1" })
                     @Html.ValidationMessageFor(model => model.GuestSize, "", new { @class = "text-danger" })
                 </label>
                 <label class="booking-label">
                     <span>Book at</span>
-                    @Html.EditorFor(model => model.BookAt, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @type = "date", @class = "booking-input-text" } })
+                    @Html.EditorFor(model => model.BookAt, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @type = "date", @class = "booking-input-text", @required = "required" } })
                     @Html.ValidationMessageFor(model => model.BookAt, "", new { @class = "text-danger" })
                 </label>
                 <label class="booking-label">
                     <span>Coupon <span class="booking-required">*</span></span>
-                    <select class="booking-select" asp-items="@(new SelectList(couponOrders, "Discount", "Title"))" asp-for="@Model.CouponCode" onchange="updateTotalCost()"></select>
+                    <select class="booking-select" asp-items="@(new SelectList(couponOrders, "Discount", "Title"))" asp-for="@Model.CouponCode" onchange="updateTotalCost()">
+                        <option value="0">-- Please select --</option>
+                    </select>
                 </label>
             </div>
             <div class="Yorder">
@@ -83,9 +89,12 @@
                              width="50">
                     </span>
                 </div>
-                <button class="booking-button" type="submit">Place Order</button>
+                <button class="booking-button" type="submit" onsubmit="return validateForm()">Place Order</button>
             </div>
-        </form>
+        }
+        @* <form class="booking-form" asp-action="Checkout" asp-controller="Booking" method="post">
+            
+        </form> *@
     </div>
 </div>
 

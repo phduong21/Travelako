@@ -12,6 +12,12 @@
     }
 }
 
+@media only screen and (max-width: 600px) {
+    .booking-form {
+        display: block !important;
+    }
+}
+
 .booking-d-flex {
     display: flex;
     flex-direction: row;
