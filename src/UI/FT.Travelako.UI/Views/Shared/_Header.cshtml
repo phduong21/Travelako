@@ -1,4 +1,9 @@
-﻿<!-- Topbar Start -->
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _httpContextAccessor
+@{
+    string accessToken = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
+    string userName = FT.Travelako.Common.Helpers.JwtHelper.GetClaimValue(accessToken, "name");
+}
+<!-- Topbar Start -->
 <div class="container-fluid bg-light pt-3 d-none d-lg-block">
     <div class="container">
         <div class="row">
@@ -23,9 +28,19 @@
                     <a class="text-primary px-3" href="">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a class="text-primary pl-3" asp-controller="User" asp-action="Login">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </a>
+                    @if (!string.IsNullOrEmpty(userName))
+                    {
+                        <h5>Hello @userName</h5>
+                        <a class="text-primary pl-3" asp-controller="User" asp-action="Login">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="text-primary pl-3" asp-controller="User" asp-action="Login">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
+                    }
                 </div>
             </div>
         </div>
