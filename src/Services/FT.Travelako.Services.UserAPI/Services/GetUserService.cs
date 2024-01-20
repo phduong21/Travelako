@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using FT.Travelako.Common.BaseImplementation;
 using FT.Travelako.Common.BaseModels;
-using FT.Travelako.Services.UserAPI.Data;
+using FT.Travelako.Services.UserAPI.Constants;
+using FT.Travelako.Services.UserAPI.Extensions;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Repositories;
 using FT.Travelako.Services.UserAPI.Services.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace FT.Travelako.Services.UserAPI.Services
 {
@@ -22,30 +21,25 @@ namespace FT.Travelako.Services.UserAPI.Services
 
         public override async Task<GenericAPIResponse> ExecuteApi(GetUserRequest model)
         {
-            var result = new GenericAPIResponse()
+            try
             {
-                IsSuccess = false
-            };
-            if(model.Id is null)
-            {
-                result.Message = "UserName cannot be null";
-                return result;
+                if (string.IsNullOrEmpty(model.Id))
+                {
+                    return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.NullError, $"{nameof(model.Id)}"));
+                }
+
+                var currentUser = await _userRepository.GetByIdAsync(model.Id);
+                if (currentUser == null)
+                {
+                    return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.UserNotFound);
+                }
+
+                return ResponseExtension.SuccessResponse(_mapper.Map<UserDTO>(currentUser));
             }
-
-            var user = await _userRepository.GetByIdAsync(model.Id);
-
-            if (user == null)
+            catch (Exception ex)
             {
-
+                return ResponseExtension.ErrorResponse(ex.Message);
             }
-            UserDTO data = _mapper.Map<UserDTO>(user);
-
-            return  new GenericAPIResponse
-            {
-                IsSuccess = true,
-                Result = data
-            };
         }
-         
     }
 }

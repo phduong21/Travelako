@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FT.Travelako.Common.BaseImplementation;
 using FT.Travelako.Common.BaseModels;
 using FT.Travelako.Services.UserAPI.Constants;
 using FT.Travelako.Services.UserAPI.Extensions;
@@ -21,23 +20,29 @@ namespace FT.Travelako.Services.UserAPI.Services
 
         public override async Task<GenericAPIResponse> ExecuteApi(UpdateUserRequest model)
         {
-            if (string.IsNullOrEmpty(model.Id))
+            try
             {
-                return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.NullError, $"{nameof(model.Id)}"));
+                if (string.IsNullOrEmpty(model.Id))
+                {
+                    return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.NullError, $"{nameof(model.Id)}"));
+                }
+
+                var currentUser = await _userRepository.GetByIdAsync(model.Id);
+                if (currentUser == null)
+                {
+                    return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.UserNotFound);
+                }
+
+                var userToUpdate = _mapper.Map(model, currentUser);
+                userToUpdate.LastModifiedDate = DateTime.Now;
+                var updatedUser = await _userRepository.UpdateUserInformationAsync(userToUpdate);
+
+                return ResponseExtension.SuccessResponse(_mapper.Map<UserDTO>(updatedUser));
             }
-            
-            var currentUser = await _userRepository.GetByIdAsync(model.Id);
-            if (currentUser == null)
+            catch (Exception ex)
             {
-                return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.UserNotFound);
+                return ResponseExtension.ErrorResponse(ex.Message);
             }
-
-            var userToUpdate = _mapper.Map(model, currentUser);
-            userToUpdate.LastModifiedDate = DateTime.Now;
-            var updatedUser = await _userRepository.UpdateUserInformationAsync(userToUpdate);
-
-            return ResponseExtension.SuccessResponse(_mapper.Map<UserDTO>(updatedUser));
         }
-
     }
 }

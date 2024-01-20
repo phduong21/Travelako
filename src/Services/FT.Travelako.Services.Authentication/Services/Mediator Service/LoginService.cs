@@ -45,7 +45,7 @@ namespace FT.Travelako.Services.Authentication.Services.Mediator_Service
                 if(user is not null)
                 {
                     var IsCorrectPassword = PasswordHelper.VerifyPassword(user.Password, model.Password);
-                    if(IsCorrectPassword)
+                    if (!user.IsDeleted && IsCorrectPassword)
                     {
                         result.IsSuccess = true;
                         var tokenData = _authen.GenerateAuthToken(new Model.LoginModel() { UserName = user.UserName, Role = user.Role, Id = user.Id.ToString() });

@@ -57,11 +57,7 @@ namespace FT.Travelako.Services.UserAPI.Services
             }
             catch (Exception ex)
             {
-                return new GenericAPIResponse()
-                {
-                    IsSuccess = false,
-                    Message = ex.Message
-                };
+                return ResponseExtension.ErrorResponse(ex.Message);
             }
         }
     }
