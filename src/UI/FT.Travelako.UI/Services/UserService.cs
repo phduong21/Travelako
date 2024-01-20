@@ -177,5 +177,22 @@ namespace FT.Travelako.UI.Services
             }
             return null;
         }
+
+        public async Task<IEnumerable<UserDetailResponseModelNew>> GetAllBusinessUsers()
+        {
+            var requestUri = ApiUser.GetAllBusnessUser(_remoteServiceBaseUrl);
+            var result = await _baseService.ExecuteAsync(new GenericAPIRequest
+            {
+                ApiType = ApiType.GET,
+                Url = _client.BaseAddress + requestUri
+            });
+
+            if (result is null || result.Result is null)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<IEnumerable<UserDetailResponseModelNew>>(result.Result.ToString());
+        }
     }
 }

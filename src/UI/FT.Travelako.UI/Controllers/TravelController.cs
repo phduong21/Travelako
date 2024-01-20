@@ -1,5 +1,6 @@
 using FT.Travelako.UI.Models.Travels;
 using FT.Travelako.UI.Models.Travels.ViewModel;
+using FT.Travelako.UI.Models.Users;
 using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,8 +47,13 @@ namespace FT.Travelako.UI.Controllers
                         });
                         
                     }
+                    var tests = await _userService.GetAllBusinessUsers();
+                    var businessUser = (await _userService.GetAllBusinessUsers()).FirstOrDefault(x => x.Id.ToLower() == travel.result.createdBy.ToLower());
+                    if (businessUser != null)
+                    {
+                        travelViewModel.Author = businessUser;
+                    }
 
-                    travelViewModel.Author = await _userService.GetUserInformationById(travel.result.createdBy);
 
                     var recentTravels = await _travelService.GetTravels();
                     if (recentTravels != null && recentTravels.result != null && recentTravels.result.Any())
