@@ -1,113 +1,101 @@
-﻿@model FT.Travelako.UI.Models.Orders.Order
+﻿@using FT.Travelako.UI.Models.Orders
+@model FT.Travelako.UI.Models.Orders.Order
 @{
     ViewData["Title"] = "Booking";
     SelectList couponCode = ViewBag.CouponCode;
+    List<CouponOrder> couponOrders = ViewBag.Coupon;
     string tourName = ViewBag.TourName;
     string price = ViewBag.TourPrice;
 }
 
-<h1>Booking</h1>
-
-<style>
-    .form-container {
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    }
-
-    .form-column {
-        width: 48%;
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-    }
-
-        .form-group label {
-            margin-bottom: 5px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-
-        .form-group::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-    .btn-container {
-        text-align: center;
-    }
-
-    .btn-signup {
-        width: 150px;
-    }
-</style>
-
-
-
-@using (Html.BeginForm("Checkout", "Booking", FormMethod.Post, new { @class = "form-container" }))
-{
-    <div class="form-column">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <p>Tour Name: @tourName</p>
-            <p>Tour Price: @price /person</p>
-            <p>Total Price: </p>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FullName)
-            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Phone)
-            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email)
-            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GuestSize)
-            @Html.TextBoxFor(model => model.GuestSize, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.GuestSize, "", new { @class = "text-danger guestSize" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookAt)
-            @Html.EditorFor(model => model.BookAt, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control datepicker", @type = "date" } })
-            @Html.ValidationMessageFor(model => model.BookAt, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CouponCode)
-            @Html.DropDownListFor(model => model.CouponCode, couponCode, new { @class = "form-control" })
-        </div>
+<div class="booking-container">
+    <div class="booking-title">
+        <h2 class="booking-h2">New Booking Form</h2>
     </div>
-    <div class="btn-container">
-        <button type="submit" class="btn btn-primary btn-signup">Book</button>
+    <div class="booking-d-flex">
+        @using (Html.BeginForm("Checkout", "Booking", FormMethod.Post, htmlAttributes: new
+        {
+            @class = "booking-form"
+        }))
+        {
+            <div class="boking-form-info">
+                <label class="booking-label">
+                    <span class="fname">Full name <span class="booking-required">*</span></span>
+                    @Html.TextBoxFor(model => model.FullName, new { @class = "booking-input-text", @required = "required" })
+                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                </label>
+                <label class="booking-label">
+                    <span>Phone <span class="booking-required">*</span></span>
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "booking-input-tel", @required = "required" })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </label>
+                <label class="booking-label">
+                    <span>Email Address <span class="booking-required">*</span></span>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "booking-input-email", @required = "required", @type = "email" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </label>
+                <label class="booking-label">
+                    <span>Guest size <span class="booking-required">*</span></span>
+                    @Html.TextBoxFor(model => model.GuestSize, new { @class = "booking-input-text", @required = "required", @type = "number", @min = "1" })
+                    @Html.ValidationMessageFor(model => model.GuestSize, "", new { @class = "text-danger" })
+                </label>
+                <label class="booking-label">
+                    <span>Book at</span>
+                    @Html.EditorFor(model => model.BookAt, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @type = "date", @class = "booking-input-text", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.BookAt, "", new { @class = "text-danger" })
+                </label>
+                <label class="booking-label">
+                    <span>Coupon <span class="booking-required">*</span></span>
+                    <select class="booking-select" asp-items="@(new SelectList(couponOrders, "Discount", "Title"))" asp-for="@Model.CouponCode" onchange="updateTotalCost()">
+                        <option value="0">-- Please select --</option>
+                    </select>
+                </label>
+            </div>
+            <div class="Yorder">
+                <table class="booking-table">
+                    <tr class="booking-tr">
+                        <th class="booking-th" colspan="2">Your booking information</th>
+                    </tr>
+                    <tr class="booking-tr">
+                        <td class="booking-td">Tour name</td>
+                        <td class="booking-td">@tourName</td>
+                    </tr>
+                    <tr class="booking-tr">
+                        <td class="booking-td">Price/per</td>
+                        <td class="booking-td" id="pricePer" data-price="@price">$ @price</td>
+                    </tr>
+                    <tr class="booking-tr">
+                        <td class="booking-td">Discount</td>
+                        <td class="booking-td" id="discount">-$ 0 (0%)</td>
+                    </tr>
+                    <tr class="booking-tr">
+                        <td class="booking-td">Total cost</td>
+                        <td class="booking-td" id="totalCost"></td>
+                    </tr>
+                </table><br>
+                <div>
+                    <input type="radio" name="dbt" value="dbt" checked> Direct Bank Transfer
+                </div>
+                <p class="booking-p">
+                    Make your payment directly into our bank account. Please use your Order ID as the payment reference.
+                    Your order will not be shipped until the funds have cleared in our account.
+                </p>
+                <div>
+                    <input type="radio" name="dbt" value="cd"> Cash on Delivery
+                </div>
+                <div>
+                    <input type="radio" name="dbt" value="cd"> Paypal <span>
+                        <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt=""
+                             width="50">
+                    </span>
+                </div>
+                <button class="booking-button" type="submit" onsubmit="return validateForm()">Place Order</button>
+            </div>
+        }
+        @* <form class="booking-form" asp-action="Checkout" asp-controller="Booking" method="post">
+            
+        </form> *@
     </div>
-}
-
-<script>
-
-</script>
+</div>
 
 
