@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using FT.Travelako.Common.BaseModels;
+using FT.Travelako.Services.UserAPI.Constants;
+using FT.Travelako.Services.UserAPI.Extensions;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Repositories;
@@ -10,7 +12,6 @@ namespace FT.Travelako.Services.UserAPI.Services
     public class UpdateUserPersonalizeService : UserBaseService<PersonalizeRequest>
     {
         private readonly IMapper _mapper;
-        private const int MaximumPersonalization = 5;
         public UpdateUserPersonalizeService(IUserRepository userRepository, IMapper mapper) : base(userRepository)
         {
             _mapper = mapper;
@@ -18,49 +19,50 @@ namespace FT.Travelako.Services.UserAPI.Services
 
         public override async Task<GenericAPIResponse> ExecuteApi(PersonalizeRequest model)
         {
-            var result = new GenericAPIResponse()
+            try
             {
-                IsSuccess = false
-            };
-            if (string.IsNullOrEmpty(model.Id) || string.IsNullOrEmpty(model.Location))
-            {
-                result.Message = "Id and Location cannot be null";
-                return result;
-            }
-
-            var currentUser = await _userRepository.GetByIdAsync(model.Id);
-
-            if (currentUser == null)
-            {
-                result.Message = "Cannnot find specified user";
-                return result;
-            }
-
-            currentUser.Personalization ??= new List<string>();
-            if (!currentUser.Personalization.Contains(model.Location))
-            {
-                currentUser.Personalization.Add(model.Location);
-
-                if (currentUser.Personalization.Count > MaximumPersonalization)
+                var result = new GenericAPIResponse();
+                if (string.IsNullOrEmpty(model.Id) || string.IsNullOrEmpty(model.Location))
                 {
-                    currentUser.Personalization.RemoveAt(0);
+                    return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.NullError, $"{nameof(model.Id)} and {nameof(model.Location)}"));
                 }
-            }
-            else
-            {
-                currentUser.Personalization.Remove(model.Location);
-                currentUser.Personalization.Add(model.Location);
-            }
 
-            currentUser.LastModifiedDate = DateTime.Now;
-            var updatedUser = await _userRepository.UpdateUserInformationAsync(currentUser);
-            UserDTO data = _mapper.Map<UserDTO>(updatedUser);
+                var currentUser = await _userRepository.GetByIdAsync(model.Id);
 
-            return new GenericAPIResponse
+                if (currentUser == null)
+                {
+                    return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.UserNotFound);
+                }
+
+                currentUser.Personalization ??= new List<string>();
+                if (!currentUser.Personalization.Contains(model.Location))
+                {
+                    currentUser.Personalization.Add(model.Location);
+
+                    if (currentUser.Personalization.Count > UserConstants.MaximumPersonalization)
+                    {
+                        currentUser.Personalization.RemoveAt(0);
+                    }
+                }
+                else
+                {
+                    currentUser.Personalization.Remove(model.Location);
+                    currentUser.Personalization.Add(model.Location);
+                }
+
+                currentUser.LastModifiedDate = DateTime.Now;
+                var updatedUser = await _userRepository.UpdateUserInformationAsync(currentUser);
+
+                return ResponseExtension.SuccessResponse(_mapper.Map<UserDTO>(updatedUser));
+            }
+            catch (Exception ex)
             {
-                IsSuccess = true,
-                Result = data
-            };
+                return new GenericAPIResponse()
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
         }
     }
 }

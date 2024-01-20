@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using FT.Travelako.Common.BaseImplementation;
 using FT.Travelako.Common.BaseModels;
+using FT.Travelako.Services.UserAPI.Constants;
 using FT.Travelako.Services.UserAPI.Data;
+using FT.Travelako.Services.UserAPI.Extensions;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Repositories;
@@ -19,26 +21,24 @@ namespace FT.Travelako.Services.UserAPI.Services
 
         public override async Task<GenericAPIResponse> ExecuteApi(DeleteUserRequest model)
         {
-            var result = new GenericAPIResponse()
+            if (string.IsNullOrEmpty(model.Id))
             {
-                IsSuccess = false
+                return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.NullError, $"{nameof(model.Id)}"));
+            }
+
+            var currentUser = await _userRepository.GetByIdAsync(model.Id);
+            if (currentUser == null)
+            {
+                return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.UserNotFound);
+            }
+            currentUser.IsDeleted = true;
+            currentUser.LastModifiedDate = DateTime.Now;
+            await _userRepository.DeleteUser(currentUser);
+
+            return new GenericAPIResponse()
+            {
+                Result = 
             };
-            if (model.Id is null)
-            {
-                result.Message = "Id cannot be null";
-                return result;
-            }
-
-            var user = await _userRepository.GetByIdAsync(model.Id);
-
-            if (user is not null)
-            {
-                user.IsDeleted = true;
-                await _userRepository.DeleteUser(user);
-            }
-
-
-            return new GenericAPIResponse();
         }
 
     }
