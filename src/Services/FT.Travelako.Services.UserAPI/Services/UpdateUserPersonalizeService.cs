@@ -10,6 +10,7 @@ namespace FT.Travelako.Services.UserAPI.Services
     public class UpdateUserPersonalizeService : UserBaseService<PersonalizeRequest>
     {
         private readonly IMapper _mapper;
+        private const int MaximumPersonalization = 5;
         public UpdateUserPersonalizeService(IUserRepository userRepository, IMapper mapper) : base(userRepository)
         {
             _mapper = mapper;
@@ -39,7 +40,18 @@ namespace FT.Travelako.Services.UserAPI.Services
             if (!currentUser.Personalization.Contains(model.Location))
             {
                 currentUser.Personalization.Add(model.Location);
+
+                if (currentUser.Personalization.Count > MaximumPersonalization)
+                {
+                    currentUser.Personalization.RemoveAt(0);
+                }
             }
+            else
+            {
+                currentUser.Personalization.Remove(model.Location);
+                currentUser.Personalization.Add(model.Location);
+            }
+
             currentUser.LastModifiedDate = DateTime.Now;
             var updatedUser = await _userRepository.UpdateUserInformationAsync(currentUser);
             UserDTO data = _mapper.Map<UserDTO>(updatedUser);

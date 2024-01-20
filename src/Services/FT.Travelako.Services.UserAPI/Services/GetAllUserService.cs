@@ -28,12 +28,12 @@ namespace FT.Travelako.Services.UserAPI.Services
             {
 
             }
-            // UserDTO data = _mapper.Map<UserDTO>(user);
+            var data = _mapper.Map<List<UserDTO>>(user);
 
             return new GenericAPIResponse
             {
                 IsSuccess = true,
-                Result = user
+                Result = data
             };
         }
     }

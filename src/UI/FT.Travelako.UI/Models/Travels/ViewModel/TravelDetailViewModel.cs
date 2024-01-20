@@ -8,10 +8,10 @@ namespace FT.Travelako.UI.Models.Travels.ViewModel
         {
             TravelDetail = new TravelDetailModel();
             RecentTravels = new TravelListingResponseModel();
-            Author = new UserDetailResponseModelNew();
+            Author = new UserDetailResponseModel();
         }
         public TravelDetailModel TravelDetail { get; set; }
         public TravelListingResponseModel RecentTravels { get; set; }
-        public UserDetailResponseModelNew Author { get; set; }
+        public UserDetailResponseModel Author { get; set; }
     }
 }

@@ -1,16 +1,17 @@
 ﻿using FT.Travelako.Common.BaseModels;
 using FT.Travelako.UI.Models.Authentication;
 using FT.Travelako.UI.Models.Users;
+using FT.Travelako.UI.Models.Users.ViewModel;
 
 namespace FT.Travelako.UI.Services
 {
     public interface IUserService
     {
         Task<UserDetailResponseModel> GetUserInformation(string userName);
-        Task<UserDetailResponseModelNew> GetUserInformationById(string userId);
+        Task<UserDetailResponseModel> GetUserInformationById(string userId);
         Task<IEnumerable<UserDetailResponseModel>> GetAllUsers();
-        Task<IEnumerable<UserDetailResponseModelNew>> GetAllBusinessUsers();
-        Task<UserDetailResponseModel> CreateUser(CreateUserModel model);
+        Task<IEnumerable<UserDetailResponseModel>> GetAllBusinessUsers();
+        Task<UserDetailResponseModel> CreateUser(SignUpVM model);
         Task<UserDetailResponseModel> UpdateUser(UpdateUserModel model);
         Task DeleteUser(string userId);
         Task<PersonalizeModel> GetPersonalizeUser(string userId);

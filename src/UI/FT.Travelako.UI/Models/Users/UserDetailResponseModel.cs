@@ -10,8 +10,9 @@ namespace FT.Travelako.UI.Models.Users
         public string LastName { get; set; }
         public string? Address { get; set; }
         public string? Image { get; set; }
-        public string? Personalization { get; set; }
+        public List<string>? Personalization { get; set; }
         public UserRoles Role { get; set; }
+        public string? Id { get; set; }
     }
 
     public class UserDetailResponseModelNew
