@@ -9840,3 +9840,14 @@ h6,
         transform: rotate(-6deg);
     }
 }
+
+.travel-detail-card {
+    display: none;
+}
+
+.travel-detail-card:nth-child(1),
+.travel-detail-card:nth-child(2),
+.travel-detail-card:nth-child(3) {
+    display: block;
+    transition: 0.2s ease;
+}
