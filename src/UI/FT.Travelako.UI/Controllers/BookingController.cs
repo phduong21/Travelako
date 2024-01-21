@@ -47,7 +47,7 @@ namespace FT.Travelako.UI.Controllers
             var order = await _orderService.GetOrderDetails(orderId);
             if (order == null)
             {
-                return RedirectToAction("Index", "Home");
+                return View("NotFound");
             }
             var orderDetails = new OrderDetails()
             {
@@ -61,6 +61,7 @@ namespace FT.Travelako.UI.Controllers
             return View(orderDetails);
         }
 
+        [Route("Booking/CreateBooking/{id}")]
         public async Task<IActionResult> CreateBooking(string id)
         {
             var travel = await _travelService.GetTravelDetail(id);
@@ -73,7 +74,14 @@ namespace FT.Travelako.UI.Controllers
             ViewBag.TourName = travel.result.title;
             ViewBag.TourPrice = travel.result.hotelPrice;
             ViewBag.CouponCode = new SelectList(coupon.Select(x => x.Code).ToList());
-            TempData["TravelId"] = travel.result.id;
+            ViewBag.Coupon = coupon.Select(x => new CouponOrder
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Code = x.Code,
+                Discount = x.Discount
+            }).ToList();
+			TempData["TravelId"] = travel.result.id;
             TempData["BusinessId"] = travel.result.createdBy;
             TempData["TourName"] = travel.result.title;
             TempData["Price"] = travel.result.hotelPrice;
@@ -87,7 +95,7 @@ namespace FT.Travelako.UI.Controllers
             var price = Convert.ToDecimal(TempData["Price"]);
             if (!ModelState.IsValid)
             {
-		        return RedirectToAction("CreateBooking", "Booking", model.TravelId);
+		        return RedirectToAction("CreateBooking", "Booking", new { id = model.TravelId });
 	        }
             var currentUser = _userService.GetCurrentUser();
 
