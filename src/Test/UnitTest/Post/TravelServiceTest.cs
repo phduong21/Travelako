@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTest.CouponUser
+namespace UnitTest.Post
 {
     public class TravelServiceTest
     {
@@ -69,7 +69,7 @@ namespace UnitTest.CouponUser
         }
 
         [Fact]
-        public async Task Get_travel_success()
+        public async Task Get_all_travel_success()
         {
             // Arrange
             var travel = new Travel()
@@ -90,11 +90,6 @@ namespace UnitTest.CouponUser
                 travel
             };
 
-            var fakeResult = new GenericAPIResponse()
-            {
-                Result = fakeListTravel
-            };
-
             _travelRepositoryMock.GetAllAsync().Returns(fakeListTravel);
             // Act
             var travelService = new GetTravelService(_travelRepositoryMock);
@@ -104,5 +99,58 @@ namespace UnitTest.CouponUser
             Assert.Same(fakeListTravel, actionResult.Result);
         }
 
+        [Fact]
+        public async Task Get_travel_by_Id_success()
+        {
+            // Arrange
+            var travel = new Travel()
+            {
+                Content = "this is a nice city",
+                Description = "Description",
+                HotelTitle = "Title",
+                HotelPrice = "10000",
+                Location = "vietnam",
+                Images = "images-hanoi",
+                Province = "hanoi",
+                Title = "Nha Trang",
+                TrafficType = 0
+            };
+
+            _travelRepositoryMock.GetByIdAsync(Arg.Any<string>()).Returns(travel);
+            // Act
+            var travelService = new GetTravelService(_travelRepositoryMock);
+            var actionResult = await travelService.ExecuteApi(Arg.Any<GetTravelRequestDTO>());
+
+            // Assert
+            Assert.Same(travel, actionResult.Result);
+        }
+
+        [Fact]
+        public async Task Update_travel_success()
+        {
+            // Arrange
+            var fakeTravel = new Travel()
+            {
+                Content = "this is a nice city",
+                Description = "Description",
+                HotelTitle = "Title",
+                HotelPrice = "10000",
+                Location = "vietnam",
+                Images = "images-hanoi",
+                Province = "hanoi",
+                Title = "Nha Trang",
+                TrafficType = 0
+            };
+
+            _travelRepositoryMock.GetByIdAsync(Arg.Any<string>()).Returns(fakeTravel);
+            _travelRepositoryMock.UpdateAsync(Arg.Any<Travel>());
+
+            // Act
+            var travelService = new UpdateTravelService(_travelRepositoryMock);
+            var actionResult = await travelService.ExecuteApi(Arg.Any<UpdateTravelRequestDTO>());
+
+            // Assert
+            Assert.Same(fakeTravel, actionResult.Result);
+        }
     }
 }
