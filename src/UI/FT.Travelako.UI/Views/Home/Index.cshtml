@@ -38,23 +38,23 @@
 			}
 		</div>
 		<div class="load-more-btn text-center">
-			<button class="btn btn-success " id="load-more-btn">Load More</button>
+			<button style="border-radius: 20px;" class="btn btn-success " id="load-more-btn">Load More</button>
 		</div>
 	</div>
 </div>
 <!-- Packages End -->
 @if (Model != null && Model.SuggestTravels != null && Model.SuggestTravels.result.Any())
 {
-	<div class="container-fluid py-5">
+	<div id="travel-list-suggest" class="container-fluid py-5">
 		<div class="container pt-5 pb-3">
 			<div class="text-center mb-3 pb-3">
 				<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Best Choice</h6>
 				<h1>Suggestion Tour For You</h1>
 			</div>
-			<div class="row">
+			<div class="row travel-list-suggest">
 				@foreach (var travel in Model.SuggestTravels.result)
 				{
-					<div class="col-lg-4 col-md-6 mb-4">
+					<div class="col-lg-4 col-md-6 mb-4 travel-detail-card">
 						<div class="package-item bg-white mb-2">
 							<img class="img-fluid" src="@travel.thumbnail" alt="">
 							<div class="p-4">
@@ -75,6 +75,9 @@
 						</div>
 					</div>
 				}
+			</div>
+			<div class="load-more-btn text-center">
+				<button style="border-radius: 20px;" class="btn btn-success " id="load-more-btn-suggest">Load More</button>
 			</div>
 		</div>
 	</div>
