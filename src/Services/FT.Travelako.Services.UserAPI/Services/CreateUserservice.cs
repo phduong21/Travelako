@@ -8,6 +8,7 @@ using FT.Travelako.Common.Helpers;
 using FT.Travelako.Services.UserAPI.Models;
 using FT.Travelako.Services.UserAPI.Constants;
 using FT.Travelako.Services.UserAPI.Extensions;
+using FT.Travelako.Common.Models;
 
 namespace FT.Travelako.Services.UserAPI.Services
 {
@@ -22,6 +23,7 @@ namespace FT.Travelako.Services.UserAPI.Services
         {
             try
             {
+                model.Role = model.IsTravelSeller ? UserRoles.Business : UserRoles.User;
                 if (!StringHelper.IsEmail(model.Email))
                 {
                     return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.WrongEmailFormat);
@@ -29,7 +31,7 @@ namespace FT.Travelako.Services.UserAPI.Services
 
                 if (await _userRepository.IsUserNameOrEmailAlreadyExists(model.UserName, model.Email))
                 {
-                    return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.DataExisted, $"{model.Id} or {model.UserName}"));
+                    return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.DataExisted, $"{model.Email} or {model.UserName}"));
                 }
                 // TODO: verify password requirement
 

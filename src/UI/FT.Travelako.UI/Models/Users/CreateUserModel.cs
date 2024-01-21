@@ -12,5 +12,6 @@ namespace FT.Travelako.UI.Models.Users
         public string? Address { get; set; }
         public string? Image { get; set; }
         public UserRoles Role { get; set; }
+        public bool IsTravelSeller { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿@model FT.Travelako.UI.Models.Users.UserDetailResponseModel
 
-
 @{
     ViewBag.Title = "User Information";
 }
@@ -137,37 +136,136 @@
         display: none;
     }
 </style>
+
 <div class="user-container">
     <div class="profile-container">
         <img src="@(string.IsNullOrEmpty(Model.Image) ? ViewBag.ImagePath : Model.Image)" alt="User Profile Image" class="profile-image">
     </div>
     <div class="user-details">
         <h2>@Model.UserName</h2>
-        <p>First Name: @Model.FirstName</p>
-        <p>Last Name: @Model.LastName</p>
-        <p>Address: @Model.Address</p>
-        <p>Email: @Model.Email</p>
+        <p>First Name: <span id="firstName">@Model.FirstName</span></p>
+        <p>Last Name: <span id="lastName">@Model.LastName</span></p>
+        <p>Address: <span id="address">@Model.Address</span></p>
+        <p>Email: <span id="email">@Model.Email</span></p>
         <p>Role: @Model.Role</p>
-        <button class="edit-button" onclick="toggleButtons()">Edit</button>
-        <button class="cancel-button hide" onclick="toggleButtons()">Cancel</button>
+        <button class="edit-button" onclick="toggleEdit()">Edit</button>
+        <button class="cancel-button hide" onclick="cancelEdit()">Cancel</button>
         <button class="deactivate-button" onclick="deactivateUser()">Deactivate</button>
+        <form id="confirmDeactive" class="hide "asp-action="DeactiveUser" method="post">
+            <button type="submit" class="btn btn-primary">Confirm</button>
+            <button type="reset" onclick="closedeactivateButton()" class="btn btn-secondary">Cancel</button>
+        </form>
+        
+        
+        <!-- Edit Form -->
+        <form id="editForm" class="hide" asp-action="EditUser" method="post">
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" id="editFirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" id="editLastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" id="editAddress" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" id="editEmail" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Image)
+                <input type="text" asp-for="Image" id="imageUrlInput" placeholder="Enter image URL" />
+                <button type="button" onclick="displayImage()">Show Image</button>
+            </div>
+
+            <div>
+                <img id="previewImage" src="" alt="Preview Image" style="max-width: 100%; max-height: 200px; margin-top: 10px; display: none;" />
+            </div>
+            <button type="submit" class="btn btn-primary">Update User</button>
+        </form>
+        <!-- End Edit Form -->
     </div>
 </div>
 
 <script>
-    function toggleButtons() {
-        const editButton = document.querySelector('.edit-button');
-        const cancelButton = document.querySelector('.cancel-button');
-        const deactivateButton = document.querySelector('.deactivate-button');
+    document.addEventListener("DOMContentLoaded", function () {
+        function toggleEdit() {
+            document.getElementById('editForm').classList.remove('hide');
+            document.getElementById('firstName').classList.add('hide');
+            document.getElementById('lastName').classList.add('hide');
+            document.getElementById('address').classList.add('hide');
+            document.getElementById('email').classList.add('hide');
+            document.getElementById('editFirstName').value = document.getElementById('firstName').innerText;
+            document.getElementById('editLastName').value = document.getElementById('lastName').innerText;
+            document.getElementById('editAddress').value = document.getElementById('address').innerText;
+            document.getElementById('editEmail').value = document.getElementById('email').innerText;
 
-        editButton.classList.toggle('hide');
-        cancelButton.classList.toggle('hide');
-        deactivateButton.classList.toggle('hide-delete');
-    }
+            // Show image input and set its value
+            document.getElementById('editImageUrl').classList.remove('hide');
+            document.getElementById('editImageUrl').value = document.getElementById('profileImage').getAttribute('src');
 
-    function deactivateUser() {
-        // Add logic to handle deactivation
-        console.log('User deactivated');
-    }
+            // Hide the original image field
+            document.getElementById('profileImage').classList.add('hide');
 
+            document.querySelector('.edit-button').classList.add('hide');
+            document.querySelector('.cancel-button').classList.remove('hide');
+        }
+
+        function cancelEdit() {
+            document.getElementById('editForm').classList.add('hide');
+            document.getElementById('firstName').classList.remove('hide');
+            document.getElementById('lastName').classList.remove('hide');
+            document.getElementById('address').classList.remove('hide');
+            document.getElementById('email').classList.remove('hide');
+
+            // Hide image input
+            document.getElementById('editImageUrl').classList.add('hide');
+
+            // Show the original image field
+            document.getElementById('profileImage').classList.remove('hide');
+
+            document.querySelector('.edit-button').classList.remove('hide');
+            document.querySelector('.cancel-button').classList.add('hide');
+        }
+
+        function displayImage() {
+            var imageUrl = document.getElementById("imageUrlInput").value;
+            var previewImage = document.getElementById("previewImage");
+
+            if (imageUrl) {
+                previewImage.src = imageUrl;
+                previewImage.style.display = "block";
+            } else {
+                // Handle empty or invalid URL
+                previewImage.src = "";
+                previewImage.style.display = "none";
+            }
+        }
+
+        function deactivateUser(){
+            document.getElementById('confirmDeactive').classList.remove('hide');
+        }
+
+        function closedeactivateButton() {
+            document.getElementById('confirmDeactive').classList.add('hide');
+        }
+
+        window.toggleEdit = toggleEdit;
+        window.cancelEdit = cancelEdit;
+        window.displayImage = displayImage;
+        window.deactivateUser = deactivateUser;
+        window.closedeactivateButton = closedeactivateButton;
+
+    });
 </script>
+

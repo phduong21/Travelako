@@ -6,6 +6,7 @@ using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Common;
 using Microsoft.AspNetCore.Authorization;
+using FT.Travelako.UI.Models.Users;
 
 namespace FT.Travelako.UI.Controllers
 {
@@ -37,11 +38,22 @@ namespace FT.Travelako.UI.Controllers
             var newUser = await _userService.CreateUser(model);
             if (newUser != null)
             {
-                return RedirectToAction("Login");
+                if (string.IsNullOrEmpty(newUser.ResponseMessage))
+                {
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, newUser.ResponseMessage);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Registration failed. Please check your information.");
             }
 
-            ModelState.AddModelError(string.Empty, "Registration failed. Please check your information.");
             return View("Index", model);
+
         }
 
         public IActionResult Login()
@@ -100,10 +112,21 @@ namespace FT.Travelako.UI.Controllers
         }
 
         //[AccessTokenAuthorize]
-        [Route("/requiretoken/edituser")]
-        public async Task<IActionResult> EditUser()
+        //[Route("/requiretoken/edituser")]
+        [HttpPost]   
+        public async Task<IActionResult> EditUser(UpdateUserModel model)
         {
-            var userId = JwtHelper.GetClaimValue("", "id");
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("GetUserInfo", model);
+            }
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var userId = JwtHelper.GetClaimValue(token, "id");
             if (string.IsNullOrEmpty(userId))
             {
                 return View("~/Views/User/Unauthorize.cshtml");
@@ -113,13 +136,63 @@ namespace FT.Travelako.UI.Controllers
             {
                 return View("~/Views/User/Unauthorize.cshtml");
             }
-            return View();
+            model.Id = userId;
+            var updatedUser = await _userService.UpdateUser(model);
+            string errorMessage = string.Empty;
+            if (updatedUser != null)
+            {
+                if (string.IsNullOrEmpty(updatedUser.ResponseMessage))
+                {
+                    return RedirectToAction("GetUserInfo");
+                }
+                else
+                {
+                    errorMessage = updatedUser.ResponseMessage;
+                }
+            }
+            else
+            {
+                errorMessage = "Updated failed. Please check your information.";
+            }
+            string urlAction = Url.Action("GetUserInfo", "User");
+            ViewBag.UrlAction = urlAction;
+            ViewBag.Error = errorMessage;
+            return View("~/Views/User/EditUserFail.cshtml");
         }
 
         public IActionResult Logout()
         {
             _httpContextAccessor.HttpContext?.Session.Remove("AccessToken");
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeactiveUser()
+        {
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var userId = JwtHelper.GetClaimValue(token, "id");
+            if (string.IsNullOrEmpty(userId))
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var currentUser = await _userService.GetUserInformationById(userId);
+            if (currentUser == null)
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var isDeletedSucees = await _userService.DeleteUser(userId);
+            if (isDeletedSucees)
+            {
+                _httpContextAccessor.HttpContext?.Session.Remove("AccessToken");
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("~/Views/User/DeactivateUserFail.cshtml");
         }
     }
 }

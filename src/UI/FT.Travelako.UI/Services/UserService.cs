@@ -7,6 +7,7 @@ using FT.Travelako.UI.Models.Users.ViewModel;
 using FT.Travelako.UI.Services.Base;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection.Metadata.Ecma335;
 using static FT.Travelako.Common.Utility.StaticData;
 
 namespace FT.Travelako.UI.Services
@@ -46,19 +47,27 @@ namespace FT.Travelako.UI.Services
                     Address = model.Address,
                     Password = model.Password,
                     Image = string.IsNullOrEmpty(model.ImageUrl) ? "/img/default-profile-img.jpg" : model.ImageUrl,
-                    Role = model.IsTravelSeller ? UserRoles.Business : UserRoles.User
+                    //Role = model.IsTravelSeller ? UserRoles.Business : UserRoles.User
+                    IsTravelSeller = model.IsTravelSeller
                 }
             });
 
-            if (result is null && result?.IsSuccess == false)
+            if (result is null || result.IsSuccess == false)
             {
+                if (!string.IsNullOrEmpty(result?.Message))
+                {
+                    return new UserDetailResponseModel
+                    {
+                        ResponseMessage = result.Message
+                    };
+                }
                 return null;
             }
 
             return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());
         }
 
-        public async Task DeleteUser(string userId)
+        public async Task<bool> DeleteUser(string userId)
         {
             var requestUri = ApiUser.DeleteUser(_remoteServiceBaseUrl, userId);
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
@@ -67,10 +76,11 @@ namespace FT.Travelako.UI.Services
                 Url = _client.BaseAddress + requestUri
             });
 
-            if (result.IsSuccess)
+            if (result != null && result.IsSuccess)
             {
-
+                return true;
             }
+            return false;
         }
 
         public async Task<IEnumerable<UserDetailResponseModel>> GetAllUsers()
@@ -82,29 +92,12 @@ namespace FT.Travelako.UI.Services
                 Url = _client.BaseAddress + requestUri
             });
 
-            if (result is null)
+            if (result is null || result.Result == null)
             {
                 return null;
             }
 
             return JsonConvert.DeserializeObject<IEnumerable<UserDetailResponseModel>>(result.Result.ToString());
-        }
-
-        public async Task<UserDetailResponseModel> GetUserInformation(string userName)
-        {
-            var requestUri = ApiUser.GetUserInfo(_remoteServiceBaseUrl, userName);
-            var result = await _baseService.ExecuteAsync(new GenericAPIRequest
-            {
-                ApiType = ApiType.GET,
-                Url = _client.BaseAddress + requestUri
-            });
-
-            if (result is null)
-            {
-                return null;
-            }
-
-            return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());
         }
 
         public async Task<UserDetailResponseModel> GetUserInformationById(string userId)
@@ -134,8 +127,15 @@ namespace FT.Travelako.UI.Services
                 Data = model
             });
 
-            if (result is null)
+            if (result is null || result.IsSuccess == false)
             {
+                if (!string.IsNullOrEmpty(result?.Message))
+                {
+                    return new UserDetailResponseModel
+                    {
+                        ResponseMessage = result.Message
+                    };
+                }
                 return null;
             }
 
@@ -151,7 +151,7 @@ namespace FT.Travelako.UI.Services
                 Url = _client.BaseAddress + requestUri,
             });
 
-            if (result is null)
+            if (result is null || result.IsSuccess == false)
             {
                 return null;
             }

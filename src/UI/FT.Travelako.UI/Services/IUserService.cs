@@ -7,13 +7,12 @@ namespace FT.Travelako.UI.Services
 {
     public interface IUserService
     {
-        Task<UserDetailResponseModel> GetUserInformation(string userName);
         Task<UserDetailResponseModel> GetUserInformationById(string userId);
         Task<IEnumerable<UserDetailResponseModel>> GetAllUsers();
         Task<IEnumerable<UserDetailResponseModel>> GetAllBusinessUsers();
         Task<UserDetailResponseModel> CreateUser(SignUpVM model);
         Task<UserDetailResponseModel> UpdateUser(UpdateUserModel model);
-        Task DeleteUser(string userId);
+        Task<bool> DeleteUser(string userId);
         Task<PersonalizeModel> GetPersonalizeUser(string userId);
         Task UpdatePersonalizeUser(PersonalizeModel model);
         UserModel GetCurrentUser();

@@ -13,6 +13,7 @@ namespace FT.Travelako.UI.Models.Users
         public List<string>? Personalization { get; set; }
         public UserRoles Role { get; set; }
         public string? Id { get; set; }
+        public string ResponseMessage { get; set; }
     }
 
     public class UserDetailResponseModelNew
