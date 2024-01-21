@@ -50,8 +50,15 @@ namespace FT.Travelako.UI.Services
                 }
             });
 
-            if (result is null && result?.IsSuccess == false)
+            if (result is null || result.IsSuccess == false)
             {
+                if (!string.IsNullOrEmpty(result?.Message))
+                {
+                    return new UserDetailResponseModel
+                    {
+                        ResponseMessage = result.Message
+                    };
+                }
                 return null;
             }
 
