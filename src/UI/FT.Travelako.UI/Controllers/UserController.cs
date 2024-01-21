@@ -115,5 +115,11 @@ namespace FT.Travelako.UI.Controllers
             }
             return View();
         }
+
+        public IActionResult Logout()
+        {
+            _httpContextAccessor.HttpContext?.Session.Remove("AccessToken");
+            return View();
+        }
     }
 }
