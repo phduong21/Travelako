@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FT.Travelako.Common.BaseModels;
+using FT.Travelako.Common.Helpers;
 using FT.Travelako.Services.UserAPI.Constants;
 using FT.Travelako.Services.UserAPI.Extensions;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
@@ -26,13 +27,24 @@ namespace FT.Travelako.Services.UserAPI.Services
                 {
                     return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.NullError, $"{nameof(model.Id)}"));
                 }
-
+                if (!string.IsNullOrWhiteSpace(model.Email) && !StringHelper.IsEmail(model.Email))
+                {
+                    return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.WrongEmailFormat);
+                }
+                
                 var currentUser = await _userRepository.GetByIdAsync(model.Id);
                 if (currentUser == null)
                 {
                     return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.UserNotFound);
                 }
-
+                if (currentUser.Email !=  null && currentUser.Email != model.Email) 
+                {
+                    if (await _userRepository.IsEmailAlreadyExistsAsync(model.Email))
+                    {
+                        return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.DataExisted, $"{model.Email}"));
+                    }
+                }
+                
                 var userToUpdate = _mapper.Map(model, currentUser);
                 userToUpdate.LastModifiedDate = DateTime.Now;
                 var updatedUser = await _userRepository.UpdateUserInformationAsync(userToUpdate);

@@ -40,5 +40,10 @@ namespace FT.Travelako.Services.UserAPI.Repositories
 
             return userNameExists || emailExists;
         }
+
+        public async Task<bool> IsEmailAlreadyExistsAsync(string email)
+        {
+            return  await _dbContext.Users.AnyAsync(x => x.Email == email);
+        }
     }
 }

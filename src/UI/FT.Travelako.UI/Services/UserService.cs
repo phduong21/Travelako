@@ -89,7 +89,7 @@ namespace FT.Travelako.UI.Services
                 Url = _client.BaseAddress + requestUri
             });
 
-            if (result is null)
+            if (result is null || result.Result == null)
             {
                 return null;
             }
@@ -106,7 +106,7 @@ namespace FT.Travelako.UI.Services
                 Url = _client.BaseAddress + requestUri
             });
 
-            if (result is null)
+            if (result is null || result.Result == null)
             {
                 return null;
             }
@@ -141,8 +141,15 @@ namespace FT.Travelako.UI.Services
                 Data = model
             });
 
-            if (result is null)
+            if (result is null || result.IsSuccess == false)
             {
+                if (!string.IsNullOrEmpty(result?.Message))
+                {
+                    return new UserDetailResponseModel
+                    {
+                        ResponseMessage = result.Message
+                    };
+                }
                 return null;
             }
 
