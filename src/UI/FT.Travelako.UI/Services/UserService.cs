@@ -99,23 +99,6 @@ namespace FT.Travelako.UI.Services
             return JsonConvert.DeserializeObject<IEnumerable<UserDetailResponseModel>>(result.Result.ToString());
         }
 
-        public async Task<UserDetailResponseModel> GetUserInformation(string userName)
-        {
-            var requestUri = ApiUser.GetUserInfo(_remoteServiceBaseUrl, userName);
-            var result = await _baseService.ExecuteAsync(new GenericAPIRequest
-            {
-                ApiType = ApiType.GET,
-                Url = _client.BaseAddress + requestUri
-            });
-
-            if (result is null || result.Result == null)
-            {
-                return null;
-            }
-
-            return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());
-        }
-
         public async Task<UserDetailResponseModel> GetUserInformationById(string userId)
         {
             var requestUri = ApiUser.GetUserInfoById(_remoteServiceBaseUrl, userId);
@@ -167,7 +150,7 @@ namespace FT.Travelako.UI.Services
                 Url = _client.BaseAddress + requestUri,
             });
 
-            if (result is null)
+            if (result is null || result.IsSuccess == false)
             {
                 return null;
             }
