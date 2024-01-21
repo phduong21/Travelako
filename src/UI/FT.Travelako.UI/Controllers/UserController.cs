@@ -165,5 +165,34 @@ namespace FT.Travelako.UI.Controllers
             _httpContextAccessor.HttpContext?.Session.Remove("AccessToken");
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeactiveUser()
+        {
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var userId = JwtHelper.GetClaimValue(token, "id");
+            if (string.IsNullOrEmpty(userId))
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var currentUser = await _userService.GetUserInformationById(userId);
+            if (currentUser == null)
+            {
+                return View("~/Views/User/Unauthorize.cshtml");
+            }
+            var isDeletedSucees = await _userService.DeleteUser(userId);
+            if (isDeletedSucees)
+            {
+                _httpContextAccessor.HttpContext?.Session.Remove("AccessToken");
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("~/Views/User/DeactivateUserFail.cshtml");
+        }
     }
 }
