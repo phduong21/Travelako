@@ -1,4 +1,5 @@
-﻿using Coupon.Application.Features.Coupon.Commands.CreateCoupon;
+﻿using Booking.Application.Models;
+using Coupon.Application.Features.Coupon.Commands.CreateCoupon;
 using Coupon.Application.Features.Coupon.Commands.DeleteCoupon;
 using Coupon.Application.Features.Coupon.Commands.UpdateCoupon;
 using Coupon.Application.Features.Coupon.Queries.GetListCoupons;
@@ -44,7 +45,7 @@ namespace FT.Travelako.Services.CouponAPI.Controllers
         [AuthorizeFTFilter]
         [Authorize(Roles = "business,administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> CreateCoupon([FromBody] CreateCouponCommand command)
+        public async Task<ActionResult<ApiResult<string>>> CreateCoupon([FromBody] CreateCouponCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
