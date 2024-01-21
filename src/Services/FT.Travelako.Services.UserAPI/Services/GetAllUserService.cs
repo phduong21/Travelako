@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FT.Travelako.Common.BaseModels;
+using FT.Travelako.Services.UserAPI.Extensions;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Repositories;
@@ -17,24 +18,16 @@ namespace FT.Travelako.Services.UserAPI.Services
 
         public override async Task<GenericAPIResponse> ExecuteApi(GetAllUserRequest model)
         {
-            var result = new GenericAPIResponse()
+            try
             {
-                IsSuccess = false
-            };
+                var activeUsers = await _userRepository.GetAllAsync();
 
-            var user = await _userRepository.GetAllAsync();
-
-            if (user == null)
-            {
-
+                return ResponseExtension.SuccessResponse(_mapper.Map<List<UserDTO>>(activeUsers));
             }
-            // UserDTO data = _mapper.Map<UserDTO>(user);
-
-            return new GenericAPIResponse
+            catch (Exception ex)
             {
-                IsSuccess = true,
-                Result = user
-            };
+                return ResponseExtension.ErrorResponse(ex.Message);
+            }
         }
     }
 }

@@ -115,12 +115,51 @@
             @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
+        <div>
+            @Html.LabelFor(model => model.ImageUrl)
+            <input type="text" asp-for="ImageUrl" id="imageUrlInput" placeholder="Enter image URL" />
+            <button type="button" onclick="displayImage()">Show Image</button>
+        </div>
 
+        <div>
+            <img id="previewImage" src="" alt="Preview Image" style="max-width: 100%; max-height: 200px; margin-top: 10px; display: none;" />
+        </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Role)
-            @Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Administrator", "Business", "User" }), "Select Role", new { @class = "form-control select" })
-            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.IsTravelSeller)
+            <input type="checkbox" asp-for="IsTravelSeller" />
         </div>
         <button type="submit">Sign up</button>
+        <p class="message">Already registered? <a href="/User/Login">Login here</a></p>
     </div>
+
+    <script>
+        function displayImage() {
+            var imageUrl = document.getElementById("imageUrlInput").value;
+            var previewImage = document.getElementById("previewImage");
+
+            if (imageUrl) {
+                previewImage.src = imageUrl;
+                previewImage.style.display = "block";
+            } else {
+                // Handle empty or invalid URL
+                previewImage.src = "";
+                previewImage.style.display = "none";
+            }
+        }
+    </script>
 }
+<script>
+    function displayImage() {
+        var imageUrl = document.getElementById("imageUrlInput").value;
+        var previewImage = document.getElementById("previewImage");
+
+        if (imageUrl) {
+            previewImage.src = imageUrl;
+            previewImage.style.display = "block";
+        } else {
+            // Handle empty or invalid URL
+            previewImage.src = "";
+            previewImage.style.display = "none";
+        }
+    }
+</script>

@@ -33,28 +33,9 @@ namespace FT.Travelako.UI.Controllers
             {
                 return View("Index", model);
             }
-
-            if (!Enum.TryParse(model.Role, out UserRoles role))
-            {
-                ModelState.AddModelError(string.Empty, "Unexpected Role Value.");
-                return View("Index", model);
-            }
-
-            // Your registration logic here
-            var newUser = await _userService.CreateUser(new Models.Users.CreateUserModel
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.Username,
-                Email = model.Email,
-                Address = model.Address,
-                Password = model.Password,
-                Role = role
-            });
-
-            bool registrationSuccess = true;   //temp
-
-            if (registrationSuccess)
+            
+            var newUser = await _userService.CreateUser(model);
+            if (newUser != null)
             {
                 return RedirectToAction("Login");
             }
@@ -132,6 +113,12 @@ namespace FT.Travelako.UI.Controllers
             {
                 return View("~/Views/User/Unauthorize.cshtml");
             }
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            _httpContextAccessor.HttpContext?.Session.Remove("AccessToken");
             return View();
         }
     }

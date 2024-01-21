@@ -1,5 +1,6 @@
 ﻿using FT.Travelako.Common.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 
 namespace FT.Travelako.UI.Models.Users.ViewModel
 {
@@ -26,9 +27,12 @@ namespace FT.Travelako.UI.Models.Users.ViewModel
         [Required(ErrorMessage = "Last Name is required")]
         public string LastName { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
-        [Required(ErrorMessage = "Role is required")]
-        public string Role { get; set; }
+        [Display(Name = "Are you a travel seller?")]
+        public bool IsTravelSeller { get; set; }
+
+        [Display(Name = "Image URL. Only online urls are accepted")]
+        public string? ImageUrl { get; set; }
     }
 }

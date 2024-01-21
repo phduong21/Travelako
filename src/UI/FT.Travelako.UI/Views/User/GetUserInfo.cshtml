@@ -1,4 +1,4 @@
-﻿@model FT.Travelako.UI.Models.Users.UserDetailResponseModelNew
+﻿@model FT.Travelako.UI.Models.Users.UserDetailResponseModel
 
 
 @{
@@ -139,7 +139,7 @@
 </style>
 <div class="user-container">
     <div class="profile-container">
-        <img src="@ViewBag.ImagePath" alt="User Profile Image" class="profile-image">
+        <img src="@(string.IsNullOrEmpty(Model.Image) ? ViewBag.ImagePath : Model.Image)" alt="User Profile Image" class="profile-image">
     </div>
     <div class="user-details">
         <h2>@Model.UserName</h2>

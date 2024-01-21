@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using FT.Travelako.Common.BaseModels;
+using FT.Travelako.Services.UserAPI.Constants;
+using FT.Travelako.Services.UserAPI.Extensions;
 using FT.Travelako.Services.UserAPI.Models.DTOs;
 using FT.Travelako.Services.UserAPI.Models.Requests;
 using FT.Travelako.Services.UserAPI.Repositories;
@@ -19,30 +21,29 @@ namespace FT.Travelako.Services.UserAPI.Services
 
         public override async Task<GenericAPIResponse> ExecuteApi(GetPersonalizeRequest model)
         {
-            var result = new GenericAPIResponse()
+            try
             {
-                IsSuccess = false
-            };
-            if(model.Id is null)
-            {
-                result.Message = "Id cannot be null";
-                return result;
+                if (string.IsNullOrEmpty(model.Id))
+                {
+                    return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.NullError, $"{nameof(model.Id)}"));
+                }
+
+                var currentUser = await _userRepository.GetByIdAsync(model.Id);
+                if (currentUser == null)
+                {
+                    return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.UserNotFound);
+                }
+
+                return new GenericAPIResponse
+                {
+                    IsSuccess = true,
+                    Result = _mapper.Map<PersonalizeDTO>(currentUser)
+                };
             }
-
-            var user = await _userRepository.GetByIdAsync(model.Id);
-
-            if (user == null)
+            catch (Exception ex)
             {
-
+                return ResponseExtension.ErrorResponse(ex.Message);
             }
-            var data = _mapper.Map<PersonalizeDTO>(user);
-
-            return  new GenericAPIResponse
-            {
-                IsSuccess = true,
-                Result = data
-            };
         }
-         
     }
 }

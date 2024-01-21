@@ -23,6 +23,15 @@ namespace FT.Travelako.UI.Models.Orders
         public decimal TotalCost { get; set; }
         public string? CouponCode { get; set; }
         public string? TravelId { get; set; }
+        public CouponOrder? CouponOrder { get; set; }
 
+	}
+
+    public class CouponOrder
+    {
+        public string Id { get; set; }
+        public string Code { get; set; }
+        public string Title { get; set; }
+        public int Discount { get; set; }
     }
 }

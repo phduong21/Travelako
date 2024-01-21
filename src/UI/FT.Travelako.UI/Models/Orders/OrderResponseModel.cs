@@ -10,19 +10,10 @@ namespace FT.Travelako.UI.Models.Orders
         public string Phone { get; set; }
         public string TourName { get; set; }
         public int GuestSize { get; set; }
-        public decimal TotalPrice { get; set; }
+        public decimal TotalCost { get; set; }
         public int Status { get; set; }
         public Guid TravelId { get; set; }
         public Guid UserId { get; set; }
-    }
-
-    public class OrderListingResponseModel : BaseApiResponseModel
-    {
-        public List<OrderResponseModel> result { get; set; }
-    }
-
-    public class OrderDetailsResponseModel : BaseApiResponseModel
-    {
-        public OrderResponseModel result { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

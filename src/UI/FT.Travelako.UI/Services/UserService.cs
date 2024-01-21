@@ -1,12 +1,10 @@
 ﻿using FT.Travelako.Common.BaseModels;
-using FT.Travelako.UI.Extensions;
+using FT.Travelako.Common.Models;
 using FT.Travelako.UI.Infrastructure.API;
 using FT.Travelako.UI.Models.Authentication;
-using FT.Travelako.UI.Models.Orders;
-using FT.Travelako.UI.Models.Travels;
 using FT.Travelako.UI.Models.Users;
+using FT.Travelako.UI.Models.Users.ViewModel;
 using FT.Travelako.UI.Services.Base;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using static FT.Travelako.Common.Utility.StaticData;
@@ -32,17 +30,27 @@ namespace FT.Travelako.UI.Services
             token = _httpContextAccessor.HttpContext.Session.GetString("AccessToken");
         }
 
-        public async Task<UserDetailResponseModel> CreateUser(CreateUserModel model)
+        public async Task<UserDetailResponseModel> CreateUser(SignUpVM model)
         {
             var requestUri = ApiUser.CreateUser(_remoteServiceBaseUrl);
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
             {
                 ApiType = ApiType.POST,
                 Url = _client.BaseAddress + requestUri,
-                Data = model
+                Data = new CreateUserModel
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.Username,
+                    Email = model.Email,
+                    Address = model.Address,
+                    Password = model.Password,
+                    Image = string.IsNullOrEmpty(model.ImageUrl) ? "/img/default-profile-img.jpg" : model.ImageUrl,
+                    Role = model.IsTravelSeller ? UserRoles.Business : UserRoles.User
+                }
             });
 
-            if (result is null)
+            if (result is null && result?.IsSuccess == false)
             {
                 return null;
             }
@@ -61,7 +69,7 @@ namespace FT.Travelako.UI.Services
 
             if (result.IsSuccess)
             {
-                
+
             }
         }
 
@@ -91,15 +99,15 @@ namespace FT.Travelako.UI.Services
                 Url = _client.BaseAddress + requestUri
             });
 
-            if(result is null)
+            if (result is null)
             {
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());  
+            return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());
         }
 
-        public async Task<UserDetailResponseModelNew> GetUserInformationById(string userId)
+        public async Task<UserDetailResponseModel> GetUserInformationById(string userId)
         {
             var requestUri = ApiUser.GetUserInfoById(_remoteServiceBaseUrl, userId);
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
@@ -113,7 +121,7 @@ namespace FT.Travelako.UI.Services
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<UserDetailResponseModelNew>(result.Result.ToString());
+            return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());
         }
 
         public async Task<UserDetailResponseModel> UpdateUser(UpdateUserModel model)
@@ -176,6 +184,23 @@ namespace FT.Travelako.UI.Services
                 }
             }
             return null;
+        }
+
+        public async Task<IEnumerable<UserDetailResponseModel>> GetAllBusinessUsers()
+        {
+            var requestUri = ApiUser.GetAllBusnessUser(_remoteServiceBaseUrl);
+            var result = await _baseService.ExecuteAsync(new GenericAPIRequest
+            {
+                ApiType = ApiType.GET,
+                Url = _client.BaseAddress + requestUri
+            });
+
+            if (result is null || result.Result is null)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<IEnumerable<UserDetailResponseModel>>(result.Result.ToString());
         }
     }
 }

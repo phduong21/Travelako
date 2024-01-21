@@ -1,26 +1,37 @@
-﻿@using FT.Travelako.UI.Models.Orders
+﻿@model FT.Travelako.UI.Models.Orders.ViewModel.ListOrders
 
 @{
     ViewData["Title"] = "OrdersHistory";
-    @model IEnumerable<OrderResponseModel>
-
 }
 
-<h1>OrdersHistory</h1>
 
-<section class="esh-orders_new-section">
-    <article class="esh-orders_new-titles row">
-        <section class="esh-orders_new-title col-xs-12">Order details</section>
-    </article>
-    @foreach (var item in Model)
-    {
-        <article class="esh-orders-items row">
-            <section class="esh-orders-item col-xs-2">@Html.DisplayFor(modelItem => item.TourName)</section>
-            <section class="esh-orders-item col-xs-4">@Html.DisplayFor(modelItem => item.GuestSize)</section>
-            <section class="esh-orders-item col-xs-2">$ @Html.DisplayFor(modelItem => item.TotalPrice)</section>
-            <section class="esh-orders-item col-xs-1">
-                <a class="esh-orders-link" asp-controller="Booking" asp-action="Detail" asp-route-orderId="@item.Id">Detail</a>
-            </section>
-        </article>
-    }
-</section>
+<div id="travel-list" class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <div class="text-center mb-3 pb-3">
+            <h1>Orders History</h1>
+        </div>
+        <div class="row">
+            @if (Model != null)
+            {
+                foreach (var order in Model.Orders)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="package-item bg-white mb-2">
+                            @* <img class="img-fluid" src="@travel.thumbnail" alt=""> *@
+                                <div class="d-flex justify-content-between mb-3">
+                                </div>
+                                <a class="h5 text-decoration-none travel-title" asp-controller="Booking" asp-action="Detail"
+                                   asp-route-orderId="@order.Id">@order.TourName</a>
+                                    <p class="small text-muted mb-1">@order.CreateDated</p>
+                            <div class="border-top mt-4 pt-4">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="m-0">$@order.TotalPrice</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+    </div>
+</div>
+    </div>

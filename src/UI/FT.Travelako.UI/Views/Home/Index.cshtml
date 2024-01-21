@@ -9,18 +9,18 @@
 			<h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Newest</h6>
 			<h1>Pefect Tour Packages</h1>
 		</div>
-		<div class="row">
+		<div id="travel-listing" class="row travel-listing">
 			@if (Model != null && Model.NewTravels != null && Model.NewTravels.result.Any())
 			{
 				foreach (var travel in Model.NewTravels.result)
 				{
-					<div class="col-lg-4 col-md-6 mb-4">
+					<div class="col-lg-4 col-md-6 mb-4 travel-detail-card">
 						<div class="package-item bg-white mb-2">
 							<img class="img-fluid" src="@travel.thumbnail" alt="">
 							<div class="p-4">
 								<div class="d-flex justify-content-between mb-3">
 									<small class="m-0"><i class="fa fa-map-marker-alt text-primary mr-2"></i>@travel.location</small>
-									<small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>@travel.createdDate.ToString("dd MMMM yyyy")</small>
+									<small class="m-0"><i class="fa fa-calendar-alt text-primary mr-2"></i>@travel.createdDate.ToString("dd/mm/yyyy")</small>
 									<small class="m-0"><i class="fa fa-user text-primary mr-2"></i>@travel.province</small>
 								</div>
 								<a class="h5 text-decoration-none travel-title" asp-controller="Travel" asp-action="Detail" 
@@ -36,6 +36,9 @@
 					</div>
 				}
 			}
+		</div>
+		<div class="load-more-btn text-center">
+			<button class="btn btn-success " id="load-more-btn">Load More</button>
 		</div>
 	</div>
 </div>

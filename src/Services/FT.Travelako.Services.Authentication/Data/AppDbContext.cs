@@ -24,5 +24,13 @@ namespace FT.Travelako.Services.Authentication.Data
         }
         public AppDbContext() { }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<User>()
+                        .HasQueryFilter(p => p.IsDeleted == false);
+
+        }
     }
 }

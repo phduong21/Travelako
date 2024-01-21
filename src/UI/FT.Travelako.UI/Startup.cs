@@ -45,10 +45,10 @@ namespace FT.Travelako.UI
             services.AddHttpClient<IOrderService, OrderService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
                 .AddHttpMessageHandler<LoggingDelegatingHandler>()
-                .AddPolicyHandler(GetRetryPolicy());
-                //.AddPolicyHandler(GetCircuitBreakerPolicy());
+                .AddPolicyHandler(GetRetryPolicy())
+                .AddPolicyHandler(GetCircuitBreakerPolicy());
 
-			services.AddHttpClient<ITravelService, TravelService>(c =>
+            services.AddHttpClient<ITravelService, TravelService>(c =>
 				c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
 				.AddHttpMessageHandler<LoggingDelegatingHandler>()
 				.AddPolicyHandler(GetRetryPolicy())
