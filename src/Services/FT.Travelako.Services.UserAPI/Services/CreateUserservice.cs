@@ -29,7 +29,7 @@ namespace FT.Travelako.Services.UserAPI.Services
 
                 if (await _userRepository.IsUserNameOrEmailAlreadyExists(model.UserName, model.Email))
                 {
-                    return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.DataExisted, $"{model.Id} or {model.UserName}"));
+                    return ResponseExtension.ErrorResponse(string.Format(UserConstants.ErrorMessage.DataExisted, $"{model.Email} or {model.UserName}"));
                 }
                 // TODO: verify password requirement
 

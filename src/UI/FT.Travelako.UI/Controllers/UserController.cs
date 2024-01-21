@@ -37,11 +37,22 @@ namespace FT.Travelako.UI.Controllers
             var newUser = await _userService.CreateUser(model);
             if (newUser != null)
             {
-                return RedirectToAction("Login");
+                if (string.IsNullOrEmpty(newUser.ResponseMessage))
+                {
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, newUser.ResponseMessage);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Registration failed. Please check your information.");
             }
 
-            ModelState.AddModelError(string.Empty, "Registration failed. Please check your information.");
             return View("Index", model);
+
         }
 
         public IActionResult Login()
