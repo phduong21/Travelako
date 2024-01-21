@@ -75,37 +75,38 @@
     <div class="form">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Username)
+            @Html.LabelFor(model => model.Username, new { @class = "text-danger" })
+            @* @Html.LabelFor(model => model.Username, "Username<span class='text-danger'>*</span>", new { @class = "text-danger" }) *@
             @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email)
+            @Html.LabelFor(model => model.Email, new { @class = "text-danger" })
             @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Password)
+            @Html.LabelFor(model => model.Password, new { @class = "text-danger" })
             @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword)
+            @Html.LabelFor(model => model.ConfirmPassword, new { @class = "text-danger" })
             @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstName)
+            @Html.LabelFor(model => model.FirstName, new { @class = "text-danger" })
             @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LastName)
+            @Html.LabelFor(model => model.LastName, new { @class = "text-danger" })
             @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
         </div>
