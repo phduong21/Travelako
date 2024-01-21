@@ -151,7 +151,12 @@
         <button class="edit-button" onclick="toggleEdit()">Edit</button>
         <button class="cancel-button hide" onclick="cancelEdit()">Cancel</button>
         <button class="deactivate-button" onclick="deactivateUser()">Deactivate</button>
-
+        <form id="confirmDeactive" class="hide "asp-action="DeactiveUser" method="post">
+            <button type="submit" class="btn btn-primary">Confirm</button>
+            <button type="reset" onclick="closedeactivateButton()" class="btn btn-secondary">Cancel</button>
+        </form>
+        
+        
         <!-- Edit Form -->
         <form id="editForm" class="hide" asp-action="EditUser" method="post">
             <div class="form-group">
@@ -247,9 +252,20 @@
             }
         }
 
+        function deactivateUser(){
+            document.getElementById('confirmDeactive').classList.remove('hide');
+        }
+
+        function closedeactivateButton() {
+            document.getElementById('confirmDeactive').classList.add('hide');
+        }
+
         window.toggleEdit = toggleEdit;
         window.cancelEdit = cancelEdit;
         window.displayImage = displayImage;
+        window.deactivateUser = deactivateUser;
+        window.closedeactivateButton = closedeactivateButton;
+
     });
 </script>
 

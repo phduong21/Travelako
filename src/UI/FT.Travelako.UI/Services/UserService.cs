@@ -7,6 +7,7 @@ using FT.Travelako.UI.Models.Users.ViewModel;
 using FT.Travelako.UI.Services.Base;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection.Metadata.Ecma335;
 using static FT.Travelako.Common.Utility.StaticData;
 
 namespace FT.Travelako.UI.Services
@@ -65,7 +66,7 @@ namespace FT.Travelako.UI.Services
             return JsonConvert.DeserializeObject<UserDetailResponseModel>(result.Result.ToString());
         }
 
-        public async Task DeleteUser(string userId)
+        public async Task<bool> DeleteUser(string userId)
         {
             var requestUri = ApiUser.DeleteUser(_remoteServiceBaseUrl, userId);
             var result = await _baseService.ExecuteAsync(new GenericAPIRequest
@@ -74,10 +75,11 @@ namespace FT.Travelako.UI.Services
                 Url = _client.BaseAddress + requestUri
             });
 
-            if (result.IsSuccess)
+            if (result != null && result.IsSuccess)
             {
-
+                return true;
             }
+            return false;
         }
 
         public async Task<IEnumerable<UserDetailResponseModel>> GetAllUsers()
