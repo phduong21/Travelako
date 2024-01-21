@@ -8,6 +8,7 @@ using FT.Travelako.Common.Helpers;
 using FT.Travelako.Services.UserAPI.Models;
 using FT.Travelako.Services.UserAPI.Constants;
 using FT.Travelako.Services.UserAPI.Extensions;
+using FT.Travelako.Common.Models;
 
 namespace FT.Travelako.Services.UserAPI.Services
 {
@@ -22,6 +23,7 @@ namespace FT.Travelako.Services.UserAPI.Services
         {
             try
             {
+                model.Role = model.IsTravelSeller ? UserRoles.Business : UserRoles.User;
                 if (!StringHelper.IsEmail(model.Email))
                 {
                     return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.WrongEmailFormat);

@@ -47,7 +47,8 @@ namespace FT.Travelako.UI.Services
                     Address = model.Address,
                     Password = model.Password,
                     Image = string.IsNullOrEmpty(model.ImageUrl) ? "/img/default-profile-img.jpg" : model.ImageUrl,
-                    Role = model.IsTravelSeller ? UserRoles.Business : UserRoles.User
+                    //Role = model.IsTravelSeller ? UserRoles.Business : UserRoles.User
+                    IsTravelSeller = model.IsTravelSeller
                 }
             });
 
