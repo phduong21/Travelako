@@ -46,7 +46,7 @@
                 </label>
                 <label class="booking-label">
                     <span>Coupon <span class="booking-required">*</span></span>
-                    <select class="booking-select" asp-items="@(new SelectList(couponOrders, "Discount", "Title"))" asp-for="@Model.CouponCode" onchange="updateTotalCost()">
+                    <select class="booking-select" asp-items="@(new SelectList(couponOrders, "Discount", "Title"))" asp-for="@Model.CouponDiscount" onchange="updateTotalCost()">
                         <option value="0">-- Please select --</option>
                     </select>
                 </label>
