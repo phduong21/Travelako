@@ -20,6 +20,10 @@ namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
         public async Task<ApiResult<List<OrdersVm>>> Handle(GetOrdersListQuery request, CancellationToken cancellationToken)
         {
             var orderList = await _orderRepository.GetOrdersByUserName(request.UserId);
+            if (orderList == null)
+            {
+                return ApiResult<List<OrdersVm>>.Failure($"Order {request.UserId} is not existing.");
+            }
             var orders = _mapper.Map<List<OrdersVm>>(orderList);
             return ApiResult<List<OrdersVm>>.Success(orders);
         }

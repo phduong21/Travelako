@@ -14,17 +14,9 @@ namespace Booking.API.Installer
         public void InstallerServicesInAssembly(IServiceCollection services, IConfiguration configuration)
         {
             services.AddConsul(configuration.GetServiceConfig());
-            services.AddApplicationServices();
+            services.AddApplicationServices(configuration);
             services.AddInfrastructureServices(configuration);
             services.AddHttpContextAccessor();
-
-            // MassTransit-RabbitMQ Configuration
-            services.AddMassTransit(config => {
-                config.UsingRabbitMq((ctx, cfg) => {
-                    cfg.Host(configuration["EventBusSettings:HostAddress"]);
-                    //cfg.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter("Order", false));
-                });
-            });
 
             // General Configuration
             services.AddAutoMapper(typeof(Startup));

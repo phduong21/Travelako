@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Booking.Application.Contracts.Persistence;
 using Booking.Application.Exceptions;
+using Booking.Application.Models;
 using Booking.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Features.Orders.Commands.DeleteOrder
 {
-    public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand>
+    public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, ApiResult<bool>>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
@@ -23,17 +24,18 @@ namespace Ordering.Application.Features.Orders.Commands.DeleteOrder
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResult<bool>> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
         {
             var orderToDelete = await _orderRepository.GetByIdAsync(request.Id);
             if (orderToDelete == null)
             {
-                throw new NotFoundException(nameof(Order), request.Id);
-            }            
+                return ApiResult<bool>.Failure($"Order {orderToDelete.Id} is not existing.");
+            }
 
             await _orderRepository.DeleteAsync(orderToDelete);
 
             _logger.LogInformation($"Order {orderToDelete.Id} is successfully deleted.");
+            return ApiResult<bool>.Success($"Order {orderToDelete.Id} is successfully deleted.");
         }
     }
 }

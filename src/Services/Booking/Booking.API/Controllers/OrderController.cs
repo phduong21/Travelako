@@ -21,13 +21,11 @@ namespace Booking.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
-        //private readonly IPublishEndpoint _publishEndpoint;
         private readonly IMapper _mapper;
 
-        public OrderController(IMediator mediator/*, IPublishEndpoint publishEndpoint*/)
+        public OrderController(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            //_publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [HttpGet("get-orders/{userId}")]
@@ -59,17 +57,6 @@ namespace Booking.API.Controllers
         public async Task<ActionResult<ApiResult<OrdersVm>>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
             var result = await _mediator.Send(command);
-
-            var query = new GetOrdersListQuery(command.UserId.ToString());
-            //var orders = await _mediator.Send(query);
-            //var eventMessage = new CouponEvent()
-            //{
-            //    UserId = command.UserId.ToString(),
-            //    BusinessId = command.BusinessId,
-            //    Count = orders.Result.Count
-            //};
-
-            //await _publishEndpoint.Publish<CouponEvent>(eventMessage);
             return Ok(result);
         }
 
@@ -81,8 +68,8 @@ namespace Booking.API.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateOrder([FromBody] UpdateOrderCommand command)
         {
-            await _mediator.Send(command);
-            return NoContent();
+            var order = await _mediator.Send(command);
+            return Ok(order);
         }
 
         [HttpDelete("{id}", Name = "DeleteOrder")]
