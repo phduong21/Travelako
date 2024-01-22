@@ -9708,7 +9708,9 @@ h6,
 }
 
 .team-item .team-img img {
-  transition: .5s;
+    transition: .5s;
+    height: 400px;
+    object-fit: cover;
 }
 
 .team-item:hover .team-img img {

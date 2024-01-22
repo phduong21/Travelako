@@ -31,6 +31,10 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
             {
                 throw new NotFoundException(nameof(Order), request.Id);
             }
+            if(orderToUpdate.Status != Status.Draft && request.Status == (int)Status.Cancel)
+            {
+                return ApiResult<OrdersVm>.Failure($"Can not cancel order with {orderToUpdate.Status} status");
+            }
             orderToUpdate.Status = (Status)request.Status;
             orderToUpdate.LastModifiedBy = request.UserId;
             _mapper.Map(request, orderToUpdate, typeof(UpdateOrderCommand), typeof(Order));

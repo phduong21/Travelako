@@ -30,7 +30,8 @@ namespace FT.Travelako.UI.Controllers
             if (currentUser != null)
             {
                 var orders = await _orderService.GetOrdersByUserId(currentUser.Id);
-                var listOrderDetails = orders.Select(x => new OrderDetails()
+                orders = orders?.OrderByDescending(x => x.CreatedDate);
+                var listOrderDetails = orders?.Select(x => new OrderDetails()
                 {
                     Id = x.Id,
                     TravelId = x.TravelId.ToString(),
@@ -39,7 +40,7 @@ namespace FT.Travelako.UI.Controllers
                     GuestSize = x.GuestSize,
                     CreateDated = x.CreatedDate.ToString("dd MM yyyy"),
                     Status = OrderStatus(x.Status)
-                });
+                }).Where(x => !string.IsNullOrWhiteSpace(x.Status));
                 var listOrders = new ListOrders();
                 listOrders.Orders.AddRange(listOrderDetails);
                 return View(listOrders);
@@ -61,7 +62,11 @@ namespace FT.Travelako.UI.Controllers
                 TourName = order.TourName,
                 TotalPrice = order.TotalCost,
                 GuestSize = order.GuestSize,
-                CreateDated = order.CreatedDate.ToString("dd MM yyyy")
+                CreateDated = order.CreatedDate.ToString("dd MM yyyy"),
+                Status = OrderStatus(order.Status),
+                FullName = order.FullName,
+                Email = order.UserEmail,
+                Phone = order.Phone,
             };
             return View(orderDetails);
         }
@@ -73,7 +78,7 @@ namespace FT.Travelako.UI.Controllers
             var currentUser = _userService.GetCurrentUser();
             if (currentUser == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "User");
             }
             var coupon = await _couponService.GetCouponByUserId(currentUser.Id, travel.result.createdBy);
             ViewBag.TourName = travel.result.title;
@@ -111,7 +116,7 @@ namespace FT.Travelako.UI.Controllers
                 BookAt = model.BookAt,
                 Phone = model.Phone,
                 UserEmail = model.Email,
-                TotalCost = (model.GuestSize * price) * model.CouponDiscount / 100,
+                TotalCost = model.CouponDiscount == 0 ? model.GuestSize * price : (model.GuestSize * price) * model.CouponDiscount / 100,
                 TravelId = model.TravelId,
                 Status = 0,
                 UserId = currentUser.Id,
@@ -126,10 +131,12 @@ namespace FT.Travelako.UI.Controllers
         [HttpPost]
 		public async Task<IActionResult> UpdateOrderStatus(string orderId)
         {
+            var currentUser = _userService.GetCurrentUser();
             var orderStatus = new OrderStatus()
             {
                 Id = new Guid(orderId),
-                Status = (int)Status.Cancel
+                Status = (int)Status.Cancel,
+                UserId = !string.IsNullOrWhiteSpace(currentUser?.Id) ? currentUser?.Id : string.Empty
             };
             await _orderService.UpdateOrderStatus(orderStatus);
             return RedirectToAction("OrdersHistory", "Booking");
@@ -145,10 +152,6 @@ namespace FT.Travelako.UI.Controllers
             if (status == (int)Status.Draft)
             {
                 return nameof(Status.Draft);
-            }
-            else if (status == (int)Status.Ordered)
-            {
-                return nameof(Status.Ordered);
             }
             else if (status == (int)Status.Payment)
             {
