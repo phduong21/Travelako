@@ -22,7 +22,10 @@ namespace FT.Travelako.Services.UserAPI.Services
             {
                 var activeUsers = await _userRepository.GetAllAsync();
 
-                return ResponseExtension.SuccessResponse(_mapper.Map<List<UserDTO>>(activeUsers));
+                return new GenericAPIResponse()
+                {
+                    Result = _mapper.Map<List<UserDTO>>(activeUsers)
+                };
             }
             catch (Exception ex)
             {
