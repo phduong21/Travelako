@@ -22,7 +22,6 @@ namespace Booking.Domain.Entities
     {
         Draft,
         Payment,
-        Ordered,
         Cancel
     }
 }

@@ -61,7 +61,7 @@ namespace FT.Travelako.UI.Services
         public async Task<OrderResponseModel> UpdateOrderStatus(OrderStatus orderStatus)
         {
             var updateOrderStatus = ApiOrder.UpdateOrderStatus(_remoteServiceBaseUrl);
-            var response = await _client.PostAsJsonAsync(updateOrderStatus, orderStatus);
+            var response = await _client.PutAsJsonAsync(updateOrderStatus, orderStatus);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Something went wrong when calling api.");

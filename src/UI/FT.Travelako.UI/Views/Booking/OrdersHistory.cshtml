@@ -22,10 +22,6 @@
                 {
                     if (order.Status?.ToLower() == nameof(Status.Payment).ToLower())
                     {
-                        statusClass = "payment";
-                    }
-                    else if (order.Status?.ToLower() == nameof(Status.Ordered).ToLower())
-                    {
                         statusClass = "confirmed";
                     }
                     else if (order.Status?.ToLower() == nameof(Status.Cancel).ToLower())
@@ -75,7 +71,7 @@
                         </div>
                     </div>
                     <div class="booking-status">
-                        @if (order.Status?.ToLower() == nameof(Status.Ordered).ToLower() || order.Status?.ToLower() == nameof(Status.Draft).ToLower())
+                        @if (order.Status?.ToLower() == nameof(Status.Draft).ToLower())
                         {
                             <div>
                                 <form asp-action="UpdateOrderStatus" asp-controller="Booking" asp-route-orderId="@order.Id">
