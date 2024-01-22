@@ -2,6 +2,8 @@
 using Booking.Application.Contracts.Persistence;
 using Booking.Application.Models;
 using Booking.Domain.Entities;
+using FT.Travelako.EventBus.Messages.Events;
+using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,13 +16,15 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
         //private readonly IEmailService _emailService;
         private readonly ILogger<CheckoutOrderCommandHandler> _logger;
 
-        public CheckoutOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, ILogger<CheckoutOrderCommandHandler> logger)
+        public CheckoutOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, ILogger<CheckoutOrderCommandHandler> logger, IPublishEndpoint publishEndpoint)
         {
             _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
             //_emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -28,12 +32,28 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
         public async Task<ApiResult<OrdersVm>> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
             var orderEntity = _mapper.Map<Order>(request);
+            orderEntity.Status = Status.Draft;
+            orderEntity.CreatedBy = request.UserId.ToString();
             await _orderRepository.AddAsync(orderEntity);
             var order = await _orderRepository.GetByIdAsync(orderEntity.Id.ToString());
+            if (order == null)
+            {
+                return ApiResult<OrdersVm>.Failure($"Check out order is fail.");
+            }
             var newOrder = _mapper.Map<OrdersVm>(order);
 
             _logger.LogInformation($"Order {order.Id} is successfully created.");
-            
+
+            var orders = await _orderRepository.GetOrdersByUserName(request.UserId.ToString());
+            var eventMessage = new CouponEvent()
+            {
+                UserId = request.UserId.ToString(),
+                BusinessId = request.BusinessId,
+                Count = orders.Count()
+            };
+
+            await _publishEndpoint.Publish<CouponEvent>(eventMessage);
+
             //await SendMail(newOrder);
 
             return ApiResult<OrdersVm>.Success(newOrder);

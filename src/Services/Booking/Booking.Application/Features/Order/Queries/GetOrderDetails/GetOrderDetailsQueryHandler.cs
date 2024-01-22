@@ -20,6 +20,10 @@ namespace Booking.Application.Features.Order.Queries.GetOrderDetails
         public async Task<ApiResult<OrdersVm>> Handle(GetOrderDetailsQuery request, CancellationToken cancellationToken)
         {
             var orderDetails = await _orderRepository.GetByIdAsync(request.OrderId);
+            if (orderDetails == null)
+            {
+                return ApiResult<OrdersVm>.Failure($"Order {request.OrderId} is not existing.");
+            }
             var order = _mapper.Map<OrdersVm>(orderDetails);
             return ApiResult<OrdersVm>.Success(order);
         }

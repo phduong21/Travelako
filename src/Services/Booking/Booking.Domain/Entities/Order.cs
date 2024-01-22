@@ -1,5 +1,6 @@
 ﻿using Booking.Domain.Common;
 using FT.Travelako.Common.Entities;
+using System.Text.Json.Serialization;
 
 namespace Booking.Domain.Entities
 {
@@ -12,7 +13,7 @@ namespace Booking.Domain.Entities
         public int GuestSize { get; set; }
         public DateTime BookAt { get; set; }
         public decimal TotalCost { get; set; }
-        public int Status { get; set; }
+        public Status Status { get; set; }
         public Guid TravelId { get; set; }
         public Guid UserId { get; set; }
     }
@@ -21,6 +22,7 @@ namespace Booking.Domain.Entities
     {
         Draft,
         Payment,
-        Ordered
+        Ordered,
+        Cancel
     }
 }

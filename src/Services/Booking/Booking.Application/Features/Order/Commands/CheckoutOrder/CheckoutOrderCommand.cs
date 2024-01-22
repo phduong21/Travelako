@@ -15,7 +15,6 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
         public int GuestSize { get; set; }
         public DateTime BookAt { get; set; }
         public decimal TotalCost { get; set; }
-        public int Status { get; set; }
         public Guid TravelId { get; set; }
     }
 }
