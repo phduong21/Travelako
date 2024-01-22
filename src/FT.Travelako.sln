@@ -47,7 +47,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coupon.Domain", "Services\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FT.Travelako.Services.CouponAPI", "Services\Coupon\FT.Travelako.Services.CouponAPI\FT.Travelako.Services.CouponAPI.csproj", "{547FF55C-FF42-4688-9CF0-0B9C93BF30B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FT.Travelako.EventBus.Messages", "Common\FT.Travelako.EventBus.Messages\FT.Travelako.EventBus.Messages.csproj", "{03CBC2E0-E542-4117-B12D-DB85E78A85D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FT.Travelako.EventBus.Messages", "Common\FT.Travelako.EventBus.Messages\FT.Travelako.EventBus.Messages.csproj", "{03CBC2E0-E542-4117-B12D-DB85E78A85D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{69EEBB8F-4AE5-4A5F-AFAC-3ED13731E0D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "Test\UnitTest\UnitTest.csproj", "{14A15373-8F68-4006-B1E1-204E7AEB57AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +197,14 @@ Global
 		{03CBC2E0-E542-4117-B12D-DB85E78A85D5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{03CBC2E0-E542-4117-B12D-DB85E78A85D5}.Release|x64.ActiveCfg = Release|Any CPU
 		{03CBC2E0-E542-4117-B12D-DB85E78A85D5}.Release|x64.Build.0 = Release|Any CPU
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE}.Debug|x64.Build.0 = Debug|Any CPU
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE}.Release|x64.ActiveCfg = Release|Any CPU
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -216,6 +228,7 @@ Global
 		{6759F7F1-CAD7-43A9-8008-6125ECE6ED98} = {F9F29DA2-6595-41A1-A6BD-50E5D75FC170}
 		{547FF55C-FF42-4688-9CF0-0B9C93BF30B3} = {F9F29DA2-6595-41A1-A6BD-50E5D75FC170}
 		{03CBC2E0-E542-4117-B12D-DB85E78A85D5} = {41839583-35A2-4CFA-B8AE-09130217FA22}
+		{14A15373-8F68-4006-B1E1-204E7AEB57AE} = {69EEBB8F-4AE5-4A5F-AFAC-3ED13731E0D4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B36DD108-D989-4C0C-A99D-683F8C6B3480}

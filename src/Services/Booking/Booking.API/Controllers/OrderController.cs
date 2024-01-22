@@ -21,13 +21,13 @@ namespace Booking.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IPublishEndpoint _publishEndpoint;
+        //private readonly IPublishEndpoint _publishEndpoint;
         private readonly IMapper _mapper;
 
-        public OrderController(IMediator mediator, IPublishEndpoint publishEndpoint)
+        public OrderController(IMediator mediator/*, IPublishEndpoint publishEndpoint*/)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
+            //_publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [HttpGet("get-orders/{userId}")]
@@ -61,15 +61,15 @@ namespace Booking.API.Controllers
             var result = await _mediator.Send(command);
 
             var query = new GetOrdersListQuery(command.UserId.ToString());
-            var orders = await _mediator.Send(query);
-            var eventMessage = new CouponEvent()
-            {
-                UserId = command.UserId.ToString(),
-                BusinessId = command.BusinessId,
-                Count = orders.Result.Count
-            };
+            //var orders = await _mediator.Send(query);
+            //var eventMessage = new CouponEvent()
+            //{
+            //    UserId = command.UserId.ToString(),
+            //    BusinessId = command.BusinessId,
+            //    Count = orders.Result.Count
+            //};
 
-            await _publishEndpoint.Publish<CouponEvent>(eventMessage);
+            //await _publishEndpoint.Publish<CouponEvent>(eventMessage);
             return Ok(result);
         }
 
