@@ -22,7 +22,7 @@ namespace FT.Travelako.Services.Authentication.Services
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SecretKey.ToString()));
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var expirationTimeStamp = DateTime.Now.AddMinutes(5);
+            var expirationTimeStamp = DateTime.Now.AddMinutes(60);
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Name, user.UserName),
