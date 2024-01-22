@@ -109,6 +109,16 @@ namespace FT.Travelako.UI.Controllers
 	        }
             var currentUser = _userService.GetCurrentUser();
 
+            decimal totalCost = 0m;
+            if (model.CouponDiscount == 0)
+            {
+                totalCost = (decimal)(model.GuestSize * price);
+            }
+            else
+            {
+                totalCost = (decimal)(model.GuestSize * price) - ((model.GuestSize * price) * ((decimal)model.CouponDiscount / 100));
+            }
+
             var order = new CheckoutModel()
             {
                 FullName = model.FullName,
@@ -116,7 +126,7 @@ namespace FT.Travelako.UI.Controllers
                 BookAt = model.BookAt,
                 Phone = model.Phone,
                 UserEmail = model.Email,
-                TotalCost = model.CouponDiscount == 0 ? model.GuestSize * price : (model.GuestSize * price) * model.CouponDiscount / 100,
+                TotalCost = totalCost,
                 TravelId = model.TravelId,
                 Status = 0,
                 UserId = currentUser.Id,

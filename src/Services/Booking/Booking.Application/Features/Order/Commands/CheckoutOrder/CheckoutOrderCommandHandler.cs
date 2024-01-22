@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Booking.Application.Contracts.Persistence;
+using Booking.Application.Exceptions;
 using Booking.Application.Models;
 using Booking.Domain.Entities;
+using FT.Travelako.Common.Helpers;
 using FT.Travelako.EventBus.Messages.Events;
 using MassTransit;
 using MediatR;
@@ -31,6 +33,10 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
 
         public async Task<ApiResult<OrdersVm>> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
+            //if (!StringHelper.IsEmail(request.UserEmail))
+            //{
+            //    return ResponseExtension.ErrorResponse(UserConstants.ErrorMessage.WrongEmailFormat);
+            //}
             var orderEntity = _mapper.Map<Order>(request);
             orderEntity.Status = Status.Draft;
             orderEntity.CreatedBy = request.UserId.ToString();

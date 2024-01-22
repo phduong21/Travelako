@@ -16,7 +16,8 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
                .NotEmpty().WithMessage("{BusinessId} is required.");
 
             RuleFor(p => p.UserEmail)
-               .NotEmpty().WithMessage("{UserEmail} is required.");
+               .NotEmpty().WithMessage("{UserEmail} is required.")
+               .EmailAddress().WithMessage("Please specify a valid email address");
 
             RuleFor(p => p.TotalCost)
                 .NotEmpty().WithMessage("{TotalCost} is required.")
