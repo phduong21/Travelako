@@ -11,17 +11,19 @@ namespace FT.Travelako.UI.Models.Orders
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
-
         public string Email { get; set; }
-        [Required(ErrorMessage = "Phone is required")]
 
+        [Required(ErrorMessage = "Phone is required")]
         public string Phone { get; set; }
+
         public int GuestSize { get; set; }
+
         [Required(ErrorMessage = "Enter the Book date.")]
         [DataType(DataType.Date)]
         public DateTime BookAt { get; set; }
         public decimal TotalCost { get; set; }
         public string? CouponCode { get; set; }
+        public int CouponDiscount { get; set; }
         public string? TravelId { get; set; }
         public CouponOrder? CouponOrder { get; set; }
 

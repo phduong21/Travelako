@@ -1,37 +1,93 @@
-﻿@model FT.Travelako.UI.Models.Orders.ViewModel.ListOrders
+﻿@using FT.Travelako.UI.Models.Orders
+@model FT.Travelako.UI.Models.Orders.ViewModel.ListOrders
 
 @{
-    ViewData["Title"] = "OrdersHistory";
+    ViewData["Title"] = "Orders History";
+    var statusClass = string.Empty;
 }
 
-
-<div id="travel-list" class="container-fluid py-5">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-3 pb-3">
-            <h1>Orders History</h1>
+<section class="section-order-list">
+    <!--page title-->
+    <div class="container-order-list">
+        <div class="page">
+            <h1>Booking list</h1>
+            @* <div class="buttons">
+                <a class="btn-order-list add-new" href="#">Add New Booking</a>
+            </div> *@
         </div>
-        <div class="row">
-            @if (Model != null)
+        @if (Model != null)
+        {
+            foreach (var order in Model.Orders)
             {
-                foreach (var order in Model.Orders)
                 {
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="package-item bg-white mb-2">
-                            @* <img class="img-fluid" src="@travel.thumbnail" alt=""> *@
-                                <div class="d-flex justify-content-between mb-3">
-                                </div>
-                                <a class="h5 text-decoration-none travel-title" asp-controller="Booking" asp-action="Detail"
-                                   asp-route-orderId="@order.Id">@order.TourName</a>
-                                    <p class="small text-muted mb-1">@order.CreateDated</p>
-                            <div class="border-top mt-4 pt-4">
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="m-0">$@order.TotalPrice</h5>
-                                </div>
-                            </div>
+                    if (order.Status?.ToLower() == nameof(Status.Payment).ToLower())
+                    {
+                        statusClass = "payment";
+                    }
+                    else if (order.Status?.ToLower() == nameof(Status.Ordered).ToLower())
+                    {
+                        statusClass = "confirmed";
+                    }
+                    else if (order.Status?.ToLower() == nameof(Status.Cancel).ToLower())
+                    {
+                        statusClass = "cancelled";
+                    }
+                    else
+                    {
+                        statusClass = string.Empty;
+                    }
+                }
+                <!--single booking details-->
+                <div class="request-details">
+                    <div class="date">
+                        <p>@order.CreateDated</p>
+                        @* <h3>20</h3>
+                        <p>Aug</p> *@
+                    </div>
+                    <div class="company">
+                        <div class="placeholder">
+                            <i class="fas fa-building"></i>
+                            <p>Tour</p>
+                        </div>
+                        <h3><a class="booking-datail-url" asp-action="Detail" asp-controller="Booking" asp-route-orderId="@order.Id">@order.TourName</a></h3>
+                    </div>
+                    <div class="destination">
+                        <div class="placeholder">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>Guest Size</p>
+                        </div>
+                        <h3>@order.GuestSize</h3>
+                    </div>
+                    <div class="live-stock">
+                        <div class="placeholder">
+                            <i class="fas fa-horse-head"></i>
+                            <p>Total Payment</p>
+                        </div>
+                        <h3>@order.TotalPrice</h3>
+                    </div>
+                    <div class="booking-status">
+                        <div class="placeholder">
+                            <i class="fas fa-question-circle"></i>
+                            <p>Booking Status</p>
+                        </div>
+                        <div class="label @statusClass">
+                            <p>@order.Status</p>
                         </div>
                     </div>
-                }
+                    <div class="booking-status">
+                        @if (order.Status?.ToLower() == nameof(Status.Ordered).ToLower() || order.Status?.ToLower() == nameof(Status.Draft).ToLower())
+                        {
+                            <div>
+                                <form asp-action="UpdateOrderStatus" asp-controller="Booking" asp-route-orderId="@order.Id">
+                                    <button class="label cancelled btn btn-danger" type="submit">Click to cancel</button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </div>
             }
+        }
     </div>
-</div>
-    </div>
+</section>
+
+

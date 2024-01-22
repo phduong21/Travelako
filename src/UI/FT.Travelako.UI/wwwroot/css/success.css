@@ -1,0 +1,130 @@
+﻿.payment__container {
+    margin: 40px auto;
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    background: white;
+    padding: 5rem 7rem;
+    border-radius: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 769px) {
+    .payment__container {
+        width: 650px;
+        padding: 3rem 7rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .payment__container {
+        width: 350px;
+        padding: 2rem 2rem;
+    }
+}
+
+.payment__container-image {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 480px) {
+    .payment__container-image {
+        width: 70px;
+        margin-bottom: 20px;
+    }
+}
+
+.payment__container-heading {
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 769px) {
+    .payment__container-heading {
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .payment__container-heading {
+        margin-bottom: 10px;
+    }
+}
+
+.payment__container-welcome {
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 769px) {
+    .payment__container-welcome {
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .payment__container-welcome {
+        margin-bottom: 5px;
+    }
+}
+
+.payment__container-cube {
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 769px) {
+    .payment__container-cube {
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .payment__container-cube {
+        margin-bottom: 20px;
+    }
+}
+
+.payment__container-text {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 769px) {
+    .payment__container-text {
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .payment__container-text {
+        margin-bottom: 10px;
+    }
+}
+
+.payment__container-btn {
+    text-decoration: none;
+    padding: 1rem 2.5rem;
+    background: #ff4568;
+    color: #fff;
+    display: inline-block;
+    border-radius: 4.5rem;
+    font-weight: 400;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+    .payment__container-btn:hover {
+        opacity: 0.8;
+        color: #fff;
+    }
+
+@media screen and (max-width: 769px) {
+    .payment__container-btn {
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .payment__container-btn {
+    }
+}
