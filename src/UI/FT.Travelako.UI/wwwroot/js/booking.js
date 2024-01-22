@@ -1,5 +1,5 @@
 function updateTotalCost() {
-    var c = document.getElementById("CouponCode").value;
+    var c = document.getElementById("CouponDiscount").value;
     var g = document.getElementById("GuestSize").value;
     var p = document.getElementById("pricePer").dataset.price;
     var totalCost = 0;
@@ -23,7 +23,7 @@ function updateTotalCost() {
 document.getElementById("GuestSize").addEventListener('change', updateTotalCost);
 
 //window.addEventListener("load", (event) => {
-//    var c = document.getElementById("CouponCode");
+//    var c = document.getElementById("CouponDiscount");
 //    var p = document.getElementById("pricePer");
 //    if (c != null && c != undefined && p != null && p != undefined) {
 //        var discount = 0;

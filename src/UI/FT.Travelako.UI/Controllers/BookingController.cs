@@ -1,8 +1,11 @@
-﻿using FT.Travelako.UI.Models.Orders;
+﻿using Elasticsearch.Net;
+using FT.Travelako.UI.Models.Orders;
 using FT.Travelako.UI.Models.Orders.ViewModel;
 using FT.Travelako.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection.Metadata;
+using System;
 
 namespace FT.Travelako.UI.Controllers
 {
@@ -27,13 +30,15 @@ namespace FT.Travelako.UI.Controllers
             if (currentUser != null)
             {
                 var orders = await _orderService.GetOrdersByUserId(currentUser.Id);
-                var listOrderDetails = orders.Select(x => new OrderDetails() {
+                var listOrderDetails = orders.Select(x => new OrderDetails()
+                {
                     Id = x.Id,
                     TravelId = x.TravelId.ToString(),
                     TourName = x.TourName,
                     TotalPrice = x.TotalCost,
                     GuestSize = x.GuestSize,
-                    CreateDated = x.CreatedDate.ToString("dd MM yyyy")
+                    CreateDated = x.CreatedDate.ToString("dd MM yyyy"),
+                    Status = OrderStatus(x.Status)
                 });
                 var listOrders = new ListOrders();
                 listOrders.Orders.AddRange(listOrderDetails);
@@ -106,7 +111,7 @@ namespace FT.Travelako.UI.Controllers
                 BookAt = model.BookAt,
                 Phone = model.Phone,
                 UserEmail = model.Email,
-                TotalCost = model.GuestSize * price,
+                TotalCost = (model.GuestSize * price) * model.CouponDiscount / 100,
                 TravelId = model.TravelId,
                 Status = 0,
                 UserId = currentUser.Id,
@@ -115,18 +120,45 @@ namespace FT.Travelako.UI.Controllers
                 CouponCode = model.CouponCode,
             };
             var newOrder = await _orderService.CheckoutOrder(order);
-            return RedirectToAction("Detail", "Booking", new { orderId = newOrder.Id });
+            return RedirectToAction("Index", "Payment", new { orderId = newOrder.Id });
         }
 
-		public async Task<IActionResult> UpdateOrderStatus(OrderStatus orderStatus)
+        [HttpPost]
+		public async Task<IActionResult> UpdateOrderStatus(string orderId)
         {
+            var orderStatus = new OrderStatus()
+            {
+                Id = new Guid(orderId),
+                Status = (int)Status.Cancel
+            };
             await _orderService.UpdateOrderStatus(orderStatus);
-            return View();
+            return RedirectToAction("OrdersHistory", "Booking");
         }
         public async Task<IActionResult> DeleteAsync(string orderId)
         {
             await _orderService.DeleteOrder(orderId);
             return View();
+        }
+
+        private string OrderStatus(int status)
+        {
+            if (status == (int)Status.Draft)
+            {
+                return nameof(Status.Draft);
+            }
+            else if (status == (int)Status.Ordered)
+            {
+                return nameof(Status.Ordered);
+            }
+            else if (status == (int)Status.Payment)
+            {
+                return nameof(Status.Payment);
+            }
+            else if (status == (int)Status.Cancel)
+            {
+                return nameof(Status.Cancel);
+            }
+            return string.Empty;
         }
     }
 }

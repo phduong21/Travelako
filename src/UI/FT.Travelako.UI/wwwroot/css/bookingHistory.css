@@ -1,0 +1,684 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+.container-order-list {
+    width: 90%;
+}
+.booking-datail-url {
+    color: black;
+    text-decoration-color: #aaa;
+}
+    .booking-datail-url:hover {
+        color: #aaa;
+    }
+
+.btn-order-list {
+    padding: 12px 24px;
+    background: #307cbe;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+}
+
+    .btn-order-list:hover {
+        opacity: 0.8;
+    }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.section-order-list {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-box-direction: normal;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+    .section-order-list h1,
+    .section-order-list h2,
+    .section-order-list h3,
+    .section-order-list h4,
+    .section-order-list h5,
+    .section-order-list h6 {
+        font-weight: 500 !important;
+    }
+
+    .section-order-list p {
+        font-weight: 400 !important;
+    }
+
+    .section-order-list .header {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-direction: normal;
+        -webkit-box-orient: vertical;
+        -moz-box-direction: normal;
+        -moz-box-orient: vertical;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        background: #333;
+        width: 100%;
+        padding: 12px 24px;
+    }
+
+        .section-order-list .header .container-order-list {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-pack: justify;
+            -moz-box-pack: justify;
+            -ms-flex-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-box-direction: reverse;
+            -webkit-box-orient: horizontal;
+            -moz-box-direction: reverse;
+            -moz-box-orient: horizontal;
+            -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+            .section-order-list .header .container-order-list .group {
+                display: -webkit-box;
+                display: -moz-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -moz-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+                -webkit-box-pack: justify;
+                -moz-box-pack: justify;
+                -ms-flex-pack: justify;
+                -webkit-justify-content: space-between;
+                justify-content: space-between;
+                -webkit-box-direction: reverse;
+                -webkit-box-orient: horizontal;
+                -moz-box-direction: reverse;
+                -moz-box-orient: horizontal;
+                -webkit-flex-direction: row;
+                -ms-flex-direction: row;
+                flex-direction: row;
+            }
+
+                .section-order-list .header .container-order-list .group .logo {
+                    width: 75px;
+                    height: 75px;
+                    background: #aaa;
+                    border-radius: 50%;
+                }
+
+                .section-order-list .header .container-order-list .group .nav ul {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                    .section-order-list .header .container-order-list .group .nav ul li {
+                        display: inline-block;
+                    }
+
+                        .section-order-list .header .container-order-list .group .nav ul li a {
+                            text-decoration: none;
+                            color: white;
+                            padding: 12px 24px;
+                        }
+
+            .section-order-list .header .container-order-list .slogan p {
+                color: white;
+            }
+
+    .section-order-list .container-order-list {
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 2.8rem;
+        padding-bottom: 2.8rem;
+    }
+
+        .section-order-list .container-order-list .page {
+            padding-left: 0;
+            padding-right: 0;
+            padding-top: 2.8rem;
+            padding-bottom: 2.8rem;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-pack: justify;
+            -moz-box-pack: justify;
+            -ms-flex-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-box-direction: reverse;
+            -webkit-box-orient: horizontal;
+            -moz-box-direction: reverse;
+            -moz-box-orient: horizontal;
+            -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .section-order-list .container-order-list .request-details {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-pack: justify;
+            -moz-box-pack: justify;
+            -ms-flex-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-box-direction: reverse;
+            -webkit-box-orient: horizontal;
+            -moz-box-direction: reverse;
+            -moz-box-orient: horizontal;
+            -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            background: white;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3 ease-in-out;
+            transform-origin: center bottom;
+            cursor: pointer;
+        }
+
+            .section-order-list .container-order-list .request-details .date {
+                position: relative;
+                padding-left: 0;
+                padding-right: 2.8rem;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+                .section-order-list .container-order-list .request-details .date h3, .section-order-list .container-order-list .request-details .date p {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .section-order-list .container-order-list .request-details .date h3 {
+                    font-size: 1.625rem;
+                }
+
+                .section-order-list .container-order-list .request-details .date p {
+                    color: #aaa;
+                }
+
+                .section-order-list .container-order-list .request-details .date:after {
+                    position: absolute;
+                    content: "";
+                    width: 2px;
+                    height: 100%;
+                    background: #eee;
+                    top: 0;
+                    right: 20px;
+                }
+
+            .section-order-list .container-order-list .request-details:hover {
+                /*transition: all 0.3s ease-in-out;
+                scale: 1.05;*/
+                box-shadow: 0 0.5em 0.5em -0.4em grey;
+            }
+
+        .section-order-list .container-order-list .time,
+        .section-order-list .container-order-list .company,
+        .section-order-list .container-order-list .destination,
+        .section-order-list .container-order-list .live-stock,
+        .section-order-list .container-order-list .booking-status {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: start;
+            -moz-box-align: start;
+            -ms-flex-align: start;
+            -webkit-align-items: flex-start;
+            align-items: flex-start;
+            -webkit-box-pack: start;
+            -moz-box-pack: start;
+            -ms-flex-pack: start;
+            -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+            -webkit-box-direction: normal;
+            -webkit-box-orient: vertical;
+            -moz-box-direction: normal;
+            -moz-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            position: relative;
+            padding-left: 0;
+            padding-right: 2.8rem;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+            .section-order-list .container-order-list .time .placeholder,
+            .section-order-list .container-order-list .company .placeholder,
+            .section-order-list .container-order-list .destination .placeholder,
+            .section-order-list .container-order-list .live-stock .placeholder,
+            .section-order-list .container-order-list .booking-status .placeholder {
+                background-color: unset;
+                display: -webkit-box;
+                display: -moz-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -moz-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+                -webkit-box-direction: reverse;
+                -webkit-box-orient: horizontal;
+                -moz-box-direction: reverse;
+                -moz-box-orient: horizontal;
+                -webkit-flex-direction: row;
+                -ms-flex-direction: row;
+                flex-direction: row;
+            }
+
+                .section-order-list .container-order-list .time .placeholder i,
+                .section-order-list .container-order-list .company .placeholder i,
+                .section-order-list .container-order-list .destination .placeholder i,
+                .section-order-list .container-order-list .live-stock .placeholder i,
+                .section-order-list .container-order-list .booking-status .placeholder i {
+                    padding-left: 0;
+                    padding-right: 10px;
+                    padding-top: 0;
+                    padding-bottom: 10px;
+                    color: #aaa;
+                }
+
+            .section-order-list .container-order-list .time p,
+            .section-order-list .container-order-list .company p,
+            .section-order-list .container-order-list .destination p,
+            .section-order-list .container-order-list .live-stock p,
+            .section-order-list .container-order-list .booking-status p {
+                color: #aaa;
+                text-transform: uppercase;
+                padding-left: 0;
+                padding-right: 0;
+                padding-top: 0;
+                padding-bottom: 10px;
+                margin-bottom: 0px;
+            }
+
+        .section-order-list .container-order-list .date,
+        .section-order-list .container-order-list .time,
+        .section-order-list .container-order-list .live-stock {
+            flex-basis: 10%;
+        }
+
+        .section-order-list .container-order-list .company,
+        .section-order-list .container-order-list .destination {
+            flex-basis: 25%;
+        }
+
+        .section-order-list .container-order-list .booking-status {
+            flex-basis: 20%;
+        }
+
+        .section-order-list .container-order-list .booking-status {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: end;
+            -moz-box-align: end;
+            -ms-flex-align: end;
+            -webkit-align-items: flex-end;
+            align-items: flex-end;
+            -webkit-box-pack: end;
+            -moz-box-pack: end;
+            -ms-flex-pack: end;
+            -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+            -webkit-box-direction: normal;
+            -webkit-box-orient: vertical;
+            -moz-box-direction: normal;
+            -moz-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
+            .section-order-list .container-order-list .booking-status .placeholder i, .section-order-list .container-order-list .booking-status .placeholder p {
+                color: #1DB954;
+            }
+
+            .section-order-list .container-order-list .booking-status .label {
+                border: 1px solid #aaa;
+                border-radius: 5px;
+                padding: 6px 12px;
+            }
+
+                .section-order-list .container-order-list .booking-status .label p {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .section-order-list .container-order-list .booking-status .label.cancelled {
+                    border: 1px solid red;
+                }
+
+                    .section-order-list .container-order-list .booking-status .label.cancelled p {
+                        color: red;
+                    }
+
+                .section-order-list .container-order-list .booking-status .label.confirmed {
+                    border: 1px solid #1DB954;
+                }
+
+                    .section-order-list .container-order-list .booking-status .label.confirmed p {
+                        color: #1DB954;
+                    }
+
+                .section-order-list .container-order-list .booking-status .label.payment {
+                    border: 1px solid #f3e700;
+                }
+
+                    .section-order-list .container-order-list .booking-status .label.payment p {
+                        color: #f3e700;
+                    }
+
+                .section-order-list .container-order-list .booking-status .label:hover {
+                    scale: 1.05;
+                }
+
+                .section-order-list .container-order-list .time:after,
+                .section-order-list .container-order-list .company:after,
+                .section-order-list .container-order-list .destination:after,
+                .section-order-list .container-order-list .live-stock:after {
+                    position: absolute;
+                    content: "";
+                    width: 2px;
+                    height: 100%;
+                    background: #eee;
+                    top: 0px;
+                    right: 20px;
+                }
+
+@media (max-width: 1300px) {
+    .section-order-list .container-order-list {
+        width: 100%;
+    }
+
+        .section-order-list .container-order-list .request-details {
+            flex-wrap: wrap;
+        }
+
+            .section-order-list .container-order-list .request-details .date {
+                flex-basis: 5%;
+            }
+
+                .section-order-list .container-order-list .request-details .date h3 {
+                    font-size: 1rem;
+                    font-weight: 500;
+                }
+
+                .section-order-list .container-order-list .request-details .date p:nth-child(3) {
+                    color: black;
+                    font-weight: 500;
+                }
+
+            .section-order-list .container-order-list .request-details .time {
+                flex-basis: 7.5%;
+            }
+
+            .section-order-list .container-order-list .request-details .company,
+            .section-order-list .container-order-list .request-details .destination {
+                flex-basis: 35%;
+            }
+
+            .section-order-list .container-order-list .request-details .date,
+            .section-order-list .container-order-list .request-details .booking-status {
+                flex-basis: 46%;
+                padding-left: 0;
+                padding-right: 0;
+                padding-top: 0;
+                padding-bottom: 1rem;
+            }
+
+            .section-order-list .container-order-list .request-details .live-stock {
+                order: 3;
+            }
+
+            .section-order-list .container-order-list .request-details .booking-status {
+                order: 2;
+            }
+
+            .section-order-list .container-order-list .request-details .date {
+                order: 1;
+                display: -webkit-box;
+                display: -moz-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -moz-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+                -webkit-box-direction: reverse;
+                -webkit-box-orient: horizontal;
+                -moz-box-direction: reverse;
+                -moz-box-orient: horizontal;
+                -webkit-flex-direction: row;
+                -ms-flex-direction: row;
+                flex-direction: row;
+            }
+
+                .section-order-list .container-order-list .request-details .date h3, .section-order-list .container-order-list .request-details .date p {
+                    text-transform: uppercase;
+                }
+
+                .section-order-list .container-order-list .request-details .date p {
+                    padding-left: 0;
+                    padding-right: 5px;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+
+                    .section-order-list .container-order-list .request-details .date p:nth-child(3) {
+                        padding-left: 5px;
+                        padding-right: 0;
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
+
+            .section-order-list .container-order-list .request-details .time {
+                order: 4;
+            }
+
+            .section-order-list .container-order-list .request-details .company {
+                order: 5;
+            }
+
+            .section-order-list .container-order-list .request-details .destination {
+                order: 6;
+                padding-left: 0;
+                padding-right: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+                .section-order-list .container-order-list .request-details .date:after,
+                .section-order-list .container-order-list .request-details .destination:after {
+                    display: none;
+                }
+
+            .section-order-list .container-order-list .request-details .date,
+            .section-order-list .container-order-list .request-details .live-stock,
+            .section-order-list .container-order-list .request-details .time,
+            .section-order-list .container-order-list .request-details .company,
+            .section-order-list .container-order-list .request-details .destination {
+                min-height: 75px;
+            }
+}
+
+@media (max-width: 1150px) {
+    .section-order-list .container-order-list .request-details .company,
+    .section-order-list .container-order-list .request-details .destination {
+        flex-basis: 30%;
+    }
+}
+
+@media (max-width: 800px) {
+    .section-order-list .container-order-list .request-details .date {
+        order: 1;
+    }
+
+        .section-order-list .container-order-list .request-details .date p:first-child,
+        .section-order-list .container-order-list .request-details .date h3,
+        .section-order-list .container-order-list .request-details .date p:nth-child(3) {
+            padding-bottom: 5px;
+        }
+
+    .section-order-list .container-order-list .request-details .time {
+        order: 2;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-direction: reverse;
+        -webkit-box-orient: horizontal;
+        -moz-box-direction: reverse;
+        -moz-box-orient: horizontal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+    }
+
+        .section-order-list .container-order-list .request-details .time h3 {
+            padding-left: 10px;
+            padding-right: 0;
+            padding-top: 0;
+            padding-bottom: 11px;
+        }
+
+        .section-order-list .container-order-list .request-details .time:after {
+            display: none;
+        }
+
+    .section-order-list .container-order-list .request-details .booking-status {
+        order: 3;
+    }
+
+    .section-order-list .container-order-list .request-details .live-stock {
+        order: 4;
+    }
+
+    .section-order-list .container-order-list .request-details .company {
+        order: 5;
+    }
+
+    .section-order-list .container-order-list .request-details .destination {
+        order: 6;
+    }
+
+    .section-order-list .container-order-list .request-details .date,
+    .section-order-list .container-order-list .request-details .time {
+        flex-basis: 20%;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+        padding-bottom: 1rem;
+    }
+
+    .section-order-list .container-order-list .request-details .booking-status {
+        flex-basis: 60%;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+        padding-bottom: 1rem;
+    }
+}
+
+@media (max-width: 750px) {
+    .section-order-list .container-order-list .request-details .live-stock,
+    .section-order-list .container-order-list .request-details .company,
+    .section-order-list .container-order-list .request-details .destination {
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 750px) {
+    .section-order-list .container-order-list .request-details .date,
+    .section-order-list .container-order-list .request-details .time,
+    .section-order-list .container-order-list .request-details .booking-status {
+        flex-basis: 33%;
+    }
+
+        .section-order-list .container-order-list .request-details .date p:first-child,
+        .section-order-list .container-order-list .request-details .date h3,
+        .section-order-list .container-order-list .request-details .date p:nth-child(3) {
+            padding-bottom: 5px;
+        }
+}
+
+@media (max-width: 555px) {
+    .section-order-list .container-order-list .request-details .live-stock {
+        min-height: 119px;
+    }
+}
