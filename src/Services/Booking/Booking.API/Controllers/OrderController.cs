@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Booking.API.Filter;
+using Booking.Application.Features.Order.Commands.ChangeOrderStatus;
 using Booking.Application.Features.Order.Queries.GetOrderDetails;
 using Booking.Application.Models;
 using MassTransit;
@@ -60,7 +61,19 @@ namespace Booking.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("UpdateOrder")]
+        [HttpPut("change-order-status")]
+        [AuthorizeFTFilter]
+        [Authorize(Roles = "user,business,administrator")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> ChangeOrderStatus([FromBody] ChangeOrderStatusCommand command)
+        {
+            var order = await _mediator.Send(command);
+            return Ok(order);
+        }
+
+        [HttpPut("update-order")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -72,7 +85,7 @@ namespace Booking.API.Controllers
             return Ok(order);
         }
 
-        [HttpDelete("{id}", Name = "DeleteOrder")]
+        [HttpDelete("{id}")]
         [AuthorizeFTFilter]
         [Authorize(Roles = "user,business,administrator")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

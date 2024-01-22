@@ -9,9 +9,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
+namespace Booking.Application.Features.Order.Commands.ChangeOrderStatus
 {
-    public class ChangeOrderStatusCommandHandler : IRequestHandler<UpdateOrderCommand, ApiResult<OrdersVm>>
+    public class ChangeOrderStatusCommandHandler : IRequestHandler<ChangeOrderStatusCommand, ApiResult<OrdersVm>>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
@@ -24,15 +24,19 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<ApiResult<OrdersVm>> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResult<OrdersVm>> Handle(ChangeOrderStatusCommand request, CancellationToken cancellationToken)
         {
             var orderToUpdate = await _orderRepository.GetByIdAsync(request.Id);
             if (orderToUpdate == null)
             {
                 throw new NotFoundException(nameof(Order), request.Id);
             }
+            if (orderToUpdate.Status != Status.Draft && request.Status == (int)Status.Cancel)
+            {
+                return ApiResult<OrdersVm>.Failure($"Can not cancel order with {orderToUpdate.Status} status");
+            }
+            orderToUpdate.Status = (Status)request.Status;
             orderToUpdate.LastModifiedBy = request.UserId;
-            _mapper.Map(request, orderToUpdate, typeof(UpdateOrderCommand), typeof(Order));
 
             await _orderRepository.UpdateAsync(orderToUpdate);
             var result = _mapper.Map<OrdersVm>(orderToUpdate);

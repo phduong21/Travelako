@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 
-namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
+namespace Booking.Application.Features.Order.Commands.ChangeOrderStatus
 {
-    public class ChangeOrderStatusCommandValidator : AbstractValidator<UpdateOrderCommand>
+    public class ChangeOrderStatusCommandValidator : AbstractValidator<ChangeOrderStatusCommand>
     {
         public ChangeOrderStatusCommandValidator()
         {

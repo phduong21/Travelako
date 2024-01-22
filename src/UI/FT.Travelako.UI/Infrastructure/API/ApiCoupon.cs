@@ -26,7 +26,7 @@ namespace FT.Travelako.UI.Infrastructure.API
 
         public static string UpdateOrderStatus(string baseUri)
         {
-            return $"{baseUri}/UpdateOrder";
+            return $"{baseUri}/change-order-status";
         }
     }
 }
