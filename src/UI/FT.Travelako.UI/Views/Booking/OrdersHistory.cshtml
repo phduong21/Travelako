@@ -73,9 +73,13 @@
                     <div class="booking-status">
                         @if (order.Status?.ToLower() == nameof(Status.Draft).ToLower())
                         {
-                            <div>
+                            <div style="width: 100%; margin-bottom: 5px;">
+                                <a style="width: 100%;" class="label confirmed btn btn-success"
+                                   asp-action="Index" asp-controller="Payment" asp-route-orderId="@order.Id">Continute payment</a>
+                            </div>
+                            <div style="width: 100%;">
                                 <form asp-action="UpdateOrderStatus" asp-controller="Booking" asp-route-orderId="@order.Id">
-                                    <button class="label cancelled btn btn-danger" type="submit">Click to cancel</button>
+                                    <button style="width: 100%;" class="label cancelled btn btn-danger" type="submit">Click to cancel</button>
                                 </form>
                             </div>
                         }
